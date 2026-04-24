@@ -29,7 +29,7 @@ def parse_args():
         description='MMDet test (and eval) a model')
     parser.add_argument('config', help='test config file path')
     parser.add_argument('checkpoint', help='checkpoint file')
-    parser.add_argument('--out', default='output/results.pkl', help='output result file in pickle format')
+    parser.add_argument('--out', default=None, help='output result file in pickle format')
     parser.add_argument(
         '--fuse-conv-bn',
         action='store_true',
@@ -245,9 +245,8 @@ def main():
         model_multi_agents.model_ego_agent.PALETTE = dataset.PALETTE
 
     if not distributed:
-        assert False
-        # model = MMDataParallel(model_multi_agents, device_ids=[0])
-        # outputs = single_gpu_test(model_multi_agents, data_loader, args.show, args.show_dir)
+        model = MMDataParallel(model_multi_agents, device_ids=[0])
+        outputs = single_gpu_test(model, data_loader, args.show, args.show_dir)
     else:
         model_multi_agents = MMDistributedDataParallel(
             model_multi_agents.cuda(),

@@ -298,27 +298,30 @@ class UniV2X(UniV2XTrack):
                     name, type(var)))
         img = [img] if img is None else img
 
-        if img_metas[0][0]['scene_token'] != self.prev_frame_info['scene_token']:
+        # Unwrap DataContainer if needed
+        img_metas_0 = img_metas[0].data[0][0] if hasattr(img_metas[0], 'data') else img_metas[0][0]
+
+        if img_metas_0['scene_token'] != self.prev_frame_info['scene_token']:
             # the first sample of each scene is truncated
             self.prev_frame_info['prev_bev'] = None
         # update idx
-        self.prev_frame_info['scene_token'] = img_metas[0][0]['scene_token']
+        self.prev_frame_info['scene_token'] = img_metas_0['scene_token']
 
         # do not use temporal information
         if not self.video_test_mode:
             self.prev_frame_info['prev_bev'] = None
 
         # Get the delta of ego position and angle between two timestamps.
-        tmp_pos = copy.deepcopy(img_metas[0][0]['can_bus'][:3])
-        tmp_angle = copy.deepcopy(img_metas[0][0]['can_bus'][-1])
+        tmp_pos = copy.deepcopy(img_metas_0['can_bus'][:3])
+        tmp_angle = copy.deepcopy(img_metas_0['can_bus'][-1])
         # first frame
         if self.prev_frame_info['scene_token'] is None:
-            img_metas[0][0]['can_bus'][:3] = 0
-            img_metas[0][0]['can_bus'][-1] = 0
+            img_metas_0['can_bus'][:3] = 0
+            img_metas_0['can_bus'][-1] = 0
         # following frames
         else:
-            img_metas[0][0]['can_bus'][:3] -= self.prev_frame_info['prev_pos']
-            img_metas[0][0]['can_bus'][-1] -= self.prev_frame_info['prev_angle']
+            img_metas_0['can_bus'][:3] -= self.prev_frame_info['prev_pos']
+            img_metas_0['can_bus'][-1] -= self.prev_frame_info['prev_angle']
         self.prev_frame_info['prev_pos'] = tmp_pos
         self.prev_frame_info['prev_angle'] = tmp_angle
 

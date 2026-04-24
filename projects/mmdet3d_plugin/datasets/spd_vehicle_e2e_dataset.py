@@ -125,14 +125,12 @@ class SPDE2EDataset(NuScenesDataset):
         self.patch_size = patch_size
         self.canvas_size = canvas_size
         if self.tmp_dataset_type == 'spd':
-            self.nusc_maps = {
-                    'yizhuang06': NuScenesMap(dataroot=self.data_root, map_name='yizhuang06'),
-                    'yizhuang08': NuScenesMap(dataroot=self.data_root, map_name='yizhuang08'),
-                    'yizhuang09': NuScenesMap(dataroot=self.data_root, map_name='yizhuang09'),
-                    'yizhuang10': NuScenesMap(dataroot=self.data_root, map_name='yizhuang10'),
-                    'yizhuang13': NuScenesMap(dataroot=self.data_root, map_name='yizhuang13'),
-                    'yizhuang16': NuScenesMap(dataroot=self.data_root, map_name='yizhuang16')
-            }
+            self.nusc_maps = {}
+            for map_name in ['yizhuang06', 'yizhuang08', 'yizhuang09', 'yizhuang10', 'yizhuang13', 'yizhuang16']:
+                try:
+                    self.nusc_maps[map_name] = NuScenesMap(dataroot=self.data_root, map_name=map_name)
+                except FileNotFoundError:
+                    pass
         else:
             self.nusc_maps = {
                 'boston-seaport': NuScenesMap(dataroot=self.data_root, map_name='boston-seaport'),

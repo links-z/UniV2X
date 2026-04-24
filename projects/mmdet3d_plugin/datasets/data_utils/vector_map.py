@@ -45,8 +45,11 @@ class VectorizedLocalMap(object):
         if  dataset_type == 'spd':
             self.MAPS = ['yizhuang06', 'yizhuang08', 'yizhuang09', 'yizhuang10', 'yizhuang13','yizhuang16']
         for loc in self.MAPS:
-            self.nusc_maps[loc] = NuScenesMap(dataroot=self.data_root, map_name=loc)
-            self.map_explorer[loc] = NuScenesMapExplorer(self.nusc_maps[loc])
+            try:
+                self.nusc_maps[loc] = NuScenesMap(dataroot=self.data_root, map_name=loc)
+                self.map_explorer[loc] = NuScenesMapExplorer(self.nusc_maps[loc])
+            except FileNotFoundError:
+                pass
 
         self.patch_size = patch_size
         self.canvas_size = canvas_size

@@ -1,0 +1,8 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "e:\\UniV2x\\UniV2X"
+    },
+    "python.defaultInterpreterPath": "e:/Anaconda3/envs/univ2x/python.exe"
+}

@@ -25,7 +25,7 @@ from mmseg import __version__ as mmseg_version
 warnings.filterwarnings("ignore")
 
 from mmcv.utils import TORCH_VERSION, digit_version
-
+            
 from projects.mmdet3d_plugin.univ2x.detectors.multi_agent import MultiAgent
 
 

@@ -142,8 +142,8 @@ model_other_agent_inf = dict(
     freeze_img_neck=True,
     freeze_bn=True,
     freeze_bev_encoder=True,
-    score_thresh=0.4,
-    filter_score_thresh=0.35,
+    score_thresh=0.05,
+    filter_score_thresh=0.01,
     qim_args=dict(
         qim_type="QIMBase",
         merger_dropout=0,
@@ -557,8 +557,8 @@ model_ego_agent = dict(
     freeze_img_neck=True,
     freeze_bn=True,
     freeze_bev_encoder=False,
-    score_thresh=0.4,
-    filter_score_thresh=0.35,
+    score_thresh=0.05,
+    filter_score_thresh=0.01,
     qim_args=dict(
         qim_type="QIMBase",
         merger_dropout=0,
@@ -943,6 +943,7 @@ file_client_args = dict(backend="disk")
 
 dataset_type = "SPDE2EDataset"
 data_root = "datasets/V2X-Seq-SPD-New/cooperative/"
+img_root = "datasets/V2X-Seq-SPD-New/"
 info_root = "data/infos/V2X-Seq-SPD-New/cooperative/"
 ann_file_train = info_root + f"spd_infos_temporal_train.pkl"
 ann_file_val = info_root + f"spd_infos_temporal_val.pkl"
@@ -953,7 +954,7 @@ v2x_side = 'cooperative'
 eval_mod = ['det', 'map', 'track', 'motion']
 
 train_pipeline = [
-    dict(type="LoadMultiViewImageFromFilesInCeph", to_float32=True, file_client_args=file_client_args, img_root=data_root),
+    dict(type="LoadMultiViewImageFromFilesInCeph", to_float32=True, file_client_args=file_client_args, img_root=img_root),
     dict(type="PhotoMetricDistortionMultiViewImage"),
     dict(
         type="LoadAnnotations3D_E2E",
@@ -1028,7 +1029,7 @@ train_pipeline = [
 ]
 test_pipeline = [
     dict(type='LoadMultiViewImageFromFilesInCeph', to_float32=True,
-         file_client_args=file_client_args, img_root=data_root),
+         file_client_args=file_client_args, img_root=img_root),
     dict(type="NormalizeMultiviewImage", **img_norm_cfg),
     dict(type="PadMultiViewImage", size_divisor=32),
     dict(type='LoadAnnotations3D_E2E',
@@ -1044,7 +1045,7 @@ test_pipeline = [
          filter_invisible=False),
     dict(
         type="MultiScaleFlipAug3D",
-        img_scale=(1600, 900),
+        img_scale=(800, 450),
         pts_scale_ratio=1,
         flip=False,
         transforms=[
@@ -1092,7 +1093,7 @@ test_pipeline = [
 
 data = dict(
     samples_per_gpu=1,
-    workers_per_gpu=8,
+    workers_per_gpu=0,
     train=dict(
         type=dataset_type,
         file_client_args=file_client_args,
