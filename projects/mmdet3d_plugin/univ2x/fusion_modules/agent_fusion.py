@@ -65,7 +65,7 @@ class AgentQueryFusion(nn.Module):
         diff = torch.abs(veh_pts - inf_pts) / veh_dims
         return diff[0] <= 1 and diff[1] <= 1 and diff[2] <= 1
     
-    def _query_matching(self, inf_ref_pts, veh_ref_pts, veh_mask, veh_pred_dims):
+    def _query_matching_old(self, inf_ref_pts, veh_ref_pts, veh_mask, veh_pred_dims):
         """
         inf_ref_pts: [..., 3] (xyz)
         veh_ref_pts: [..., 3] (xyz)
@@ -87,6 +87,34 @@ class AgentQueryFusion(nn.Module):
 
         return idx_veh, idx_inf, cost_matrix
     
+    def _query_matching(self, inf_ref_pts, veh_ref_pts, veh_mask, veh_pred_dims):
+        inf_nums = inf_ref_pts.shape[0]
+        veh_nums = veh_ref_pts.shape[0]
+
+        cost = torch.full(
+            (veh_nums, inf_nums), 1e6,
+            device=veh_ref_pts.device, dtype=veh_ref_pts.dtype
+        )
+
+        if inf_nums == 0 or veh_nums == 0 or veh_mask.numel() == 0:
+            cost_matrix = cost.detach().cpu().numpy()
+            idx_veh, idx_inf = linear_sum_assignment(cost_matrix)
+            return idx_veh, idx_inf, cost_matrix
+
+        veh_pts = veh_ref_pts[veh_mask]
+        veh_dims = torch.clamp(veh_pred_dims[veh_mask], min=1e-6)
+
+        dist = torch.cdist(veh_pts[:, :3], inf_ref_pts[:, :3], p=2)
+        diff = torch.abs(veh_pts[:, None, :] - inf_ref_pts[None, :, :]) / veh_dims[:, None, :]
+        valid = (diff[..., 0] <= 1) & (diff[..., 1] <= 1) & (diff[..., 2] <= 1)
+        dist = torch.where(valid, dist, torch.full_like(dist, 1e6))
+
+        cost[veh_mask] = dist
+        cost_matrix = cost.detach().cpu().numpy()
+        idx_veh, idx_inf = linear_sum_assignment(cost_matrix)
+
+        return idx_veh, idx_inf, cost_matrix
+
     def _query_fusion(self, inf, veh, inf_idx, veh_idx, cost_matrix):
         """
         Query fusion: 
