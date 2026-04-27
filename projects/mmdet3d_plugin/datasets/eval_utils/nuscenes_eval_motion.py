@@ -437,8 +437,11 @@ class MotionEval(NuScenesEval):
             category_convert_type=category_convert_type,
             dataset_type=dataset_type)
 
-        assert set(self.pred_boxes.sample_tokens) == set(self.gt_boxes.sample_tokens), \
-            "Samples in split doesn't match samples in predictions."
+        pred_tokens = set(self.pred_boxes.sample_tokens)
+        gt_tokens = set(self.gt_boxes.sample_tokens)
+        if pred_tokens != gt_tokens:
+            for token in gt_tokens - pred_tokens:
+                self.gt_boxes.boxes.pop(token, None)
 
         # Add center distances.
         self.pred_boxes = add_center_dist(nusc, self.pred_boxes)

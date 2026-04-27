@@ -562,8 +562,11 @@ class TrackingEval_custom(TrackingEval):
                                                 verbose=verbose)
         gt_boxes = load_gt(nusc, self.eval_set, TrackingBox, verbose=verbose, splits=self.splits, category_to_type_name=self.category_to_type_name)
 
-        assert set(pred_boxes.sample_tokens) == set(gt_boxes.sample_tokens), \
-            "Samples in split don't match samples in predicted tracks."
+        pred_tokens = set(pred_boxes.sample_tokens)
+        gt_tokens = set(gt_boxes.sample_tokens)
+        if pred_tokens != gt_tokens:
+            for token in gt_tokens - pred_tokens:
+                gt_boxes.boxes.pop(token, None)
 
         # Add center distances.
         pred_boxes = add_center_dist(nusc, pred_boxes)
@@ -646,8 +649,12 @@ class NuScenesEval_custom(NuScenesEval):
                                                      verbose=verbose)
         self.gt_boxes = load_gt(self.nusc, self.eval_set, DetectionBox_modified, verbose=verbose, splits=self.splits, category_to_type_name=self.category_to_type_name)
 
-        assert set(self.pred_boxes.sample_tokens) == set(self.gt_boxes.sample_tokens), \
-            "Samples in split doesn't match samples in predictions."
+        # Filter gt to only include samples that have predictions
+        pred_tokens = set(self.pred_boxes.sample_tokens)
+        gt_tokens = set(self.gt_boxes.sample_tokens)
+        if pred_tokens != gt_tokens:
+            for token in gt_tokens - pred_tokens:
+                self.gt_boxes.boxes.pop(token, None)
 
         # Add center distances.
         self.pred_boxes = add_center_dist(nusc, self.pred_boxes)

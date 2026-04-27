@@ -177,6 +177,8 @@ class SPDE2EDataset(NuScenesDataset):
         self.occ_only_total_frames = occ_n_future_only_occ + occ_receptive_field   # 7 
 
         self.class_range=class_range
+        if class_range is not None:
+            self.eval_detection_configs.class_range = class_range
         self.new_range_100 = new_range_100
         self.other_agent_names = other_agent_names
 
@@ -586,7 +588,7 @@ class SPDE2EDataset(NuScenesDataset):
         input_dict = dict(
             sample_idx=info['token'],
             sample_idx_inf=token_inf,
-            pts_filename=info['lidar_path'],
+            pts_filename=info['lidar_path'].replace('\\', '/'),
             sweeps=info['sweeps'],
             ego2global_translation=info['ego2global_translation'],
             ego2global_rotation=info['ego2global_rotation'],
@@ -635,7 +637,7 @@ class SPDE2EDataset(NuScenesDataset):
             lidar2cam_rts = []
             cam_intrinsics = []
             for cam_type, cam_info in info['cams'].items():
-                image_paths.append(cam_info['data_path'])
+                image_paths.append(cam_info['data_path'].replace('\\', '/'))
                 # obtain lidar to image transformation matrix
                 lidar2cam_r = np.linalg.inv(cam_info['sensor2lidar_rotation'])
                 lidar2cam_t = cam_info[
@@ -740,7 +742,7 @@ class SPDE2EDataset(NuScenesDataset):
         input_dict = dict(
             sample_idx=info['token'],
             sample_idx_inf=token_inf,
-            pts_filename=info['lidar_path'],
+            pts_filename=info['lidar_path'].replace('\\', '/'),
             sweeps=info['sweeps'],
             ego2global_translation=info['ego2global_translation'],
             ego2global_rotation=info['ego2global_rotation'],
@@ -785,7 +787,7 @@ class SPDE2EDataset(NuScenesDataset):
             lidar2cam_rts = []
             cam_intrinsics = []
             for cam_type, cam_info in info['cams'].items():
-                image_paths.append(cam_info['data_path'])
+                image_paths.append(cam_info['data_path'].replace('\\', '/'))
                 # obtain lidar to image transformation matrix
                 lidar2cam_r = np.linalg.inv(cam_info['sensor2lidar_rotation'])
                 lidar2cam_t = cam_info[
@@ -1083,7 +1085,7 @@ class SPDE2EDataset(NuScenesDataset):
                     attribute_name=attr,
                     tracking_name=name,
                     tracking_score=box.score,
-                    tracking_id=box.token,
+                    tracking_id=str(box.token),
                     predict_traj=traj_ego,
                     predict_traj_score=traj_scores,
                 )
