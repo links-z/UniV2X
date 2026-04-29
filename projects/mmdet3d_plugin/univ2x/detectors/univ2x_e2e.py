@@ -300,7 +300,7 @@ class UniV2X(UniV2XTrack):
 
         # Unwrap DataContainer if needed
         img_metas_0 = img_metas[0].data[0][0] if hasattr(img_metas[0], 'data') else img_metas[0][0]
-
+        
         if img_metas_0['scene_token'] != self.prev_frame_info['scene_token']:
             # the first sample of each scene is truncated
             self.prev_frame_info['prev_bev'] = None

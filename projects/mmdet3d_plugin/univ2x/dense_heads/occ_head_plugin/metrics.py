@@ -7,9 +7,26 @@
 from typing import Optional
 
 import torch
-from pytorch_lightning.metrics.metric import Metric
-from pytorch_lightning.metrics.functional.classification import stat_scores_multiple_classes
-from pytorch_lightning.metrics.functional.reduction import reduce
+from torchmetrics import Metric
+from torchmetrics.functional.classification import multiclass_stat_scores
+
+def stat_scores_multiple_classes(prediction, target, n_classes):
+    result = multiclass_stat_scores(prediction, target, num_classes=n_classes, average=None)
+    tp = result[:, 0].float()
+    fp = result[:, 1].float()
+    tn = result[:, 2].float()
+    fn = result[:, 3].float()
+    sup = result[:, 4].float()
+    return tp, fp, tn, fn, sup
+
+def reduce(scores, reduction='none'):
+    if reduction == 'none':
+        return scores
+    elif reduction == 'mean':
+        return scores.mean()
+    elif reduction == 'sum':
+        return scores.sum()
+    return scores
 
 class IntersectionOverUnion(Metric):
     """Computes intersection-over-union."""
@@ -21,7 +38,7 @@ class IntersectionOverUnion(Metric):
         reduction: str = 'none',
         compute_on_step: bool = False,
     ):
-        super().__init__(compute_on_step=compute_on_step)
+        super().__init__()
 
         self.n_classes = n_classes
         self.ignore_index = ignore_index
@@ -78,7 +95,7 @@ class PanopticMetric(Metric):
         vehicles_id: int = 1,
         compute_on_step: bool = False,
     ):
-        super().__init__(compute_on_step=compute_on_step)
+        super().__init__()
 
         self.n_classes = n_classes
         self.temporally_consistent = temporally_consistent

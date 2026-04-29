@@ -585,8 +585,38 @@ class TrackingEval_custom(TrackingEval):
         self.sample_tokens = gt_boxes.sample_tokens
 
         # Convert boxes to tracks format.
-        self.tracks_gt = create_tracks(gt_boxes, nusc, self.eval_set, gt=True)
-        self.tracks_pred = create_tracks(pred_boxes, nusc, self.eval_set, gt=False)
+        from nuscenes.eval.tracking.loaders import create_tracks as create_tracks_orig
+        from collections import defaultdict
+
+        # Custom create_tracks for SPD dataset
+        def create_tracks_spd(all_boxes, nusc, eval_split, gt):
+            scene_tokens = set()
+            for sample_token in all_boxes.sample_tokens:
+                scene_token = nusc.get('sample', sample_token)['scene_token']
+                scene = nusc.get('scene', scene_token)
+                if scene['name'] in self.splits[eval_split]:
+                    scene_tokens.add(scene_token)
+
+            tracks = defaultdict(lambda: defaultdict(list))
+            for scene_token in scene_tokens:
+                scene = nusc.get('scene', scene_token)
+                cur_sample_token = scene['first_sample_token']
+                while True:
+                    cur_sample = nusc.get('sample', cur_sample_token)
+                    tracks[scene_token][cur_sample['timestamp']] = []
+                    if cur_sample_token == scene['last_sample_token']:
+                        break
+                    cur_sample_token = cur_sample['next']
+
+            for sample_token in all_boxes.sample_tokens:
+                sample_record = nusc.get('sample', sample_token)
+                scene_token = sample_record['scene_token']
+                if scene_token in tracks:
+                    tracks[scene_token][sample_record['timestamp']] = all_boxes.boxes[sample_token]
+            return tracks
+
+        self.tracks_gt = create_tracks_spd(gt_boxes, nusc, self.eval_set, gt=True)
+        self.tracks_pred = create_tracks_spd(pred_boxes, nusc, self.eval_set, gt=False)
 
 
 class NuScenesEval_custom(NuScenesEval):

@@ -136,7 +136,7 @@ class LoadMultiViewImageFromFilesInCeph(object):
                 img = mmcv.imfrombytes(img_bytes)
             elif self.file_client_args['backend'] == 'disk':
                 img = mmcv.imread(img_path, self.color_type)
-            img = mmcv.imresize(img, (640, 360))
+            # img = mmcv.imresize(img, (640, 360))
             images_multiView.append(img)
         # img is of shape (h, w, c, num_views)
         img = np.stack(
