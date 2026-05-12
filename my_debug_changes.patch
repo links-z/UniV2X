@@ -1,0 +1,71 @@
+diff --git a/projects/mmdet3d_plugin/datasets/eval_utils/nuscenes_eval.py b/projects/mmdet3d_plugin/datasets/eval_utils/nuscenes_eval.py
+index ef1bb0a..85f8f09 100644
+--- a/projects/mmdet3d_plugin/datasets/eval_utils/nuscenes_eval.py
++++ b/projects/mmdet3d_plugin/datasets/eval_utils/nuscenes_eval.py
+@@ -590,6 +590,7 @@ class TrackingEval_custom(TrackingEval):
+ 
+         # Custom create_tracks for SPD dataset
+         def create_tracks_spd(all_boxes, nusc, eval_split, gt):
++            from nuscenes.eval.tracking.loaders import interpolate_tracks
+             scene_tokens = set()
+             for sample_token in all_boxes.sample_tokens:
+                 scene_token = nusc.get('sample', sample_token)['scene_token']
+@@ -613,6 +614,23 @@ class TrackingEval_custom(TrackingEval):
+                 scene_token = sample_record['scene_token']
+                 if scene_token in tracks:
+                     tracks[scene_token][sample_record['timestamp']] = all_boxes.boxes[sample_token]
++
++            if not gt:
++                for scene_id, scene_tracks in tracks.items():
++                    track_id_scores = defaultdict(list)
++                    for timestamp, boxes in scene_tracks.items():
++                        for box in boxes:
++                            track_id_scores[box.tracking_id].append(box.tracking_score)
++                    track_id_avg_scores = {tid: np.mean(scores) for tid, scores in track_id_scores.items()}
++                    for timestamp, boxes in scene_tracks.items():
++                        for box in boxes:
++                            box.tracking_score = track_id_avg_scores[box.tracking_id]
++
++            for scene_token in tracks.keys():
++                tracks[scene_token] = interpolate_tracks(tracks[scene_token])
++                if not gt:
++                    tracks[scene_token] = defaultdict(list, sorted(tracks[scene_token].items(), key=lambda kv: kv[0]))
++
+             return tracks
+ 
+         self.tracks_gt = create_tracks_spd(gt_boxes, nusc, self.eval_set, gt=True)
+diff --git a/projects/mmdet3d_plugin/univ2x/dense_heads/planning_head_plugin/planning_metrics.py b/projects/mmdet3d_plugin/univ2x/dense_heads/planning_head_plugin/planning_metrics.py
+index 80dcd1e..9dcf919 100644
+--- a/projects/mmdet3d_plugin/univ2x/dense_heads/planning_head_plugin/planning_metrics.py
++++ b/projects/mmdet3d_plugin/univ2x/dense_heads/planning_head_plugin/planning_metrics.py
+@@ -8,7 +8,7 @@ import torch
+ import torch.nn as nn
+ import numpy as np
+ from skimage.draw import polygon
+-from pytorch_lightning.metrics.metric import Metric
++from torchmetrics import Metric
+ from ..occ_head_plugin import calculate_birds_eye_view_parameters, gen_dx_bx
+ 
+ 
+@@ -18,7 +18,7 @@ class PlanningMetric(Metric):
+         n_future=6,
+         compute_on_step: bool = False,
+     ):
+-        super().__init__(compute_on_step=compute_on_step)
++        super().__init__()
+         dx, bx, _ = gen_dx_bx([-50.0, 50.0, 0.5], [-50.0, 50.0, 0.5], [-10.0, 10.0, 20.0])
+         dx, bx = dx[:2], bx[:2]
+         self.dx = nn.Parameter(dx, requires_grad=False)
+diff --git a/tools/test.py b/tools/test.py
+index 9822c5c..5d772bf 100755
+--- a/tools/test.py
++++ b/tools/test.py
+@@ -5,6 +5,8 @@ import sklearn
+ import mmcv
+ import os
+ import warnings
++import torch.multiprocessing as mp
++mp.set_start_method('fork', force=True)
+ from mmcv import Config, DictAction
+ from mmcv.cnn import fuse_conv_bn
+ from mmcv.parallel import MMDataParallel, MMDistributedDataParallel

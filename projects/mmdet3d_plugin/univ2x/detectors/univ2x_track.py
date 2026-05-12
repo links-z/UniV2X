@@ -82,7 +82,8 @@ class UniV2XTrack(MVXTwoStageDetector):
         is_ego_agent=False,
         return_track_query=True,
         save_track_query=False,
-        save_track_query_file_root=''
+        save_track_query_file_root='',
+        read_track_query_file_root=''
     ):
         super(UniV2XTrack, self).__init__(
             img_backbone=img_backbone,
@@ -173,12 +174,42 @@ class UniV2XTrack(MVXTwoStageDetector):
 
         self.save_track_query = save_track_query
         self.save_track_query_file_root = save_track_query_file_root
+        self.read_track_query_file_root = read_track_query_file_root
 
         self.bev_embed_linear = nn.Linear(embed_dims, embed_dims)
         self.bev_pos_linear = nn.Linear(embed_dims, embed_dims)
 
         self.is_ego_agent = is_ego_agent
         self.return_track_query = return_track_query
+
+        if not is_ego_agent:
+            dropout = qim_args["merger_dropout"]
+            self.self_attn = nn.MultiheadAttention(embed_dims, 8, dropout)
+            self.linear1 = nn.Linear(embed_dims, embed_dims)
+            self.linear2 = nn.Linear(embed_dims, embed_dims)
+            self.linear_feat1 = nn.Linear(embed_dims, embed_dims)
+            self.linear_feat2 = nn.Linear(embed_dims, embed_dims)
+            self.norm_feat = nn.LayerNorm(embed_dims)
+            self.norm1 = nn.LayerNorm(embed_dims)
+            self.norm2 = nn.LayerNorm(embed_dims)
+
+    def _update_inf_track_embedding(self, track_instances):
+        if len(track_instances) == 0:
+            return track_instances
+        dim = track_instances.query.shape[1]
+        out_embed = track_instances.output_embedding
+        query_pos = track_instances.query[:, :dim // 2]
+        q = k = query_pos + out_embed
+        tgt = out_embed
+        tgt2 = self.self_attn(q[:, None], k[:, None], value=tgt[:, None])[0][:, 0]
+        tgt = self.norm1(tgt + tgt2)
+        tgt2 = self.linear2(F.relu(self.linear1(tgt)))
+        tgt = self.norm2(tgt + tgt2)
+        query_feat = track_instances.query[:, dim // 2:]
+        query_feat2 = self.linear_feat2(F.relu(self.linear_feat1(tgt)))
+        query_feat = self.norm_feat(query_feat + query_feat2)
+        track_instances.query[:, dim // 2:] = query_feat
+        return track_instances
 
     def extract_img_feat(self, img, len_queue=None):
         """Extract features of images."""
@@ -548,6 +579,8 @@ class UniV2XTrack(MVXTwoStageDetector):
         tmp["init_track_instances"] = self._generate_empty_tracks()
         tmp["track_instances"] = track_instances
         out_track_instances = self.query_interact(tmp)
+        if not self.is_ego_agent:
+            out_track_instances = self._update_inf_track_embedding(out_track_instances)
         out["track_instances"] = out_track_instances
         return out
 
@@ -742,16 +775,15 @@ class UniV2XTrack(MVXTwoStageDetector):
 
         # agent fusion with query interaction
         if self.is_ego_agent and self.is_cooperation:
-            # # load other-agent query offline
-            # load_from_file = False
-            # if load_from_file:
-            #     inf_track_query_path = os.path.join(self.read_track_query_file_root, img_metas[0]['sample_idx_inf'] +'.pkl')
-            #     inf_track_query = mmcv.load(inf_track_query_path).to(img)
-            #     inf_track_query.matched_gt_idxes = inf_track_query.matched_gt_idxes.long()
-            #     inf_track_query.obj_idxes = inf_track_query.obj_idxes.long()
-
             for other_agent_name in other_agent_results.keys():
-                other_agent_track_instances = other_agent_results[other_agent_name][0]['track_instances']
+                sample_idx_inf = img_metas[0]['sample_idx_inf']
+                if self.read_track_query_file_root and sample_idx_inf != -1:
+                    inf_track_query_path = os.path.join(self.read_track_query_file_root, str(sample_idx_inf) + '.pkl')
+                    other_agent_track_instances = mmcv.load(inf_track_query_path).to(img)
+                    other_agent_track_instances.matched_gt_idxes = other_agent_track_instances.matched_gt_idxes.long()
+                    other_agent_track_instances.obj_idxes = other_agent_track_instances.obj_idxes.long()
+                else:
+                    other_agent_track_instances = other_agent_results[other_agent_name][0]['track_instances']
                 ego2other_rt = other_agent_results[other_agent_name][0]['ego2other_rt']
                 other_agent_pc_range = other_agent_results[other_agent_name][0]['pc_range']
                 track_nums_src = len(track_instances)
@@ -809,6 +841,8 @@ class UniV2XTrack(MVXTwoStageDetector):
         tmp["init_track_instances"] = self._generate_empty_tracks()
         tmp["track_instances"] = track_instances
         out_track_instances = self.query_interact(tmp)
+        if not self.is_ego_agent:
+            out_track_instances = self._update_inf_track_embedding(out_track_instances)
         out["track_instances_fordet"] = track_instances
         out["track_instances"] = out_track_instances
         out["track_obj_idxes"] = track_instances.obj_idxes
@@ -883,11 +917,9 @@ class UniV2XTrack(MVXTwoStageDetector):
         results[0].update({k: frame_res[k] for k in get_keys})
 
         # UniV2X: inf_track_query
-        # if not self.is_ego_agent and self.save_track_query:
-        #     tensor_to_cpu = torch.zeros(1)
-        #     save_path = os.path.join(self.save_track_query_file_root, img_metas[0]['sample_idx'] +'.pkl')
-        #     # track_instances = track_instances.to(tensor_to_cpu)
-        #     mmcv.dump(track_instances.to(tensor_to_cpu), save_path)
+        if not self.is_ego_agent and self.save_track_query:
+            save_path = os.path.join(self.save_track_query_file_root, str(img_metas[0]['sample_idx']) + '.pkl')
+            mmcv.dump(track_instances.to('cpu'), save_path)
         if not self.is_ego_agent and self.return_track_query:
             results[0]['track_instances'] = track_instances
 

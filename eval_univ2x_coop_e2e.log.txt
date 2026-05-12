@@ -1,0 +1,2464 @@
+~/.conda/envs/univ2x/lib/python3.8/site-packages/torch/distributed/launch.py:178: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torch.distributed.run.
+Note that --use_env is set by default in torch.distributed.run.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+WARNING:torch.distributed.run:*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+projects.mmdet3d_pluginprojects.mmdet3d_plugin
+
+======
+Loading NuScenes tables for version v1.0-trainval...
+======
+Loading NuScenes tables for version v1.0-trainval...
+4 category,
+0 attribute,
+4 visibility,
+6472 instance,
+4 sensor,
+2 calibrated_sensor,
+3134 ego_pose,
+6 log,
+95 scene,
+3134 sample,
+3134 sample_data,
+74398 sample_annotation,
+6 map,
+Done loading in 4.799 seconds.
+======
+Reverse indexing ...
+4 category,
+0 attribute,
+4 visibility,
+6472 instance,
+4 sensor,
+2 calibrated_sensor,
+3134 ego_pose,
+6 log,
+95 scene,
+3134 sample,
+3134 sample_data,
+74398 sample_annotation,
+6 map,
+Done loading in 4.586 seconds.
+======
+Reverse indexing ...
+Done reverse indexing in 0.6 seconds.
+======
+Done reverse indexing in 0.7 seconds.
+======
+load checkpoint from local path: ckpts/univ2x_coop_e2e_stg2.pth
+load checkpoint from local path: ckpts/univ2x_coop_e2e_stg2.pth
+The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: model_other_agent_inf.linear1.weight, model_other_agent_inf.linear1.bias, model_other_agent_inf.linear2.weight, model_other_agent_inf.linear2.bias, model_other_agent_inf.linear_feat1.weight, model_other_agent_inf.linear_feat1.bias, model_other_agent_inf.linear_feat2.weight, model_other_agent_inf.linear_feat2.bias, model_other_agent_inf.norm_feat.weight, model_other_agent_inf.norm_feat.bias, model_other_agent_inf.norm1.weight, model_other_agent_inf.norm1.bias, model_other_agent_inf.norm2.weight, model_other_agent_inf.norm2.bias, model_other_agent_inf.self_attn.in_proj_weight, model_other_agent_inf.self_attn.in_proj_bias, model_other_agent_inf.self_attn.out_proj.weight, model_other_agent_inf.self_attn.out_proj.bias
+
+writing results to output/results.pkl
+Occ-flow Val Results:
+iou
+22.6 & 25.9
+pq
+1.8 & 0.1
+sq
+64.1 & 60.7
+rq
+2.8 & 0.1
+num occ evaluated:282
+ratio occ evaluated: 41.8%
++-------------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
+|   metrics   |  0.5s  |  1.0s  |  1.5s  |  2.0s  |  2.5s  |  3.0s  |  3.5s  |  4.0s  |  4.5s  |  5.0s  |
++-------------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
+|   obj_col   | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0015 | 0.0000 | 0.0015 | 0.0030 |
+| obj_box_col | 0.0044 | 0.0030 | 0.0015 | 0.0015 | 0.0015 | 0.0089 | 0.0074 | 0.0044 | 0.0074 | 0.0074 |
+|   obj_out   | 0.0030 | 0.0030 | 0.0015 | 0.0015 | 0.0030 | 0.0074 | 0.0074 | 0.0118 | 0.0133 | 0.0148 |
+| obj_box_out | 0.0059 | 0.0133 | 0.0118 | 0.0148 | 0.0281 | 0.0281 | 0.0251 | 0.0399 | 0.0459 | 0.0533 |
+|      L2     | 1.0831 | 1.4398 | 1.7401 | 2.1464 | 2.5714 | 2.9908 | 3.3770 | 3.9031 | 4.5086 | 5.1683 |
++-------------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
+Start to convert detection format...
+[                                                  ] 0/675, elapsed: 0s, ETA:
+[                               ] 1/675, 512.7 task/s, elapsed: 0s, ETA:     1s
+[                               ] 2/675, 540.1 task/s, elapsed: 0s, ETA:     1s
+[                               ] 3/675, 607.4 task/s, elapsed: 0s, ETA:     1s
+[                               ] 4/675, 567.5 task/s, elapsed: 0s, ETA:     1s
+[                               ] 5/675, 577.9 task/s, elapsed: 0s, ETA:     1s
+[                               ] 6/675, 614.1 task/s, elapsed: 0s, ETA:     1s
+[                               ] 7/675, 618.2 task/s, elapsed: 0s, ETA:     1s
+[                               ] 8/675, 642.0 task/s, elapsed: 0s, ETA:     1s
+[                               ] 9/675, 591.5 task/s, elapsed: 0s, ETA:     1s
+[                              ] 10/675, 611.6 task/s, elapsed: 0s, ETA:     1s
+[                              ] 11/675, 609.2 task/s, elapsed: 0s, ETA:     1s
+[                              ] 12/675, 596.7 task/s, elapsed: 0s, ETA:     1s
+[                              ] 13/675, 583.5 task/s, elapsed: 0s, ETA:     1s
+[                              ] 14/675, 598.3 task/s, elapsed: 0s, ETA:     1s
+[                              ] 15/675, 512.0 task/s, elapsed: 0s, ETA:     1s
+[                              ] 16/675, 431.0 task/s, elapsed: 0s, ETA:     2s
+[                              ] 17/675, 401.3 task/s, elapsed: 0s, ETA:     2s
+[                              ] 18/675, 366.3 task/s, elapsed: 0s, ETA:     2s
+[                              ] 19/675, 284.9 task/s, elapsed: 0s, ETA:     2s
+[                              ] 20/675, 192.1 task/s, elapsed: 0s, ETA:     3s
+[                              ] 21/675, 163.9 task/s, elapsed: 0s, ETA:     4s
+[                              ] 22/675, 139.9 task/s, elapsed: 0s, ETA:     5s
+[>                             ] 23/675, 124.6 task/s, elapsed: 0s, ETA:     5s
+[>                             ] 24/675, 118.9 task/s, elapsed: 0s, ETA:     5s
+[>                             ] 25/675, 107.2 task/s, elapsed: 0s, ETA:     6s
+[>                              ] 26/675, 92.4 task/s, elapsed: 0s, ETA:     7s
+[>                              ] 27/675, 88.5 task/s, elapsed: 0s, ETA:     7s
+[>                              ] 28/675, 86.6 task/s, elapsed: 0s, ETA:     7s
+[>                              ] 29/675, 86.5 task/s, elapsed: 0s, ETA:     7s
+[>                              ] 30/675, 85.0 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 31/675, 82.0 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 32/675, 81.8 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 33/675, 80.7 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 34/675, 79.7 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 35/675, 78.1 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 36/675, 77.5 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 37/675, 77.2 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 38/675, 77.2 task/s, elapsed: 0s, ETA:     8s
+[>                              ] 39/675, 76.9 task/s, elapsed: 1s, ETA:     8s
+[>                              ] 40/675, 76.7 task/s, elapsed: 1s, ETA:     8s
+[>                              ] 41/675, 76.6 task/s, elapsed: 1s, ETA:     8s
+[>                              ] 42/675, 77.3 task/s, elapsed: 1s, ETA:     8s
+[>                              ] 43/675, 78.7 task/s, elapsed: 1s, ETA:     8s
+[>>                             ] 44/675, 80.1 task/s, elapsed: 1s, ETA:     8s
+[>>                             ] 45/675, 81.7 task/s, elapsed: 1s, ETA:     8s
+[>>                             ] 46/675, 83.2 task/s, elapsed: 1s, ETA:     8s
+[>>                             ] 47/675, 84.3 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 48/675, 85.1 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 49/675, 85.7 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 50/675, 86.6 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 51/675, 87.5 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 52/675, 88.1 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 53/675, 89.2 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 54/675, 90.2 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 55/675, 91.5 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 56/675, 92.8 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 57/675, 94.1 task/s, elapsed: 1s, ETA:     7s
+[>>                             ] 58/675, 95.2 task/s, elapsed: 1s, ETA:     6s
+[>>                             ] 59/675, 95.9 task/s, elapsed: 1s, ETA:     6s
+[>>                             ] 60/675, 96.6 task/s, elapsed: 1s, ETA:     6s
+[>>                             ] 61/675, 97.4 task/s, elapsed: 1s, ETA:     6s
+[>>                             ] 62/675, 98.0 task/s, elapsed: 1s, ETA:     6s
+[>>                             ] 63/675, 98.9 task/s, elapsed: 1s, ETA:     6s
+[>>                            ] 64/675, 100.0 task/s, elapsed: 1s, ETA:     6s
+[>>                            ] 65/675, 101.3 task/s, elapsed: 1s, ETA:     6s
+[>>                            ] 66/675, 102.8 task/s, elapsed: 1s, ETA:     6s
+[>>                            ] 67/675, 104.1 task/s, elapsed: 1s, ETA:     6s
+[>>>                           ] 68/675, 105.1 task/s, elapsed: 1s, ETA:     6s
+[>>>                           ] 69/675, 106.5 task/s, elapsed: 1s, ETA:     6s
+[>>>                           ] 70/675, 107.8 task/s, elapsed: 1s, ETA:     6s
+[>>>                           ] 71/675, 109.0 task/s, elapsed: 1s, ETA:     6s
+[>>>                           ] 72/675, 110.2 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 73/675, 111.7 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 74/675, 113.1 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 75/675, 114.3 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 76/675, 115.0 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 77/675, 115.8 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 78/675, 116.0 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 79/675, 116.2 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 80/675, 116.4 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 81/675, 116.6 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 82/675, 116.8 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 83/675, 116.3 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 84/675, 115.7 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 85/675, 115.2 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 86/675, 114.4 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 87/675, 113.7 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 88/675, 109.1 task/s, elapsed: 1s, ETA:     5s
+[>>>                           ] 89/675, 108.4 task/s, elapsed: 1s, ETA:     5s
+[>>>>                          ] 90/675, 105.5 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 91/675, 104.3 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 92/675, 101.7 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 93/675, 101.1 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 94/675, 100.7 task/s, elapsed: 1s, ETA:     6s
+[>>>>                           ] 95/675, 99.7 task/s, elapsed: 1s, ETA:     6s
+[>>>>                           ] 96/675, 98.8 task/s, elapsed: 1s, ETA:     6s
+[>>>>                           ] 97/675, 98.3 task/s, elapsed: 1s, ETA:     6s
+[>>>>                           ] 98/675, 97.9 task/s, elapsed: 1s, ETA:     6s
+[>>>>                           ] 99/675, 97.5 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 100/675, 97.5 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 101/675, 97.5 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 102/675, 97.6 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 103/675, 97.9 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 104/675, 98.5 task/s, elapsed: 1s, ETA:     6s
+[>>>>                          ] 105/675, 99.3 task/s, elapsed: 1s, ETA:     6s
+[>>>>                         ] 106/675, 100.2 task/s, elapsed: 1s, ETA:     6s
+[>>>>                         ] 107/675, 101.1 task/s, elapsed: 1s, ETA:     6s
+[>>>>                         ] 108/675, 101.9 task/s, elapsed: 1s, ETA:     6s
+[>>>>                         ] 109/675, 102.7 task/s, elapsed: 1s, ETA:     6s
+[>>>>                         ] 110/675, 103.5 task/s, elapsed: 1s, ETA:     5s
+[>>>>                         ] 111/675, 104.2 task/s, elapsed: 1s, ETA:     5s
+[>>>>                         ] 112/675, 105.1 task/s, elapsed: 1s, ETA:     5s
+[>>>>                         ] 113/675, 105.8 task/s, elapsed: 1s, ETA:     5s
+[>>>>                         ] 114/675, 106.5 task/s, elapsed: 1s, ETA:     5s
+[>>>>                         ] 115/675, 107.1 task/s, elapsed: 1s, ETA:     5s
+[>>>>                         ] 116/675, 107.3 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 117/675, 107.7 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 118/675, 107.9 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 119/675, 108.1 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 120/675, 108.2 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 121/675, 107.6 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 122/675, 107.8 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 123/675, 108.1 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 124/675, 108.5 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 125/675, 108.8 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 126/675, 109.2 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 127/675, 109.5 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 128/675, 110.1 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 129/675, 110.8 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 130/675, 111.5 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 131/675, 112.2 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 132/675, 112.8 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 133/675, 113.4 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 134/675, 114.1 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 135/675, 114.8 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 136/675, 115.5 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 137/675, 116.0 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 138/675, 116.5 task/s, elapsed: 1s, ETA:     5s
+[>>>>>                        ] 139/675, 117.1 task/s, elapsed: 1s, ETA:     5s
+[>>>>>>                       ] 140/675, 117.5 task/s, elapsed: 1s, ETA:     5s
+[>>>>>>                       ] 141/675, 117.8 task/s, elapsed: 1s, ETA:     5s
+[>>>>>>                       ] 142/675, 118.0 task/s, elapsed: 1s, ETA:     5s
+[>>>>>>                       ] 143/675, 118.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 144/675, 118.4 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 145/675, 118.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 146/675, 118.8 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 147/675, 118.7 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 148/675, 119.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 149/675, 118.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 150/675, 118.7 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 151/675, 119.1 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 152/675, 119.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 153/675, 120.1 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 154/675, 120.5 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 155/675, 121.1 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 156/675, 121.8 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 157/675, 122.5 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 158/675, 123.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 159/675, 124.0 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 160/675, 124.5 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 161/675, 125.1 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>                       ] 162/675, 125.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 163/675, 126.1 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 164/675, 126.8 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 165/675, 127.4 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 166/675, 128.0 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 167/675, 128.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 168/675, 129.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 169/675, 129.8 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 170/675, 130.3 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 171/675, 130.7 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 172/675, 130.9 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 173/675, 131.0 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 174/675, 130.9 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 175/675, 131.0 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 176/675, 131.1 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 177/675, 131.3 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 178/675, 131.7 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 179/675, 132.0 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 180/675, 132.3 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 181/675, 132.5 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 182/675, 132.5 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 183/675, 132.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 184/675, 132.7 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 185/675, 132.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>                      ] 186/675, 131.9 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 187/675, 132.0 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 188/675, 132.1 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 189/675, 132.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 190/675, 132.1 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 191/675, 132.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 192/675, 132.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 193/675, 132.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 194/675, 131.8 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 195/675, 132.0 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 196/675, 132.4 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 197/675, 132.8 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 198/675, 133.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 199/675, 133.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 200/675, 134.2 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 201/675, 134.6 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 202/675, 135.0 task/s, elapsed: 1s, ETA:     4s
+[>>>>>>>>                     ] 203/675, 135.6 task/s, elapsed: 1s, ETA:     3s
+[>>>>>>>>                     ] 204/675, 136.1 task/s, elapsed: 1s, ETA:     3s
+[>>>>>>>>                     ] 205/675, 136.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>                     ] 206/675, 137.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>                     ] 207/675, 137.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>                     ] 208/675, 138.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>                     ] 209/675, 138.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 210/675, 138.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 211/675, 137.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 212/675, 137.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 213/675, 137.9 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 214/675, 138.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 215/675, 138.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 216/675, 138.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 217/675, 138.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 218/675, 138.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 219/675, 138.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 220/675, 138.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 221/675, 138.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 222/675, 138.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 223/675, 138.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 224/675, 138.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 225/675, 138.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 226/675, 138.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 227/675, 138.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 228/675, 138.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 229/675, 138.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 230/675, 138.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 231/675, 138.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>                    ] 232/675, 138.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 233/675, 138.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 234/675, 138.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 235/675, 138.9 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 236/675, 139.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 237/675, 139.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 238/675, 139.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 239/675, 139.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 240/675, 139.9 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 241/675, 140.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 242/675, 141.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 243/675, 141.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 244/675, 142.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 245/675, 142.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 246/675, 143.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 247/675, 143.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 248/675, 144.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 249/675, 144.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 250/675, 144.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 251/675, 144.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 252/675, 144.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 253/675, 144.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 254/675, 144.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 255/675, 144.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>                   ] 256/675, 144.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 257/675, 143.9 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 258/675, 143.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 259/675, 142.9 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 260/675, 142.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 261/675, 142.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 262/675, 141.8 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 263/675, 141.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 264/675, 141.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 265/675, 141.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 266/675, 141.8 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 267/675, 141.9 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 268/675, 142.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 269/675, 142.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 270/675, 142.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 271/675, 142.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 272/675, 142.9 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 273/675, 143.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 274/675, 143.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 275/675, 143.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 276/675, 143.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 277/675, 144.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 278/675, 144.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>                  ] 279/675, 144.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 280/675, 144.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 281/675, 144.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 282/675, 144.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 283/675, 144.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 284/675, 144.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 285/675, 143.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 286/675, 143.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 287/675, 142.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 288/675, 142.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 289/675, 141.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 290/675, 140.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 291/675, 139.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 292/675, 139.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 293/675, 139.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 294/675, 139.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 295/675, 139.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 296/675, 139.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 297/675, 138.8 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 298/675, 138.9 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 299/675, 139.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 300/675, 139.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 301/675, 139.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>                 ] 302/675, 139.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 303/675, 140.1 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 304/675, 140.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 305/675, 140.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 306/675, 140.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 307/675, 140.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 308/675, 140.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 309/675, 140.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 310/675, 140.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 311/675, 140.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 312/675, 140.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 313/675, 140.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 314/675, 140.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 315/675, 140.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 316/675, 139.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 317/675, 139.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 318/675, 138.8 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 319/675, 138.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 320/675, 137.8 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 321/675, 137.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 322/675, 136.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 323/675, 136.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 324/675, 135.8 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>                ] 325/675, 135.6 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 326/675, 135.2 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 327/675, 135.0 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 328/675, 134.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 329/675, 134.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 330/675, 134.3 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 331/675, 133.7 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 332/675, 133.5 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 333/675, 133.4 task/s, elapsed: 2s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 334/675, 132.9 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 335/675, 132.6 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 336/675, 132.6 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 337/675, 132.7 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 338/675, 132.8 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 339/675, 133.0 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 340/675, 133.2 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 341/675, 133.3 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 342/675, 132.5 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 343/675, 131.8 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 344/675, 131.9 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 345/675, 131.9 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>               ] 346/675, 132.0 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>               ] 347/675, 131.9 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>               ] 348/675, 131.7 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>               ] 349/675, 131.7 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 350/675, 131.8 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 351/675, 131.8 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 352/675, 131.7 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 353/675, 132.0 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 354/675, 131.9 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 355/675, 132.0 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 356/675, 131.8 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 357/675, 131.8 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 358/675, 131.6 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 359/675, 131.5 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 360/675, 131.3 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 361/675, 130.9 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 362/675, 129.9 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 363/675, 128.3 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 364/675, 127.0 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 365/675, 124.4 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 366/675, 124.2 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 367/675, 123.5 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 368/675, 123.2 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 369/675, 122.7 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>              ] 370/675, 120.4 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>              ] 371/675, 119.3 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>              ] 372/675, 119.0 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 373/675, 118.8 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 374/675, 118.6 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 375/675, 118.4 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 376/675, 118.4 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 377/675, 118.3 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 378/675, 118.0 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 379/675, 117.8 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 380/675, 117.7 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 381/675, 117.6 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 382/675, 117.0 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 383/675, 116.8 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 384/675, 116.4 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 385/675, 116.0 task/s, elapsed: 3s, ETA:     3s
+[>>>>>>>>>>>>>>>>             ] 386/675, 115.7 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 387/675, 115.6 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 388/675, 115.3 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 389/675, 115.3 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 390/675, 115.3 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 391/675, 115.4 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 392/675, 115.6 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 393/675, 115.8 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 394/675, 116.0 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>             ] 395/675, 116.2 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 396/675, 116.4 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 397/675, 116.4 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 398/675, 116.3 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 399/675, 116.2 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 400/675, 116.1 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 401/675, 116.0 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 402/675, 115.3 task/s, elapsed: 3s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 403/675, 114.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 404/675, 114.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 405/675, 113.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 406/675, 113.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 407/675, 113.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 408/675, 113.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 409/675, 113.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 410/675, 113.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 411/675, 113.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 412/675, 113.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 413/675, 113.5 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 414/675, 113.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 415/675, 113.8 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 416/675, 113.8 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 417/675, 113.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>            ] 418/675, 114.0 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 419/675, 114.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 420/675, 114.3 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 421/675, 114.3 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 422/675, 114.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 423/675, 114.3 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 424/675, 114.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 425/675, 113.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 426/675, 113.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 427/675, 113.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 428/675, 113.3 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 429/675, 113.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 430/675, 112.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 431/675, 111.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 432/675, 111.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 433/675, 109.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 434/675, 108.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 435/675, 108.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 436/675, 107.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 437/675, 107.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 438/675, 107.5 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 439/675, 107.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 440/675, 107.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 441/675, 107.3 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>           ] 442/675, 107.5 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 443/675, 107.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 444/675, 107.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 445/675, 108.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 446/675, 108.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 447/675, 108.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 448/675, 108.5 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 449/675, 108.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 450/675, 108.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 451/675, 109.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 452/675, 109.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 453/675, 109.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 454/675, 109.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 455/675, 109.8 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 456/675, 109.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 457/675, 109.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 458/675, 109.8 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 459/675, 110.0 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 460/675, 110.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 461/675, 110.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 462/675, 110.3 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 463/675, 110.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 464/675, 110.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>          ] 465/675, 110.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 466/675, 110.0 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 467/675, 109.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 468/675, 109.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 469/675, 109.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 470/675, 109.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 471/675, 108.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 472/675, 108.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 473/675, 107.9 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 474/675, 107.7 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 475/675, 107.6 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 476/675, 107.4 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 477/675, 107.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 478/675, 107.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 479/675, 107.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 480/675, 107.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 481/675, 107.1 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 482/675, 107.2 task/s, elapsed: 4s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 483/675, 107.3 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 484/675, 107.4 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 485/675, 107.5 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 486/675, 107.5 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 487/675, 107.5 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>         ] 488/675, 107.6 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 489/675, 107.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 490/675, 107.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 491/675, 107.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 492/675, 107.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 493/675, 107.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 494/675, 107.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 495/675, 107.8 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 496/675, 107.8 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 497/675, 107.9 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 498/675, 108.0 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 499/675, 108.1 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 500/675, 108.2 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 501/675, 108.2 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 502/675, 108.3 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 503/675, 108.2 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 504/675, 108.0 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 505/675, 107.9 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 506/675, 107.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 507/675, 107.4 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 508/675, 107.2 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 509/675, 106.8 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 510/675, 106.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 511/675, 106.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>        ] 512/675, 106.6 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 513/675, 106.6 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 514/675, 106.4 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 515/675, 105.7 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 516/675, 105.6 task/s, elapsed: 5s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 517/675, 105.6 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 518/675, 105.6 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 519/675, 105.7 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 520/675, 105.7 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 521/675, 105.8 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 522/675, 105.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 523/675, 106.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 524/675, 106.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 525/675, 106.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 526/675, 106.4 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 527/675, 106.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 528/675, 106.7 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 529/675, 106.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 530/675, 107.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 531/675, 107.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 532/675, 107.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 533/675, 107.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 534/675, 107.6 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>       ] 535/675, 107.8 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 536/675, 107.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 537/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 538/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 539/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 540/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 541/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 542/675, 108.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 543/675, 108.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 544/675, 108.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 545/675, 108.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 546/675, 108.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 547/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 548/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 549/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 550/675, 107.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 551/675, 107.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 552/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 553/675, 107.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 554/675, 108.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 555/675, 108.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 556/675, 108.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 557/675, 108.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>      ] 558/675, 108.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 559/675, 108.6 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 560/675, 108.7 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 561/675, 108.8 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 562/675, 109.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 563/675, 109.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 564/675, 109.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 565/675, 109.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 566/675, 109.7 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 567/675, 109.8 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 568/675, 109.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 569/675, 110.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 570/675, 110.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 571/675, 110.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 572/675, 110.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 573/675, 110.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 574/675, 110.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 575/675, 110.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 576/675, 110.2 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 577/675, 110.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 578/675, 110.4 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 579/675, 110.6 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 580/675, 110.7 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>     ] 581/675, 110.8 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 582/675, 110.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 583/675, 111.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 584/675, 111.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 585/675, 111.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 586/675, 111.6 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 587/675, 111.7 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 588/675, 111.9 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 589/675, 112.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 590/675, 112.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 591/675, 112.0 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 592/675, 111.7 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 593/675, 111.6 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 594/675, 111.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 595/675, 111.4 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 596/675, 111.4 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 597/675, 111.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 598/675, 111.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 599/675, 111.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 600/675, 111.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 601/675, 111.4 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 602/675, 111.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 603/675, 111.1 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 604/675, 110.8 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>    ] 605/675, 110.5 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 606/675, 110.3 task/s, elapsed: 5s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 607/675, 109.9 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 608/675, 109.6 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 609/675, 109.5 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 610/675, 109.3 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 611/675, 109.2 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 612/675, 109.1 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 613/675, 108.9 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 614/675, 108.7 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 615/675, 108.7 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 616/675, 108.6 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 617/675, 108.5 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 618/675, 108.5 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 619/675, 108.5 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 620/675, 108.5 task/s, elapsed: 6s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 621/675, 108.6 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 622/675, 108.7 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 623/675, 108.8 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 624/675, 108.8 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 625/675, 108.9 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 626/675, 109.0 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 627/675, 109.1 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 628/675, 109.2 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 629/675, 109.3 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 630/675, 109.5 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 631/675, 109.6 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 632/675, 109.7 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 633/675, 109.7 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 634/675, 109.8 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 635/675, 109.8 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 636/675, 109.9 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 637/675, 110.0 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 638/675, 110.1 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 639/675, 110.1 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 640/675, 110.2 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 641/675, 110.3 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 642/675, 110.3 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 643/675, 110.3 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 644/675, 110.3 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 645/675, 110.2 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 646/675, 110.1 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 647/675, 109.6 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 648/675, 109.2 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 649/675, 109.0 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 650/675, 108.7 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 651/675, 108.6 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 652/675, 108.6 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 653/675, 108.5 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 654/675, 108.5 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 655/675, 108.3 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 656/675, 108.0 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 657/675, 107.9 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 658/675, 107.7 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 659/675, 107.6 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 660/675, 107.5 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 661/675, 107.5 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 662/675, 107.4 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 663/675, 107.2 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 664/675, 107.0 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 665/675, 107.0 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 666/675, 106.9 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 667/675, 106.9 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 668/675, 106.9 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 669/675, 106.8 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 670/675, 106.8 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 671/675, 106.8 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 672/675, 106.8 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 673/675, 106.9 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 674/675, 107.0 task/s, elapsed: 6s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>] 675/675, 107.0 task/s, elapsed: 6s, ETA:     0s
+Results writes to test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025/results_nusc.json
+Start to convert detection format...
+[                                                  ] 0/675, elapsed: 0s, ETA:
+[                                 ] 1/675, 8.5 task/s, elapsed: 0s, ETA:    79s
+[                                 ] 2/675, 9.4 task/s, elapsed: 0s, ETA:    72s
+[                                 ] 3/675, 9.5 task/s, elapsed: 0s, ETA:    71s
+[                                 ] 4/675, 9.3 task/s, elapsed: 0s, ETA:    72s
+[                                 ] 5/675, 9.3 task/s, elapsed: 1s, ETA:    72s
+[                                 ] 6/675, 9.1 task/s, elapsed: 1s, ETA:    73s
+[                                 ] 7/675, 7.5 task/s, elapsed: 1s, ETA:    89s
+[                                 ] 8/675, 7.6 task/s, elapsed: 1s, ETA:    88s
+[                                 ] 9/675, 7.8 task/s, elapsed: 1s, ETA:    85s
+[                                ] 10/675, 8.0 task/s, elapsed: 1s, ETA:    83s
+[                                ] 11/675, 8.0 task/s, elapsed: 1s, ETA:    83s
+[                                ] 12/675, 7.8 task/s, elapsed: 2s, ETA:    85s
+[                                ] 13/675, 7.9 task/s, elapsed: 2s, ETA:    84s
+[                                ] 14/675, 7.9 task/s, elapsed: 2s, ETA:    84s
+[                                ] 15/675, 7.9 task/s, elapsed: 2s, ETA:    84s
+[                                ] 16/675, 7.7 task/s, elapsed: 2s, ETA:    86s
+[                                ] 17/675, 7.8 task/s, elapsed: 2s, ETA:    84s
+[                                ] 18/675, 7.9 task/s, elapsed: 2s, ETA:    84s
+[                                ] 19/675, 7.9 task/s, elapsed: 2s, ETA:    83s
+[                                ] 20/675, 8.0 task/s, elapsed: 2s, ETA:    82s
+[                                ] 21/675, 7.9 task/s, elapsed: 3s, ETA:    83s
+[>                               ] 22/675, 7.8 task/s, elapsed: 3s, ETA:    84s
+[>                               ] 23/675, 7.8 task/s, elapsed: 3s, ETA:    83s
+[>                               ] 24/675, 7.8 task/s, elapsed: 3s, ETA:    83s
+[>                               ] 25/675, 7.9 task/s, elapsed: 3s, ETA:    83s
+[>                               ] 26/675, 7.9 task/s, elapsed: 3s, ETA:    82s
+[>                               ] 27/675, 7.9 task/s, elapsed: 3s, ETA:    82s
+[>                               ] 28/675, 7.9 task/s, elapsed: 4s, ETA:    81s
+[>                               ] 29/675, 7.8 task/s, elapsed: 4s, ETA:    83s
+[>                               ] 30/675, 7.8 task/s, elapsed: 4s, ETA:    82s
+[>                               ] 31/675, 7.8 task/s, elapsed: 4s, ETA:    82s
+[>                               ] 32/675, 7.8 task/s, elapsed: 4s, ETA:    82s
+[>                               ] 33/675, 7.8 task/s, elapsed: 4s, ETA:    82s
+[>                               ] 34/675, 7.9 task/s, elapsed: 4s, ETA:    81s
+[>                               ] 35/675, 7.9 task/s, elapsed: 4s, ETA:    81s
+[>                               ] 36/675, 7.8 task/s, elapsed: 5s, ETA:    82s
+[>                               ] 37/675, 7.7 task/s, elapsed: 5s, ETA:    83s
+[>                               ] 38/675, 7.7 task/s, elapsed: 5s, ETA:    83s
+[>                               ] 39/675, 7.7 task/s, elapsed: 5s, ETA:    83s
+[>                               ] 40/675, 7.5 task/s, elapsed: 5s, ETA:    84s
+[>                               ] 41/675, 7.6 task/s, elapsed: 5s, ETA:    84s
+[>                               ] 42/675, 7.6 task/s, elapsed: 6s, ETA:    83s
+[>>                              ] 43/675, 7.6 task/s, elapsed: 6s, ETA:    83s
+[>>                              ] 44/675, 7.7 task/s, elapsed: 6s, ETA:    82s
+[>>                              ] 45/675, 7.7 task/s, elapsed: 6s, ETA:    82s
+[>>                              ] 46/675, 7.6 task/s, elapsed: 6s, ETA:    83s
+[>>                              ] 47/675, 7.6 task/s, elapsed: 6s, ETA:    82s
+[>>                              ] 48/675, 7.7 task/s, elapsed: 6s, ETA:    82s
+[>>                              ] 49/675, 7.7 task/s, elapsed: 6s, ETA:    81s
+[>>                              ] 50/675, 7.7 task/s, elapsed: 6s, ETA:    81s
+[>>                              ] 51/675, 7.8 task/s, elapsed: 7s, ETA:    80s
+[>>                              ] 52/675, 7.8 task/s, elapsed: 7s, ETA:    80s
+[>>                              ] 53/675, 7.8 task/s, elapsed: 7s, ETA:    80s
+[>>                              ] 54/675, 7.8 task/s, elapsed: 7s, ETA:    79s
+[>>                              ] 55/675, 7.9 task/s, elapsed: 7s, ETA:    79s
+[>>                              ] 56/675, 7.9 task/s, elapsed: 7s, ETA:    78s
+[>>                              ] 57/675, 7.9 task/s, elapsed: 7s, ETA:    78s
+[>>                              ] 58/675, 7.9 task/s, elapsed: 7s, ETA:    78s
+[>>                              ] 59/675, 7.9 task/s, elapsed: 7s, ETA:    78s
+[>>                              ] 60/675, 7.8 task/s, elapsed: 8s, ETA:    79s
+[>>                              ] 61/675, 7.8 task/s, elapsed: 8s, ETA:    79s
+[>>                              ] 62/675, 7.8 task/s, elapsed: 8s, ETA:    78s
+[>>                              ] 63/675, 7.9 task/s, elapsed: 8s, ETA:    78s
+[>>>                             ] 64/675, 7.9 task/s, elapsed: 8s, ETA:    78s
+[>>>                             ] 65/675, 7.9 task/s, elapsed: 8s, ETA:    78s
+[>>>                             ] 66/675, 7.9 task/s, elapsed: 8s, ETA:    77s
+[>>>                             ] 67/675, 7.9 task/s, elapsed: 9s, ETA:    77s
+[>>>                             ] 68/675, 7.9 task/s, elapsed: 9s, ETA:    77s
+[>>>                             ] 69/675, 7.9 task/s, elapsed: 9s, ETA:    77s
+[>>>                             ] 70/675, 7.9 task/s, elapsed: 9s, ETA:    77s
+[>>>                             ] 71/675, 7.8 task/s, elapsed: 9s, ETA:    77s
+[>>>                             ] 72/675, 7.8 task/s, elapsed: 9s, ETA:    77s
+[>>>                             ] 73/675, 7.9 task/s, elapsed: 9s, ETA:    77s
+[>>>                             ] 74/675, 7.8 task/s, elapsed: 9s, ETA:    77s
+[>>>                            ] 75/675, 7.9 task/s, elapsed: 10s, ETA:    76s
+[>>>                            ] 76/675, 7.9 task/s, elapsed: 10s, ETA:    76s
+[>>>                            ] 77/675, 7.9 task/s, elapsed: 10s, ETA:    76s
+[>>>                            ] 78/675, 7.9 task/s, elapsed: 10s, ETA:    76s
+[>>>                            ] 79/675, 7.9 task/s, elapsed: 10s, ETA:    75s
+[>>>                            ] 80/675, 7.9 task/s, elapsed: 10s, ETA:    75s
+[>>>                            ] 81/675, 7.9 task/s, elapsed: 10s, ETA:    75s
+[>>>                            ] 82/675, 8.0 task/s, elapsed: 10s, ETA:    74s
+[>>>                            ] 83/675, 8.0 task/s, elapsed: 10s, ETA:    74s
+[>>>                            ] 84/675, 8.0 task/s, elapsed: 11s, ETA:    74s
+[>>>                            ] 85/675, 8.0 task/s, elapsed: 11s, ETA:    74s
+[>>>                            ] 86/675, 7.9 task/s, elapsed: 11s, ETA:    74s
+[>>>                            ] 87/675, 7.9 task/s, elapsed: 11s, ETA:    75s
+[>>>>                           ] 88/675, 7.7 task/s, elapsed: 11s, ETA:    76s
+[>>>>                           ] 89/675, 7.7 task/s, elapsed: 12s, ETA:    76s
+[>>>>                           ] 90/675, 7.7 task/s, elapsed: 12s, ETA:    76s
+[>>>>                           ] 91/675, 7.6 task/s, elapsed: 12s, ETA:    76s
+[>>>>                           ] 92/675, 7.6 task/s, elapsed: 12s, ETA:    77s
+[>>>>                           ] 93/675, 7.6 task/s, elapsed: 12s, ETA:    77s
+[>>>>                           ] 94/675, 7.5 task/s, elapsed: 12s, ETA:    77s
+[>>>>                           ] 95/675, 7.5 task/s, elapsed: 13s, ETA:    77s
+[>>>>                           ] 96/675, 7.4 task/s, elapsed: 13s, ETA:    78s
+[>>>>                           ] 97/675, 7.4 task/s, elapsed: 13s, ETA:    78s
+[>>>>                           ] 98/675, 7.4 task/s, elapsed: 13s, ETA:    78s
+[>>>>                           ] 99/675, 7.4 task/s, elapsed: 13s, ETA:    78s
+[>>>>                          ] 100/675, 7.3 task/s, elapsed: 14s, ETA:    78s
+[>>>>                          ] 101/675, 7.3 task/s, elapsed: 14s, ETA:    79s
+[>>>>                          ] 102/675, 7.3 task/s, elapsed: 14s, ETA:    79s
+[>>>>                          ] 103/675, 7.3 task/s, elapsed: 14s, ETA:    79s
+[>>>>                          ] 104/675, 7.3 task/s, elapsed: 14s, ETA:    79s
+[>>>>                          ] 105/675, 7.3 task/s, elapsed: 14s, ETA:    79s
+[>>>>                          ] 106/675, 7.3 task/s, elapsed: 15s, ETA:    78s
+[>>>>                          ] 107/675, 7.3 task/s, elapsed: 15s, ETA:    78s
+[>>>>                          ] 108/675, 7.2 task/s, elapsed: 15s, ETA:    78s
+[>>>>                          ] 109/675, 7.2 task/s, elapsed: 15s, ETA:    78s
+[>>>>                          ] 110/675, 7.2 task/s, elapsed: 15s, ETA:    78s
+[>>>>                          ] 111/675, 7.2 task/s, elapsed: 15s, ETA:    78s
+[>>>>                          ] 112/675, 7.2 task/s, elapsed: 15s, ETA:    78s
+[>>>>>                         ] 113/675, 7.2 task/s, elapsed: 16s, ETA:    78s
+[>>>>>                         ] 114/675, 7.2 task/s, elapsed: 16s, ETA:    78s
+[>>>>>                         ] 115/675, 7.2 task/s, elapsed: 16s, ETA:    77s
+[>>>>>                         ] 116/675, 7.2 task/s, elapsed: 16s, ETA:    77s
+[>>>>>                         ] 117/675, 7.2 task/s, elapsed: 16s, ETA:    77s
+[>>>>>                         ] 118/675, 7.2 task/s, elapsed: 16s, ETA:    77s
+[>>>>>                         ] 119/675, 7.2 task/s, elapsed: 17s, ETA:    78s
+[>>>>>                         ] 120/675, 7.1 task/s, elapsed: 17s, ETA:    78s
+[>>>>>                         ] 121/675, 7.2 task/s, elapsed: 17s, ETA:    77s
+[>>>>>                         ] 122/675, 7.2 task/s, elapsed: 17s, ETA:    77s
+[>>>>>                         ] 123/675, 7.2 task/s, elapsed: 17s, ETA:    77s
+[>>>>>                         ] 124/675, 7.1 task/s, elapsed: 17s, ETA:    77s
+[>>>>>                         ] 125/675, 7.2 task/s, elapsed: 17s, ETA:    77s
+[>>>>>                         ] 126/675, 7.2 task/s, elapsed: 18s, ETA:    77s
+[>>>>>                         ] 127/675, 7.1 task/s, elapsed: 18s, ETA:    77s
+[>>>>>                         ] 128/675, 7.1 task/s, elapsed: 18s, ETA:    77s
+[>>>>>                         ] 129/675, 7.1 task/s, elapsed: 18s, ETA:    77s
+[>>>>>                         ] 130/675, 7.1 task/s, elapsed: 18s, ETA:    76s
+[>>>>>                         ] 131/675, 7.2 task/s, elapsed: 18s, ETA:    76s
+[>>>>>                         ] 132/675, 7.2 task/s, elapsed: 18s, ETA:    76s
+[>>>>>                         ] 133/675, 7.2 task/s, elapsed: 19s, ETA:    76s
+[>>>>>                         ] 134/675, 7.2 task/s, elapsed: 19s, ETA:    75s
+[>>>>>>                        ] 135/675, 7.2 task/s, elapsed: 19s, ETA:    75s
+[>>>>>>                        ] 136/675, 7.2 task/s, elapsed: 19s, ETA:    75s
+[>>>>>>                        ] 137/675, 7.2 task/s, elapsed: 19s, ETA:    75s
+[>>>>>>                        ] 138/675, 7.2 task/s, elapsed: 19s, ETA:    75s
+[>>>>>>                        ] 139/675, 7.2 task/s, elapsed: 19s, ETA:    74s
+[>>>>>>                        ] 140/675, 7.2 task/s, elapsed: 19s, ETA:    74s
+[>>>>>>                        ] 141/675, 7.2 task/s, elapsed: 19s, ETA:    74s
+[>>>>>>                        ] 142/675, 7.3 task/s, elapsed: 20s, ETA:    73s
+[>>>>>>                        ] 143/675, 7.2 task/s, elapsed: 20s, ETA:    74s
+[>>>>>>                        ] 144/675, 7.2 task/s, elapsed: 20s, ETA:    74s
+[>>>>>>                        ] 145/675, 7.1 task/s, elapsed: 20s, ETA:    74s
+[>>>>>>                        ] 146/675, 7.2 task/s, elapsed: 20s, ETA:    74s
+[>>>>>>                        ] 147/675, 7.2 task/s, elapsed: 21s, ETA:    74s
+[>>>>>>                        ] 148/675, 7.1 task/s, elapsed: 21s, ETA:    74s
+[>>>>>>                        ] 149/675, 7.2 task/s, elapsed: 21s, ETA:    73s
+[>>>>>>                        ] 150/675, 7.2 task/s, elapsed: 21s, ETA:    73s
+[>>>>>>                        ] 151/675, 7.2 task/s, elapsed: 21s, ETA:    73s
+[>>>>>>                        ] 152/675, 7.1 task/s, elapsed: 21s, ETA:    73s
+[>>>>>>                        ] 153/675, 7.2 task/s, elapsed: 21s, ETA:    73s
+[>>>>>>                        ] 154/675, 7.2 task/s, elapsed: 22s, ETA:    73s
+[>>>>>>                        ] 155/675, 7.1 task/s, elapsed: 22s, ETA:    73s
+[>>>>>>                        ] 156/675, 7.1 task/s, elapsed: 22s, ETA:    73s
+[>>>>>>                        ] 157/675, 7.1 task/s, elapsed: 22s, ETA:    73s
+[>>>>>>>                       ] 158/675, 7.1 task/s, elapsed: 22s, ETA:    73s
+[>>>>>>>                       ] 159/675, 7.1 task/s, elapsed: 22s, ETA:    73s
+[>>>>>>>                       ] 160/675, 7.1 task/s, elapsed: 22s, ETA:    72s
+[>>>>>>>                       ] 161/675, 7.1 task/s, elapsed: 23s, ETA:    72s
+[>>>>>>>                       ] 162/675, 7.1 task/s, elapsed: 23s, ETA:    72s
+[>>>>>>>                       ] 163/675, 7.1 task/s, elapsed: 23s, ETA:    72s
+[>>>>>>>                       ] 164/675, 7.1 task/s, elapsed: 23s, ETA:    72s
+[>>>>>>>                       ] 165/675, 7.1 task/s, elapsed: 23s, ETA:    71s
+[>>>>>>>                       ] 166/675, 7.1 task/s, elapsed: 23s, ETA:    71s
+[>>>>>>>                       ] 167/675, 7.1 task/s, elapsed: 23s, ETA:    71s
+[>>>>>>>                       ] 168/675, 7.1 task/s, elapsed: 23s, ETA:    71s
+[>>>>>>>                       ] 169/675, 7.2 task/s, elapsed: 24s, ETA:    71s
+[>>>>>>>                       ] 170/675, 7.2 task/s, elapsed: 24s, ETA:    71s
+[>>>>>>>                       ] 171/675, 7.1 task/s, elapsed: 24s, ETA:    71s
+[>>>>>>>                       ] 172/675, 7.1 task/s, elapsed: 24s, ETA:    71s
+[>>>>>>>                       ] 173/675, 7.1 task/s, elapsed: 24s, ETA:    71s
+[>>>>>>>                       ] 174/675, 7.1 task/s, elapsed: 25s, ETA:    71s
+[>>>>>>>                       ] 175/675, 7.1 task/s, elapsed: 25s, ETA:    70s
+[>>>>>>>                       ] 176/675, 7.1 task/s, elapsed: 25s, ETA:    70s
+[>>>>>>>                       ] 177/675, 7.1 task/s, elapsed: 25s, ETA:    70s
+[>>>>>>>                       ] 178/675, 7.1 task/s, elapsed: 25s, ETA:    70s
+[>>>>>>>                       ] 179/675, 7.1 task/s, elapsed: 25s, ETA:    70s
+[>>>>>>>>                      ] 180/675, 7.1 task/s, elapsed: 25s, ETA:    70s
+[>>>>>>>>                      ] 181/675, 7.1 task/s, elapsed: 25s, ETA:    70s
+[>>>>>>>>                      ] 182/675, 7.1 task/s, elapsed: 26s, ETA:    69s
+[>>>>>>>>                      ] 183/675, 7.1 task/s, elapsed: 26s, ETA:    69s
+[>>>>>>>>                      ] 184/675, 7.1 task/s, elapsed: 26s, ETA:    69s
+[>>>>>>>>                      ] 185/675, 7.1 task/s, elapsed: 26s, ETA:    69s
+[>>>>>>>>                      ] 186/675, 7.2 task/s, elapsed: 26s, ETA:    68s
+[>>>>>>>>                      ] 187/675, 7.2 task/s, elapsed: 26s, ETA:    68s
+[>>>>>>>>                      ] 188/675, 7.1 task/s, elapsed: 26s, ETA:    68s
+[>>>>>>>>                      ] 189/675, 7.1 task/s, elapsed: 26s, ETA:    68s
+[>>>>>>>>                      ] 190/675, 7.1 task/s, elapsed: 27s, ETA:    68s
+[>>>>>>>>                      ] 191/675, 7.1 task/s, elapsed: 27s, ETA:    68s
+[>>>>>>>>                      ] 192/675, 7.1 task/s, elapsed: 27s, ETA:    68s
+[>>>>>>>>                      ] 193/675, 7.1 task/s, elapsed: 27s, ETA:    68s
+[>>>>>>>>                      ] 194/675, 7.1 task/s, elapsed: 27s, ETA:    68s
+[>>>>>>>>                      ] 195/675, 7.1 task/s, elapsed: 27s, ETA:    68s
+[>>>>>>>>                      ] 196/675, 7.1 task/s, elapsed: 28s, ETA:    67s
+[>>>>>>>>                      ] 197/675, 7.1 task/s, elapsed: 28s, ETA:    67s
+[>>>>>>>>                      ] 198/675, 7.1 task/s, elapsed: 28s, ETA:    67s
+[>>>>>>>>                      ] 199/675, 7.1 task/s, elapsed: 28s, ETA:    67s
+[>>>>>>>>                      ] 200/675, 7.1 task/s, elapsed: 28s, ETA:    67s
+[>>>>>>>>                      ] 201/675, 7.1 task/s, elapsed: 28s, ETA:    67s
+[>>>>>>>>                      ] 202/675, 7.1 task/s, elapsed: 29s, ETA:    67s
+[>>>>>>>>>                     ] 203/675, 7.1 task/s, elapsed: 29s, ETA:    67s
+[>>>>>>>>>                     ] 204/675, 7.1 task/s, elapsed: 29s, ETA:    66s
+[>>>>>>>>>                     ] 205/675, 7.1 task/s, elapsed: 29s, ETA:    66s
+[>>>>>>>>>                     ] 206/675, 7.1 task/s, elapsed: 29s, ETA:    66s
+[>>>>>>>>>                     ] 207/675, 7.1 task/s, elapsed: 29s, ETA:    66s
+[>>>>>>>>>                     ] 208/675, 7.1 task/s, elapsed: 29s, ETA:    66s
+[>>>>>>>>>                     ] 209/675, 7.1 task/s, elapsed: 29s, ETA:    66s
+[>>>>>>>>>                     ] 210/675, 7.1 task/s, elapsed: 30s, ETA:    65s
+[>>>>>>>>>                     ] 211/675, 7.1 task/s, elapsed: 30s, ETA:    65s
+[>>>>>>>>>                     ] 212/675, 7.1 task/s, elapsed: 30s, ETA:    65s
+[>>>>>>>>>                     ] 213/675, 7.1 task/s, elapsed: 30s, ETA:    65s
+[>>>>>>>>>                     ] 214/675, 7.1 task/s, elapsed: 30s, ETA:    65s
+[>>>>>>>>>                     ] 215/675, 7.1 task/s, elapsed: 30s, ETA:    65s
+[>>>>>>>>>                     ] 216/675, 7.1 task/s, elapsed: 31s, ETA:    65s
+[>>>>>>>>>                     ] 217/675, 7.1 task/s, elapsed: 31s, ETA:    65s
+[>>>>>>>>>                     ] 218/675, 7.1 task/s, elapsed: 31s, ETA:    65s
+[>>>>>>>>>                     ] 219/675, 7.1 task/s, elapsed: 31s, ETA:    64s
+[>>>>>>>>>                     ] 220/675, 7.1 task/s, elapsed: 31s, ETA:    64s
+[>>>>>>>>>                     ] 221/675, 7.1 task/s, elapsed: 31s, ETA:    64s
+[>>>>>>>>>                     ] 222/675, 7.1 task/s, elapsed: 31s, ETA:    64s
+[>>>>>>>>>                     ] 223/675, 7.1 task/s, elapsed: 31s, ETA:    64s
+[>>>>>>>>>                     ] 224/675, 7.1 task/s, elapsed: 32s, ETA:    64s
+[>>>>>>>>>>                    ] 225/675, 7.1 task/s, elapsed: 32s, ETA:    63s
+[>>>>>>>>>>                    ] 226/675, 7.1 task/s, elapsed: 32s, ETA:    63s
+[>>>>>>>>>>                    ] 227/675, 7.1 task/s, elapsed: 32s, ETA:    63s
+[>>>>>>>>>>                    ] 228/675, 7.1 task/s, elapsed: 32s, ETA:    63s
+[>>>>>>>>>>                    ] 229/675, 7.1 task/s, elapsed: 32s, ETA:    63s
+[>>>>>>>>>>                    ] 230/675, 7.1 task/s, elapsed: 32s, ETA:    62s
+[>>>>>>>>>>                    ] 231/675, 7.1 task/s, elapsed: 32s, ETA:    62s
+[>>>>>>>>>>                    ] 232/675, 7.2 task/s, elapsed: 32s, ETA:    62s
+[>>>>>>>>>>                    ] 233/675, 7.2 task/s, elapsed: 33s, ETA:    62s
+[>>>>>>>>>>                    ] 234/675, 7.2 task/s, elapsed: 33s, ETA:    62s
+[>>>>>>>>>>                    ] 235/675, 7.2 task/s, elapsed: 33s, ETA:    61s
+[>>>>>>>>>>                    ] 236/675, 7.2 task/s, elapsed: 33s, ETA:    61s
+[>>>>>>>>>>                    ] 237/675, 7.2 task/s, elapsed: 33s, ETA:    61s
+[>>>>>>>>>>                    ] 238/675, 7.2 task/s, elapsed: 33s, ETA:    61s
+[>>>>>>>>>>                    ] 239/675, 7.2 task/s, elapsed: 33s, ETA:    61s
+[>>>>>>>>>>                    ] 240/675, 7.2 task/s, elapsed: 34s, ETA:    61s
+[>>>>>>>>>>                    ] 241/675, 7.2 task/s, elapsed: 34s, ETA:    61s
+[>>>>>>>>>>                    ] 242/675, 7.2 task/s, elapsed: 34s, ETA:    61s
+[>>>>>>>>>>                    ] 243/675, 7.2 task/s, elapsed: 34s, ETA:    60s
+[>>>>>>>>>>                    ] 244/675, 7.1 task/s, elapsed: 34s, ETA:    60s
+[>>>>>>>>>>                    ] 245/675, 7.1 task/s, elapsed: 34s, ETA:    60s
+[>>>>>>>>>>                    ] 246/675, 7.1 task/s, elapsed: 34s, ETA:    60s
+[>>>>>>>>>>                    ] 247/675, 7.1 task/s, elapsed: 35s, ETA:    60s
+[>>>>>>>>>>>                   ] 248/675, 7.1 task/s, elapsed: 35s, ETA:    60s
+[>>>>>>>>>>>                   ] 249/675, 7.1 task/s, elapsed: 35s, ETA:    60s
+[>>>>>>>>>>>                   ] 250/675, 7.1 task/s, elapsed: 35s, ETA:    59s
+[>>>>>>>>>>>                   ] 251/675, 7.1 task/s, elapsed: 35s, ETA:    59s
+[>>>>>>>>>>>                   ] 252/675, 7.1 task/s, elapsed: 35s, ETA:    59s
+[>>>>>>>>>>>                   ] 253/675, 7.1 task/s, elapsed: 36s, ETA:    59s
+[>>>>>>>>>>>                   ] 254/675, 7.1 task/s, elapsed: 36s, ETA:    59s
+[>>>>>>>>>>>                   ] 255/675, 7.1 task/s, elapsed: 36s, ETA:    59s
+[>>>>>>>>>>>                   ] 256/675, 7.1 task/s, elapsed: 36s, ETA:    59s
+[>>>>>>>>>>>                   ] 257/675, 7.1 task/s, elapsed: 36s, ETA:    59s
+[>>>>>>>>>>>                   ] 258/675, 7.1 task/s, elapsed: 36s, ETA:    59s
+[>>>>>>>>>>>                   ] 259/675, 7.1 task/s, elapsed: 36s, ETA:    58s
+[>>>>>>>>>>>                   ] 260/675, 7.1 task/s, elapsed: 37s, ETA:    58s
+[>>>>>>>>>>>                   ] 261/675, 7.1 task/s, elapsed: 37s, ETA:    58s
+[>>>>>>>>>>>                   ] 262/675, 7.1 task/s, elapsed: 37s, ETA:    58s
+[>>>>>>>>>>>                   ] 263/675, 7.1 task/s, elapsed: 37s, ETA:    58s
+[>>>>>>>>>>>                   ] 264/675, 7.1 task/s, elapsed: 37s, ETA:    58s
+[>>>>>>>>>>>                   ] 265/675, 7.1 task/s, elapsed: 37s, ETA:    58s
+[>>>>>>>>>>>                   ] 266/675, 7.1 task/s, elapsed: 37s, ETA:    58s
+[>>>>>>>>>>>                   ] 267/675, 7.1 task/s, elapsed: 38s, ETA:    57s
+[>>>>>>>>>>>                   ] 268/675, 7.1 task/s, elapsed: 38s, ETA:    57s
+[>>>>>>>>>>>                   ] 269/675, 7.1 task/s, elapsed: 38s, ETA:    57s
+[>>>>>>>>>>>>                  ] 270/675, 7.1 task/s, elapsed: 38s, ETA:    57s
+[>>>>>>>>>>>>                  ] 271/675, 7.1 task/s, elapsed: 38s, ETA:    57s
+[>>>>>>>>>>>>                  ] 272/675, 7.1 task/s, elapsed: 38s, ETA:    57s
+[>>>>>>>>>>>>                  ] 273/675, 7.1 task/s, elapsed: 38s, ETA:    57s
+[>>>>>>>>>>>>                  ] 274/675, 7.1 task/s, elapsed: 39s, ETA:    57s
+[>>>>>>>>>>>>                  ] 275/675, 7.1 task/s, elapsed: 39s, ETA:    56s
+[>>>>>>>>>>>>                  ] 276/675, 7.1 task/s, elapsed: 39s, ETA:    56s
+[>>>>>>>>>>>>                  ] 277/675, 7.1 task/s, elapsed: 39s, ETA:    56s
+[>>>>>>>>>>>>                  ] 278/675, 7.1 task/s, elapsed: 39s, ETA:    56s
+[>>>>>>>>>>>>                  ] 279/675, 7.1 task/s, elapsed: 39s, ETA:    56s
+[>>>>>>>>>>>>                  ] 280/675, 7.1 task/s, elapsed: 40s, ETA:    56s
+[>>>>>>>>>>>>                  ] 281/675, 7.1 task/s, elapsed: 40s, ETA:    56s
+[>>>>>>>>>>>>                  ] 282/675, 7.1 task/s, elapsed: 40s, ETA:    55s
+[>>>>>>>>>>>>                  ] 283/675, 7.1 task/s, elapsed: 40s, ETA:    55s
+[>>>>>>>>>>>>                  ] 284/675, 7.1 task/s, elapsed: 40s, ETA:    55s
+[>>>>>>>>>>>>                  ] 285/675, 7.1 task/s, elapsed: 40s, ETA:    55s
+[>>>>>>>>>>>>                  ] 286/675, 7.1 task/s, elapsed: 40s, ETA:    55s
+[>>>>>>>>>>>>                  ] 287/675, 7.1 task/s, elapsed: 41s, ETA:    55s
+[>>>>>>>>>>>>                  ] 288/675, 7.1 task/s, elapsed: 41s, ETA:    55s
+[>>>>>>>>>>>>                  ] 289/675, 7.1 task/s, elapsed: 41s, ETA:    54s
+[>>>>>>>>>>>>                  ] 290/675, 7.1 task/s, elapsed: 41s, ETA:    54s
+[>>>>>>>>>>>>                  ] 291/675, 7.1 task/s, elapsed: 41s, ETA:    54s
+[>>>>>>>>>>>>                  ] 292/675, 7.1 task/s, elapsed: 41s, ETA:    54s
+[>>>>>>>>>>>>>                 ] 293/675, 7.1 task/s, elapsed: 41s, ETA:    54s
+[>>>>>>>>>>>>>                 ] 294/675, 7.1 task/s, elapsed: 41s, ETA:    54s
+[>>>>>>>>>>>>>                 ] 295/675, 7.1 task/s, elapsed: 42s, ETA:    54s
+[>>>>>>>>>>>>>                 ] 296/675, 7.1 task/s, elapsed: 42s, ETA:    53s
+[>>>>>>>>>>>>>                 ] 297/675, 7.1 task/s, elapsed: 42s, ETA:    53s
+[>>>>>>>>>>>>>                 ] 298/675, 7.1 task/s, elapsed: 42s, ETA:    53s
+[>>>>>>>>>>>>>                 ] 299/675, 7.1 task/s, elapsed: 42s, ETA:    53s
+[>>>>>>>>>>>>>                 ] 300/675, 7.1 task/s, elapsed: 42s, ETA:    53s
+[>>>>>>>>>>>>>                 ] 301/675, 7.1 task/s, elapsed: 42s, ETA:    53s
+[>>>>>>>>>>>>>                 ] 302/675, 7.1 task/s, elapsed: 43s, ETA:    53s
+[>>>>>>>>>>>>>                 ] 303/675, 7.1 task/s, elapsed: 43s, ETA:    52s
+[>>>>>>>>>>>>>                 ] 304/675, 7.1 task/s, elapsed: 43s, ETA:    52s
+[>>>>>>>>>>>>>                 ] 305/675, 7.1 task/s, elapsed: 43s, ETA:    52s
+[>>>>>>>>>>>>>                 ] 306/675, 7.1 task/s, elapsed: 43s, ETA:    52s
+[>>>>>>>>>>>>>                 ] 307/675, 7.1 task/s, elapsed: 43s, ETA:    52s
+[>>>>>>>>>>>>>                 ] 308/675, 7.1 task/s, elapsed: 43s, ETA:    52s
+[>>>>>>>>>>>>>                 ] 309/675, 7.1 task/s, elapsed: 44s, ETA:    52s
+[>>>>>>>>>>>>>                 ] 310/675, 7.1 task/s, elapsed: 44s, ETA:    52s
+[>>>>>>>>>>>>>                 ] 311/675, 7.1 task/s, elapsed: 44s, ETA:    51s
+[>>>>>>>>>>>>>                 ] 312/675, 7.1 task/s, elapsed: 44s, ETA:    51s
+[>>>>>>>>>>>>>                 ] 313/675, 7.1 task/s, elapsed: 44s, ETA:    51s
+[>>>>>>>>>>>>>                 ] 314/675, 7.1 task/s, elapsed: 44s, ETA:    51s
+[>>>>>>>>>>>>>>                ] 315/675, 7.1 task/s, elapsed: 44s, ETA:    51s
+[>>>>>>>>>>>>>>                ] 316/675, 7.1 task/s, elapsed: 44s, ETA:    51s
+[>>>>>>>>>>>>>>                ] 317/675, 7.1 task/s, elapsed: 45s, ETA:    50s
+[>>>>>>>>>>>>>>                ] 318/675, 7.1 task/s, elapsed: 45s, ETA:    50s
+[>>>>>>>>>>>>>>                ] 319/675, 7.1 task/s, elapsed: 45s, ETA:    50s
+[>>>>>>>>>>>>>>                ] 320/675, 7.1 task/s, elapsed: 45s, ETA:    50s
+[>>>>>>>>>>>>>>                ] 321/675, 7.1 task/s, elapsed: 45s, ETA:    50s
+[>>>>>>>>>>>>>>                ] 322/675, 7.1 task/s, elapsed: 45s, ETA:    50s
+[>>>>>>>>>>>>>>                ] 323/675, 7.1 task/s, elapsed: 46s, ETA:    50s
+[>>>>>>>>>>>>>>                ] 324/675, 7.1 task/s, elapsed: 46s, ETA:    50s
+[>>>>>>>>>>>>>>                ] 325/675, 7.1 task/s, elapsed: 46s, ETA:    49s
+[>>>>>>>>>>>>>>                ] 326/675, 7.1 task/s, elapsed: 46s, ETA:    49s
+[>>>>>>>>>>>>>>                ] 327/675, 7.1 task/s, elapsed: 46s, ETA:    49s
+[>>>>>>>>>>>>>>                ] 328/675, 7.1 task/s, elapsed: 46s, ETA:    49s
+[>>>>>>>>>>>>>>                ] 329/675, 7.1 task/s, elapsed: 46s, ETA:    49s
+[>>>>>>>>>>>>>>                ] 330/675, 7.1 task/s, elapsed: 46s, ETA:    49s
+[>>>>>>>>>>>>>>                ] 331/675, 7.1 task/s, elapsed: 47s, ETA:    48s
+[>>>>>>>>>>>>>>                ] 332/675, 7.1 task/s, elapsed: 47s, ETA:    48s
+[>>>>>>>>>>>>>>                ] 333/675, 7.1 task/s, elapsed: 47s, ETA:    48s
+[>>>>>>>>>>>>>>                ] 334/675, 7.1 task/s, elapsed: 47s, ETA:    48s
+[>>>>>>>>>>>>>>                ] 335/675, 7.1 task/s, elapsed: 47s, ETA:    48s
+[>>>>>>>>>>>>>>                ] 336/675, 7.1 task/s, elapsed: 47s, ETA:    47s
+[>>>>>>>>>>>>>>                ] 337/675, 7.1 task/s, elapsed: 47s, ETA:    47s
+[>>>>>>>>>>>>>>>               ] 338/675, 7.1 task/s, elapsed: 47s, ETA:    47s
+[>>>>>>>>>>>>>>>               ] 339/675, 7.1 task/s, elapsed: 47s, ETA:    47s
+[>>>>>>>>>>>>>>>               ] 340/675, 7.1 task/s, elapsed: 48s, ETA:    47s
+[>>>>>>>>>>>>>>>               ] 341/675, 7.2 task/s, elapsed: 48s, ETA:    47s
+[>>>>>>>>>>>>>>>               ] 342/675, 7.1 task/s, elapsed: 48s, ETA:    47s
+[>>>>>>>>>>>>>>>               ] 343/675, 7.1 task/s, elapsed: 48s, ETA:    46s
+[>>>>>>>>>>>>>>>               ] 344/675, 7.1 task/s, elapsed: 48s, ETA:    46s
+[>>>>>>>>>>>>>>>               ] 345/675, 7.1 task/s, elapsed: 48s, ETA:    46s
+[>>>>>>>>>>>>>>>               ] 346/675, 7.1 task/s, elapsed: 49s, ETA:    46s
+[>>>>>>>>>>>>>>>               ] 347/675, 7.1 task/s, elapsed: 49s, ETA:    46s
+[>>>>>>>>>>>>>>>               ] 348/675, 7.1 task/s, elapsed: 49s, ETA:    46s
+[>>>>>>>>>>>>>>>               ] 349/675, 7.1 task/s, elapsed: 49s, ETA:    46s
+[>>>>>>>>>>>>>>>               ] 350/675, 7.1 task/s, elapsed: 49s, ETA:    46s
+[>>>>>>>>>>>>>>>               ] 351/675, 7.1 task/s, elapsed: 49s, ETA:    45s
+[>>>>>>>>>>>>>>>               ] 352/675, 7.1 task/s, elapsed: 49s, ETA:    45s
+[>>>>>>>>>>>>>>>               ] 353/675, 7.1 task/s, elapsed: 50s, ETA:    45s
+[>>>>>>>>>>>>>>>               ] 354/675, 7.1 task/s, elapsed: 50s, ETA:    45s
+[>>>>>>>>>>>>>>>               ] 355/675, 7.1 task/s, elapsed: 50s, ETA:    45s
+[>>>>>>>>>>>>>>>               ] 356/675, 7.1 task/s, elapsed: 50s, ETA:    45s
+[>>>>>>>>>>>>>>>               ] 357/675, 7.1 task/s, elapsed: 50s, ETA:    45s
+[>>>>>>>>>>>>>>>               ] 358/675, 7.1 task/s, elapsed: 50s, ETA:    44s
+[>>>>>>>>>>>>>>>               ] 359/675, 7.1 task/s, elapsed: 50s, ETA:    44s
+[>>>>>>>>>>>>>>>>              ] 360/675, 7.1 task/s, elapsed: 50s, ETA:    44s
+[>>>>>>>>>>>>>>>>              ] 361/675, 7.1 task/s, elapsed: 51s, ETA:    44s
+[>>>>>>>>>>>>>>>>              ] 362/675, 7.1 task/s, elapsed: 51s, ETA:    44s
+[>>>>>>>>>>>>>>>>              ] 363/675, 7.1 task/s, elapsed: 51s, ETA:    44s
+[>>>>>>>>>>>>>>>>              ] 364/675, 7.1 task/s, elapsed: 51s, ETA:    44s
+[>>>>>>>>>>>>>>>>              ] 365/675, 7.1 task/s, elapsed: 51s, ETA:    43s
+[>>>>>>>>>>>>>>>>              ] 366/675, 7.1 task/s, elapsed: 51s, ETA:    43s
+[>>>>>>>>>>>>>>>>              ] 367/675, 7.1 task/s, elapsed: 51s, ETA:    43s
+[>>>>>>>>>>>>>>>>              ] 368/675, 7.1 task/s, elapsed: 52s, ETA:    43s
+[>>>>>>>>>>>>>>>>              ] 369/675, 7.1 task/s, elapsed: 52s, ETA:    43s
+[>>>>>>>>>>>>>>>>              ] 370/675, 7.1 task/s, elapsed: 52s, ETA:    43s
+[>>>>>>>>>>>>>>>>              ] 371/675, 7.1 task/s, elapsed: 52s, ETA:    43s
+[>>>>>>>>>>>>>>>>              ] 372/675, 7.1 task/s, elapsed: 52s, ETA:    43s
+[>>>>>>>>>>>>>>>>              ] 373/675, 7.1 task/s, elapsed: 52s, ETA:    42s
+[>>>>>>>>>>>>>>>>              ] 374/675, 7.1 task/s, elapsed: 53s, ETA:    42s
+[>>>>>>>>>>>>>>>>              ] 375/675, 7.1 task/s, elapsed: 53s, ETA:    42s
+[>>>>>>>>>>>>>>>>              ] 376/675, 7.1 task/s, elapsed: 53s, ETA:    42s
+[>>>>>>>>>>>>>>>>              ] 377/675, 7.1 task/s, elapsed: 53s, ETA:    42s
+[>>>>>>>>>>>>>>>>              ] 378/675, 7.1 task/s, elapsed: 53s, ETA:    42s
+[>>>>>>>>>>>>>>>>              ] 379/675, 7.1 task/s, elapsed: 53s, ETA:    42s
+[>>>>>>>>>>>>>>>>              ] 380/675, 7.1 task/s, elapsed: 53s, ETA:    41s
+[>>>>>>>>>>>>>>>>              ] 381/675, 7.1 task/s, elapsed: 54s, ETA:    41s
+[>>>>>>>>>>>>>>>>              ] 382/675, 7.1 task/s, elapsed: 54s, ETA:    41s
+[>>>>>>>>>>>>>>>>>             ] 383/675, 7.1 task/s, elapsed: 54s, ETA:    41s
+[>>>>>>>>>>>>>>>>>             ] 384/675, 7.1 task/s, elapsed: 54s, ETA:    41s
+[>>>>>>>>>>>>>>>>>             ] 385/675, 7.1 task/s, elapsed: 54s, ETA:    41s
+[>>>>>>>>>>>>>>>>>             ] 386/675, 7.1 task/s, elapsed: 54s, ETA:    41s
+[>>>>>>>>>>>>>>>>>             ] 387/675, 7.1 task/s, elapsed: 54s, ETA:    41s
+[>>>>>>>>>>>>>>>>>             ] 388/675, 7.1 task/s, elapsed: 55s, ETA:    40s
+[>>>>>>>>>>>>>>>>>             ] 389/675, 7.1 task/s, elapsed: 55s, ETA:    40s
+[>>>>>>>>>>>>>>>>>             ] 390/675, 7.1 task/s, elapsed: 55s, ETA:    40s
+[>>>>>>>>>>>>>>>>>             ] 391/675, 7.1 task/s, elapsed: 55s, ETA:    40s
+[>>>>>>>>>>>>>>>>>             ] 392/675, 7.1 task/s, elapsed: 55s, ETA:    40s
+[>>>>>>>>>>>>>>>>>             ] 393/675, 7.1 task/s, elapsed: 55s, ETA:    40s
+[>>>>>>>>>>>>>>>>>             ] 394/675, 7.1 task/s, elapsed: 55s, ETA:    40s
+[>>>>>>>>>>>>>>>>>             ] 395/675, 7.1 task/s, elapsed: 56s, ETA:    39s
+[>>>>>>>>>>>>>>>>>             ] 396/675, 7.1 task/s, elapsed: 56s, ETA:    39s
+[>>>>>>>>>>>>>>>>>             ] 397/675, 7.1 task/s, elapsed: 56s, ETA:    39s
+[>>>>>>>>>>>>>>>>>             ] 398/675, 7.1 task/s, elapsed: 56s, ETA:    39s
+[>>>>>>>>>>>>>>>>>             ] 399/675, 7.1 task/s, elapsed: 56s, ETA:    39s
+[>>>>>>>>>>>>>>>>>             ] 400/675, 7.1 task/s, elapsed: 56s, ETA:    39s
+[>>>>>>>>>>>>>>>>>             ] 401/675, 7.1 task/s, elapsed: 56s, ETA:    39s
+[>>>>>>>>>>>>>>>>>             ] 402/675, 7.1 task/s, elapsed: 57s, ETA:    38s
+[>>>>>>>>>>>>>>>>>             ] 403/675, 7.1 task/s, elapsed: 57s, ETA:    38s
+[>>>>>>>>>>>>>>>>>             ] 404/675, 7.1 task/s, elapsed: 57s, ETA:    38s
+[>>>>>>>>>>>>>>>>>>            ] 405/675, 7.1 task/s, elapsed: 57s, ETA:    38s
+[>>>>>>>>>>>>>>>>>>            ] 406/675, 7.1 task/s, elapsed: 57s, ETA:    38s
+[>>>>>>>>>>>>>>>>>>            ] 407/675, 7.1 task/s, elapsed: 57s, ETA:    38s
+[>>>>>>>>>>>>>>>>>>            ] 408/675, 7.1 task/s, elapsed: 57s, ETA:    38s
+[>>>>>>>>>>>>>>>>>>            ] 409/675, 7.1 task/s, elapsed: 58s, ETA:    37s
+[>>>>>>>>>>>>>>>>>>            ] 410/675, 7.1 task/s, elapsed: 58s, ETA:    37s
+[>>>>>>>>>>>>>>>>>>            ] 411/675, 7.1 task/s, elapsed: 58s, ETA:    37s
+[>>>>>>>>>>>>>>>>>>            ] 412/675, 7.1 task/s, elapsed: 58s, ETA:    37s
+[>>>>>>>>>>>>>>>>>>            ] 413/675, 7.1 task/s, elapsed: 58s, ETA:    37s
+[>>>>>>>>>>>>>>>>>>            ] 414/675, 7.1 task/s, elapsed: 58s, ETA:    37s
+[>>>>>>>>>>>>>>>>>>            ] 415/675, 7.1 task/s, elapsed: 58s, ETA:    37s
+[>>>>>>>>>>>>>>>>>>            ] 416/675, 7.1 task/s, elapsed: 59s, ETA:    36s
+[>>>>>>>>>>>>>>>>>>            ] 417/675, 7.1 task/s, elapsed: 59s, ETA:    36s
+[>>>>>>>>>>>>>>>>>>            ] 418/675, 7.1 task/s, elapsed: 59s, ETA:    36s
+[>>>>>>>>>>>>>>>>>>            ] 419/675, 7.1 task/s, elapsed: 59s, ETA:    36s
+[>>>>>>>>>>>>>>>>>>            ] 420/675, 7.1 task/s, elapsed: 59s, ETA:    36s
+[>>>>>>>>>>>>>>>>>>            ] 421/675, 7.1 task/s, elapsed: 59s, ETA:    36s
+[>>>>>>>>>>>>>>>>>>            ] 422/675, 7.1 task/s, elapsed: 59s, ETA:    36s
+[>>>>>>>>>>>>>>>>>>            ] 423/675, 7.1 task/s, elapsed: 59s, ETA:    35s
+[>>>>>>>>>>>>>>>>>>            ] 424/675, 7.1 task/s, elapsed: 60s, ETA:    35s
+[>>>>>>>>>>>>>>>>>>            ] 425/675, 7.1 task/s, elapsed: 60s, ETA:    35s
+[>>>>>>>>>>>>>>>>>>            ] 426/675, 7.1 task/s, elapsed: 60s, ETA:    35s
+[>>>>>>>>>>>>>>>>>>            ] 427/675, 7.1 task/s, elapsed: 60s, ETA:    35s
+[>>>>>>>>>>>>>>>>>>>           ] 428/675, 7.1 task/s, elapsed: 60s, ETA:    35s
+[>>>>>>>>>>>>>>>>>>>           ] 429/675, 7.1 task/s, elapsed: 60s, ETA:    35s
+[>>>>>>>>>>>>>>>>>>>           ] 430/675, 7.1 task/s, elapsed: 60s, ETA:    34s
+[>>>>>>>>>>>>>>>>>>>           ] 431/675, 7.1 task/s, elapsed: 61s, ETA:    34s
+[>>>>>>>>>>>>>>>>>>>           ] 432/675, 7.1 task/s, elapsed: 61s, ETA:    34s
+[>>>>>>>>>>>>>>>>>>>           ] 433/675, 7.1 task/s, elapsed: 61s, ETA:    34s
+[>>>>>>>>>>>>>>>>>>>           ] 434/675, 7.1 task/s, elapsed: 61s, ETA:    34s
+[>>>>>>>>>>>>>>>>>>>           ] 435/675, 7.1 task/s, elapsed: 61s, ETA:    34s
+[>>>>>>>>>>>>>>>>>>>           ] 436/675, 7.1 task/s, elapsed: 61s, ETA:    34s
+[>>>>>>>>>>>>>>>>>>>           ] 437/675, 7.1 task/s, elapsed: 61s, ETA:    33s
+[>>>>>>>>>>>>>>>>>>>           ] 438/675, 7.1 task/s, elapsed: 62s, ETA:    33s
+[>>>>>>>>>>>>>>>>>>>           ] 439/675, 7.1 task/s, elapsed: 62s, ETA:    33s
+[>>>>>>>>>>>>>>>>>>>           ] 440/675, 7.1 task/s, elapsed: 62s, ETA:    33s
+[>>>>>>>>>>>>>>>>>>>           ] 441/675, 7.1 task/s, elapsed: 62s, ETA:    33s
+[>>>>>>>>>>>>>>>>>>>           ] 442/675, 7.1 task/s, elapsed: 62s, ETA:    33s
+[>>>>>>>>>>>>>>>>>>>           ] 443/675, 7.1 task/s, elapsed: 62s, ETA:    32s
+[>>>>>>>>>>>>>>>>>>>           ] 444/675, 7.1 task/s, elapsed: 62s, ETA:    32s
+[>>>>>>>>>>>>>>>>>>>           ] 445/675, 7.1 task/s, elapsed: 62s, ETA:    32s
+[>>>>>>>>>>>>>>>>>>>           ] 446/675, 7.1 task/s, elapsed: 63s, ETA:    32s
+[>>>>>>>>>>>>>>>>>>>           ] 447/675, 7.1 task/s, elapsed: 63s, ETA:    32s
+[>>>>>>>>>>>>>>>>>>>           ] 448/675, 7.1 task/s, elapsed: 63s, ETA:    32s
+[>>>>>>>>>>>>>>>>>>>           ] 449/675, 7.1 task/s, elapsed: 63s, ETA:    32s
+[>>>>>>>>>>>>>>>>>>>>          ] 450/675, 7.1 task/s, elapsed: 63s, ETA:    32s
+[>>>>>>>>>>>>>>>>>>>>          ] 451/675, 7.1 task/s, elapsed: 63s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>          ] 452/675, 7.1 task/s, elapsed: 63s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>          ] 453/675, 7.1 task/s, elapsed: 64s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>          ] 454/675, 7.1 task/s, elapsed: 64s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>          ] 455/675, 7.1 task/s, elapsed: 64s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>          ] 456/675, 7.1 task/s, elapsed: 64s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>          ] 457/675, 7.1 task/s, elapsed: 64s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>          ] 458/675, 7.1 task/s, elapsed: 64s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>          ] 459/675, 7.1 task/s, elapsed: 64s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>          ] 460/675, 7.1 task/s, elapsed: 65s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>          ] 461/675, 7.1 task/s, elapsed: 65s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>          ] 462/675, 7.1 task/s, elapsed: 65s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>          ] 463/675, 7.1 task/s, elapsed: 65s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>          ] 464/675, 7.1 task/s, elapsed: 65s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>          ] 465/675, 7.1 task/s, elapsed: 65s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>          ] 466/675, 7.1 task/s, elapsed: 65s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>          ] 467/675, 7.1 task/s, elapsed: 65s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>          ] 468/675, 7.1 task/s, elapsed: 66s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>          ] 469/675, 7.1 task/s, elapsed: 66s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>          ] 470/675, 7.1 task/s, elapsed: 66s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>          ] 471/675, 7.1 task/s, elapsed: 66s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>          ] 472/675, 7.1 task/s, elapsed: 66s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>         ] 473/675, 7.1 task/s, elapsed: 66s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>         ] 474/675, 6.5 task/s, elapsed: 72s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>>         ] 475/675, 6.5 task/s, elapsed: 73s, ETA:    31s
+[>>>>>>>>>>>>>>>>>>>>>         ] 476/675, 6.5 task/s, elapsed: 73s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>>         ] 477/675, 6.5 task/s, elapsed: 73s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>>         ] 478/675, 6.5 task/s, elapsed: 73s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>>         ] 479/675, 6.5 task/s, elapsed: 73s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>>         ] 480/675, 6.5 task/s, elapsed: 73s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>>         ] 481/675, 6.5 task/s, elapsed: 74s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>>         ] 482/675, 6.5 task/s, elapsed: 74s, ETA:    30s
+[>>>>>>>>>>>>>>>>>>>>>         ] 483/675, 6.5 task/s, elapsed: 74s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>>         ] 484/675, 6.5 task/s, elapsed: 74s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>>         ] 485/675, 6.5 task/s, elapsed: 74s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>>         ] 486/675, 6.5 task/s, elapsed: 75s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>>         ] 487/675, 6.5 task/s, elapsed: 75s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>>         ] 488/675, 6.5 task/s, elapsed: 75s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>>         ] 489/675, 6.5 task/s, elapsed: 75s, ETA:    29s
+[>>>>>>>>>>>>>>>>>>>>>         ] 490/675, 6.5 task/s, elapsed: 75s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>         ] 491/675, 6.5 task/s, elapsed: 76s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>         ] 492/675, 6.5 task/s, elapsed: 76s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>         ] 493/675, 6.5 task/s, elapsed: 76s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>         ] 494/675, 6.5 task/s, elapsed: 76s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 495/675, 6.5 task/s, elapsed: 76s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 496/675, 6.5 task/s, elapsed: 76s, ETA:    28s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 497/675, 6.5 task/s, elapsed: 76s, ETA:    27s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 498/675, 6.5 task/s, elapsed: 77s, ETA:    27s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 499/675, 6.5 task/s, elapsed: 77s, ETA:    27s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 500/675, 6.5 task/s, elapsed: 77s, ETA:    27s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 501/675, 6.5 task/s, elapsed: 77s, ETA:    27s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 502/675, 6.5 task/s, elapsed: 77s, ETA:    27s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 503/675, 6.5 task/s, elapsed: 77s, ETA:    26s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 504/675, 6.5 task/s, elapsed: 77s, ETA:    26s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 505/675, 6.5 task/s, elapsed: 77s, ETA:    26s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 506/675, 6.5 task/s, elapsed: 77s, ETA:    26s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 507/675, 6.5 task/s, elapsed: 78s, ETA:    26s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 508/675, 6.5 task/s, elapsed: 78s, ETA:    26s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 509/675, 6.5 task/s, elapsed: 78s, ETA:    25s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 510/675, 6.5 task/s, elapsed: 78s, ETA:    25s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 511/675, 6.5 task/s, elapsed: 78s, ETA:    25s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 512/675, 6.5 task/s, elapsed: 79s, ETA:    25s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 513/675, 6.5 task/s, elapsed: 79s, ETA:    25s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 514/675, 6.5 task/s, elapsed: 79s, ETA:    25s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 515/675, 6.5 task/s, elapsed: 79s, ETA:    25s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 516/675, 6.5 task/s, elapsed: 79s, ETA:    24s
+[>>>>>>>>>>>>>>>>>>>>>>        ] 517/675, 6.5 task/s, elapsed: 79s, ETA:    24s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 518/675, 6.5 task/s, elapsed: 79s, ETA:    24s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 519/675, 6.5 task/s, elapsed: 80s, ETA:    24s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 520/675, 6.5 task/s, elapsed: 80s, ETA:    24s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 521/675, 6.5 task/s, elapsed: 80s, ETA:    24s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 522/675, 6.5 task/s, elapsed: 80s, ETA:    23s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 523/675, 6.5 task/s, elapsed: 80s, ETA:    23s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 524/675, 6.5 task/s, elapsed: 80s, ETA:    23s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 525/675, 6.5 task/s, elapsed: 81s, ETA:    23s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 526/675, 6.5 task/s, elapsed: 81s, ETA:    23s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 527/675, 6.5 task/s, elapsed: 81s, ETA:    23s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 528/675, 6.5 task/s, elapsed: 81s, ETA:    23s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 529/675, 6.5 task/s, elapsed: 81s, ETA:    22s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 530/675, 6.5 task/s, elapsed: 81s, ETA:    22s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 531/675, 6.5 task/s, elapsed: 81s, ETA:    22s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 532/675, 6.5 task/s, elapsed: 81s, ETA:    22s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 533/675, 6.5 task/s, elapsed: 82s, ETA:    22s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 534/675, 6.5 task/s, elapsed: 82s, ETA:    22s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 535/675, 6.5 task/s, elapsed: 82s, ETA:    21s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 536/675, 6.5 task/s, elapsed: 82s, ETA:    21s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 537/675, 6.5 task/s, elapsed: 82s, ETA:    21s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 538/675, 6.5 task/s, elapsed: 82s, ETA:    21s
+[>>>>>>>>>>>>>>>>>>>>>>>       ] 539/675, 6.5 task/s, elapsed: 83s, ETA:    21s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 540/675, 6.5 task/s, elapsed: 83s, ETA:    21s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 541/675, 6.5 task/s, elapsed: 83s, ETA:    21s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 542/675, 6.5 task/s, elapsed: 83s, ETA:    20s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 543/675, 6.5 task/s, elapsed: 83s, ETA:    20s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 544/675, 6.5 task/s, elapsed: 83s, ETA:    20s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 545/675, 6.5 task/s, elapsed: 83s, ETA:    20s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 546/675, 6.5 task/s, elapsed: 83s, ETA:    20s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 547/675, 6.5 task/s, elapsed: 84s, ETA:    20s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 548/675, 6.5 task/s, elapsed: 84s, ETA:    19s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 549/675, 6.5 task/s, elapsed: 84s, ETA:    19s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 550/675, 6.6 task/s, elapsed: 84s, ETA:    19s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 551/675, 6.6 task/s, elapsed: 84s, ETA:    19s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 552/675, 6.6 task/s, elapsed: 84s, ETA:    19s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 553/675, 6.6 task/s, elapsed: 84s, ETA:    19s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 554/675, 6.6 task/s, elapsed: 84s, ETA:    18s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 555/675, 6.6 task/s, elapsed: 85s, ETA:    18s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 556/675, 6.6 task/s, elapsed: 85s, ETA:    18s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 557/675, 6.6 task/s, elapsed: 85s, ETA:    18s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 558/675, 6.6 task/s, elapsed: 85s, ETA:    18s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 559/675, 6.6 task/s, elapsed: 85s, ETA:    18s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 560/675, 6.6 task/s, elapsed: 85s, ETA:    18s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 561/675, 6.6 task/s, elapsed: 86s, ETA:    17s
+[>>>>>>>>>>>>>>>>>>>>>>>>      ] 562/675, 6.6 task/s, elapsed: 86s, ETA:    17s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 563/675, 6.6 task/s, elapsed: 86s, ETA:    17s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 564/675, 6.6 task/s, elapsed: 86s, ETA:    17s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 565/675, 6.6 task/s, elapsed: 86s, ETA:    17s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 566/675, 6.6 task/s, elapsed: 86s, ETA:    17s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 567/675, 6.6 task/s, elapsed: 86s, ETA:    16s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 568/675, 6.6 task/s, elapsed: 87s, ETA:    16s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 569/675, 6.6 task/s, elapsed: 87s, ETA:    16s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 570/675, 6.6 task/s, elapsed: 87s, ETA:    16s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 571/675, 6.6 task/s, elapsed: 87s, ETA:    16s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 572/675, 6.6 task/s, elapsed: 87s, ETA:    16s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 573/675, 6.6 task/s, elapsed: 87s, ETA:    16s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 574/675, 6.6 task/s, elapsed: 87s, ETA:    15s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 575/675, 6.6 task/s, elapsed: 88s, ETA:    15s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 576/675, 6.6 task/s, elapsed: 88s, ETA:    15s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 577/675, 6.6 task/s, elapsed: 88s, ETA:    15s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 578/675, 6.6 task/s, elapsed: 88s, ETA:    15s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 579/675, 6.6 task/s, elapsed: 88s, ETA:    15s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 580/675, 6.6 task/s, elapsed: 88s, ETA:    14s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 581/675, 6.6 task/s, elapsed: 89s, ETA:    14s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 582/675, 6.6 task/s, elapsed: 89s, ETA:    14s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 583/675, 6.6 task/s, elapsed: 89s, ETA:    14s
+[>>>>>>>>>>>>>>>>>>>>>>>>>     ] 584/675, 6.6 task/s, elapsed: 89s, ETA:    14s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 585/675, 6.6 task/s, elapsed: 89s, ETA:    14s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 586/675, 6.6 task/s, elapsed: 89s, ETA:    14s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 587/675, 6.6 task/s, elapsed: 89s, ETA:    13s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 588/675, 6.6 task/s, elapsed: 90s, ETA:    13s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 589/675, 6.6 task/s, elapsed: 90s, ETA:    13s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 590/675, 6.6 task/s, elapsed: 90s, ETA:    13s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 591/675, 6.6 task/s, elapsed: 90s, ETA:    13s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 592/675, 6.6 task/s, elapsed: 90s, ETA:    13s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 593/675, 6.6 task/s, elapsed: 90s, ETA:    12s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 594/675, 6.6 task/s, elapsed: 90s, ETA:    12s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 595/675, 6.6 task/s, elapsed: 90s, ETA:    12s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 596/675, 6.6 task/s, elapsed: 91s, ETA:    12s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 597/675, 6.6 task/s, elapsed: 91s, ETA:    12s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 598/675, 6.6 task/s, elapsed: 91s, ETA:    12s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 599/675, 6.6 task/s, elapsed: 91s, ETA:    12s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 600/675, 6.6 task/s, elapsed: 91s, ETA:    11s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 601/675, 6.6 task/s, elapsed: 91s, ETA:    11s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 602/675, 6.6 task/s, elapsed: 92s, ETA:    11s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 603/675, 6.6 task/s, elapsed: 92s, ETA:    11s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 604/675, 6.6 task/s, elapsed: 92s, ETA:    11s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 605/675, 6.6 task/s, elapsed: 92s, ETA:    11s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 606/675, 6.6 task/s, elapsed: 92s, ETA:    10s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 607/675, 6.6 task/s, elapsed: 92s, ETA:    10s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 608/675, 6.6 task/s, elapsed: 92s, ETA:    10s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 609/675, 6.6 task/s, elapsed: 92s, ETA:    10s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 610/675, 6.6 task/s, elapsed: 93s, ETA:    10s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 611/675, 6.6 task/s, elapsed: 93s, ETA:    10s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 612/675, 6.6 task/s, elapsed: 93s, ETA:    10s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 613/675, 6.6 task/s, elapsed: 93s, ETA:     9s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 614/675, 6.6 task/s, elapsed: 93s, ETA:     9s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 615/675, 6.6 task/s, elapsed: 93s, ETA:     9s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 616/675, 6.6 task/s, elapsed: 93s, ETA:     9s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 617/675, 6.6 task/s, elapsed: 93s, ETA:     9s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 618/675, 6.6 task/s, elapsed: 93s, ETA:     9s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 619/675, 6.6 task/s, elapsed: 94s, ETA:     8s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 620/675, 6.6 task/s, elapsed: 94s, ETA:     8s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 621/675, 6.6 task/s, elapsed: 94s, ETA:     8s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 622/675, 6.6 task/s, elapsed: 94s, ETA:     8s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 623/675, 6.6 task/s, elapsed: 94s, ETA:     8s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 624/675, 6.6 task/s, elapsed: 94s, ETA:     8s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 625/675, 6.6 task/s, elapsed: 94s, ETA:     8s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 626/675, 6.6 task/s, elapsed: 95s, ETA:     7s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 627/675, 6.6 task/s, elapsed: 95s, ETA:     7s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 628/675, 6.6 task/s, elapsed: 95s, ETA:     7s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 629/675, 6.6 task/s, elapsed: 95s, ETA:     7s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 630/675, 6.6 task/s, elapsed: 95s, ETA:     7s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 631/675, 6.6 task/s, elapsed: 95s, ETA:     7s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 632/675, 6.6 task/s, elapsed: 95s, ETA:     6s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 633/675, 6.6 task/s, elapsed: 95s, ETA:     6s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 634/675, 6.6 task/s, elapsed: 96s, ETA:     6s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 635/675, 6.6 task/s, elapsed: 96s, ETA:     6s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 636/675, 6.6 task/s, elapsed: 96s, ETA:     6s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 637/675, 6.6 task/s, elapsed: 96s, ETA:     6s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 638/675, 6.6 task/s, elapsed: 96s, ETA:     6s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 639/675, 6.6 task/s, elapsed: 96s, ETA:     5s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 640/675, 6.6 task/s, elapsed: 96s, ETA:     5s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 641/675, 6.6 task/s, elapsed: 96s, ETA:     5s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 642/675, 6.6 task/s, elapsed: 97s, ETA:     5s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 643/675, 6.7 task/s, elapsed: 97s, ETA:     5s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 644/675, 6.7 task/s, elapsed: 97s, ETA:     5s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 645/675, 6.7 task/s, elapsed: 97s, ETA:     5s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 646/675, 6.7 task/s, elapsed: 97s, ETA:     4s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 647/675, 6.7 task/s, elapsed: 97s, ETA:     4s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 648/675, 6.7 task/s, elapsed: 97s, ETA:     4s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 649/675, 6.7 task/s, elapsed: 98s, ETA:     4s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 650/675, 6.7 task/s, elapsed: 98s, ETA:     4s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 651/675, 6.7 task/s, elapsed: 98s, ETA:     4s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 652/675, 6.7 task/s, elapsed: 98s, ETA:     3s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 653/675, 6.7 task/s, elapsed: 98s, ETA:     3s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 654/675, 6.7 task/s, elapsed: 98s, ETA:     3s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 655/675, 6.7 task/s, elapsed: 98s, ETA:     3s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 656/675, 6.7 task/s, elapsed: 98s, ETA:     3s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 657/675, 6.7 task/s, elapsed: 99s, ETA:     3s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 658/675, 6.7 task/s, elapsed: 99s, ETA:     3s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 659/675, 6.7 task/s, elapsed: 99s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 660/675, 6.7 task/s, elapsed: 99s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 661/675, 6.7 task/s, elapsed: 99s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 662/675, 6.7 task/s, elapsed: 99s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 663/675, 6.7 task/s, elapsed: 99s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 664/675, 6.7 task/s, elapsed: 100s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 665/675, 6.7 task/s, elapsed: 100s, ETA:     2s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 666/675, 6.7 task/s, elapsed: 100s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 667/675, 6.7 task/s, elapsed: 100s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 668/675, 6.7 task/s, elapsed: 100s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 669/675, 6.7 task/s, elapsed: 100s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 670/675, 6.7 task/s, elapsed: 101s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 671/675, 6.7 task/s, elapsed: 101s, ETA:     1s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 672/675, 6.7 task/s, elapsed: 101s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 673/675, 6.7 task/s, elapsed: 101s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 674/675, 6.7 task/s, elapsed: 101s, ETA:     0s
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>] 675/675, 6.7 task/s, elapsed: 101s, ETA:     0s
+Results writes to test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025/results_nusc_det.json
+Initializing nuScenes detection evaluation
+Loaded results from test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025/results_nusc_det.json. Found detections for 675 samples.
+Loading annotations for val split from nuScenes version: v1.0-trainval
+
+  0%|          | 0/675 [00:00<?, ?it/s]
+  4%|▍         | 27/675 [00:00<00:02, 262.12it/s]
+  8%|▊         | 56/675 [00:00<00:02, 274.33it/s]
+ 14%|█▍        | 96/675 [00:00<00:01, 328.89it/s]
+ 22%|██▏       | 148/675 [00:00<00:01, 401.69it/s]
+ 30%|███       | 204/675 [00:00<00:01, 456.45it/s]
+ 39%|███▉      | 265/675 [00:00<00:00, 506.54it/s]
+ 47%|████▋     | 316/675 [00:00<00:00, 454.50it/s]
+ 54%|█████▍    | 363/675 [00:00<00:00, 343.34it/s]
+ 60%|█████▉    | 402/675 [00:01<00:01, 255.65it/s]
+ 64%|██████▍   | 434/675 [00:01<00:00, 262.81it/s]
+ 69%|██████▉   | 465/675 [00:01<00:00, 262.54it/s]
+ 73%|███████▎  | 495/675 [00:01<00:00, 269.12it/s]
+ 78%|███████▊  | 526/675 [00:01<00:00, 278.04it/s]
+ 84%|████████▍ | 566/675 [00:01<00:00, 308.47it/s]
+ 89%|████████▉ | 600/675 [00:01<00:00, 309.85it/s]
+ 94%|█████████▍| 633/675 [00:02<00:00, 226.59it/s]
+ 98%|█████████▊| 660/675 [00:02<00:00, 218.85it/s]
+100%|██████████| 675/675 [00:02<00:00, 290.98it/s]
+Loaded ground truth annotations for 675 samples.
+Filtering predictions
+=> Original number of boxes: 156205
+=> After distance based filtering: 156170
+=> After LIDAR and RADAR points based filtering: 156170
+=> After bike rack filtering: 156170
+Filtering ground truth annotations
+=> Original number of boxes: 18277
+=> After distance based filtering: 7338
+=> After LIDAR and RADAR points based filtering: 7338
+=> After bike rack filtering: 7338
+Accumulating metric data...
+Calculating metrics...
+Saving metrics to: test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025/det
+mAP: 0.0518
+mATE: 0.9715
+mASE: 0.7844
+mAOE: 0.9847
+mAVE: 1.2288
+mAAE: 1.0000
+NDS: 0.0518
+Eval time: 48.9s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.296	0.796	0.166	0.227	1.955	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.035	0.993	0.417	1.594	0.771	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.187	0.926	0.261	1.041	2.104	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+======
+Loading NuScenes tables for version v1.0-trainval...
+4 category,
+0 attribute,
+4 visibility,
+6472 instance,
+4 sensor,
+2 calibrated_sensor,
+3134 ego_pose,
+6 log,
+95 scene,
+3134 sample,
+3134 sample_data,
+74398 sample_annotation,
+6 map,
+Done loading in 3.436 seconds.
+======
+Reverse indexing ...
+Done reverse indexing in 0.7 seconds.
+======
+Initializing nuScenes tracking evaluation
+Loaded results from test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025/results_nusc.json. Found detections for 675 samples.
+Loading annotations for val split from nuScenes version: v1.0-trainval
+
+  0%|          | 0/675 [00:00<?, ?it/s]
+  3%|▎         | 23/675 [00:00<00:02, 229.80it/s]
+  7%|▋         | 46/675 [00:00<00:03, 206.84it/s]
+ 13%|█▎        | 87/675 [00:00<00:02, 291.48it/s]
+ 21%|██        | 141/675 [00:00<00:01, 383.04it/s]
+ 29%|██▉       | 196/675 [00:00<00:01, 438.80it/s]
+ 39%|███▉      | 266/675 [00:00<00:00, 524.65it/s]
+ 47%|████▋     | 319/675 [00:00<00:00, 399.50it/s]
+ 54%|█████▍    | 364/675 [00:01<00:00, 312.75it/s]
+ 59%|█████▉    | 401/675 [00:01<00:00, 284.23it/s]
+ 64%|██████▍   | 434/675 [00:01<00:00, 283.87it/s]
+ 69%|██████▉   | 465/675 [00:01<00:00, 275.48it/s]
+ 73%|███████▎  | 495/675 [00:01<00:00, 272.52it/s]
+ 78%|███████▊  | 526/675 [00:01<00:00, 281.60it/s]
+ 84%|████████▍ | 569/675 [00:01<00:00, 318.37it/s]
+ 89%|████████▉ | 603/675 [00:01<00:00, 302.58it/s]
+ 94%|█████████▍| 635/675 [00:02<00:00, 238.80it/s]
+ 98%|█████████▊| 662/675 [00:02<00:00, 232.14it/s]
+100%|██████████| 675/675 [00:02<00:00, 291.32it/s]
+Loaded ground truth annotations for 675 samples.
+Filtering tracks
+=> Original number of boxes: 4573
+=> After distance based filtering: 4572
+=> After LIDAR and RADAR points based filtering: 4572
+=> After bike rack filtering: 4572
+Filtering ground truth tracks
+=> Original number of boxes: 18277
+=> After distance based filtering: 7338
+=> After LIDAR and RADAR points based filtering: 7338
+=> After bike rack filtering: 7338
+Accumulating metric data...
+Computing metrics for class bicycle...
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+  5%|▍         | 1/21 [00:00<00:04,  4.29it/s]
+ 14%|█▍        | 3/21 [00:00<00:02,  8.80it/s]
+ 29%|██▊       | 6/21 [00:00<00:01, 11.43it/s]
+ 43%|████▎     | 9/21 [00:00<00:00, 14.73it/s]
+ 52%|█████▏    | 11/21 [00:01<00:01,  9.17it/s]
+ 62%|██████▏   | 13/21 [00:01<00:00, 10.25it/s]
+ 71%|███████▏  | 15/21 [00:01<00:00, 10.75it/s]
+ 81%|████████  | 17/21 [00:01<00:00, 10.55it/s]
+ 95%|█████████▌| 20/21 [00:02<00:00,  9.47it/s]
+                                               
+Computed thresholds
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 43%|████▎     | 9/21 [00:00<00:00, 88.84it/s]
+ 86%|████████▌ | 18/21 [00:00<00:00, 63.73it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4016	0.040	0.865	0.329	466	1583	420	1062	101	924	420	403	101
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 43%|████▎     | 9/21 [00:00<00:00, 83.63it/s]
+ 86%|████████▌ | 18/21 [00:00<00:00, 62.42it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4475	0.156	0.857	0.295	466	1583	392	1116	75	798	392	331	75
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 43%|████▎     | 9/21 [00:00<00:00, 85.90it/s]
+ 86%|████████▌ | 18/21 [00:00<00:00, 53.46it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4864	0.261	0.857	0.262	465	1583	357	1169	57	678	357	264	57
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 79.45it/s]
+ 90%|█████████ | 19/21 [00:00<00:00, 70.79it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5325	0.440	0.843	0.231	464	1583	325	1217	41	548	325	182	41
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 38%|███▊      | 8/21 [00:00<00:00, 76.61it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 61.51it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5562	0.483	0.856	0.200	463	1583	288	1267	28	465	288	149	28
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 88.33it/s]
+100%|██████████| 21/21 [00:00<00:00, 93.52it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5956	0.618	0.850	0.171	462	1583	251	1313	19	366	251	96	19
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 117.98it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6251	0.685	0.830	0.143	461	1583	213	1357	13	293	213	67	13
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 107.34it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6490	0.742	0.816	0.121	460	1583	182	1392	9	238	182	47	9
+
+Computing metrics for class bus...
+
+Computing metrics for class car...
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+  5%|▍         | 1/21 [00:00<00:08,  2.34it/s]
+ 10%|▉         | 2/21 [00:00<00:05,  3.42it/s]
+ 14%|█▍        | 3/21 [00:00<00:05,  3.57it/s]
+ 19%|█▉        | 4/21 [00:01<00:04,  3.76it/s]
+ 29%|██▊       | 6/21 [00:01<00:03,  4.68it/s]
+ 33%|███▎      | 7/21 [00:01<00:02,  5.00it/s]
+ 38%|███▊      | 8/21 [00:01<00:02,  5.37it/s]
+ 43%|████▎     | 9/21 [00:02<00:02,  4.90it/s]
+ 48%|████▊     | 10/21 [00:02<00:02,  4.04it/s]
+ 52%|█████▏    | 11/21 [00:02<00:02,  3.76it/s]
+ 62%|██████▏   | 13/21 [00:03<00:01,  4.59it/s]
+ 67%|██████▋   | 14/21 [00:03<00:01,  3.94it/s]
+ 71%|███████▏  | 15/21 [00:03<00:01,  3.83it/s]
+ 81%|████████  | 17/21 [00:03<00:00,  4.98it/s]
+ 95%|█████████▌| 20/21 [00:04<00:00,  5.75it/s]
+100%|██████████| 21/21 [00:04<00:00,  5.13it/s]
+                                               
+Computed thresholds
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+  5%|▍         | 1/21 [00:00<00:02,  8.56it/s]
+ 24%|██▍       | 5/21 [00:00<00:00, 23.52it/s]
+ 43%|████▎     | 9/21 [00:00<00:00, 25.62it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 10.49it/s]
+ 67%|██████▋   | 14/21 [00:01<00:00,  8.68it/s]
+ 81%|████████  | 17/21 [00:01<00:00, 11.48it/s]
+ 95%|█████████▌| 20/21 [00:01<00:00, 12.65it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4226	0.427	0.772	0.434	644	5322	2066	3010	246	3495	2066	1183	246
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 22.34it/s]
+ 38%|███▊      | 8/21 [00:00<00:00, 33.78it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 24.16it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 12.82it/s]
+ 95%|█████████▌| 20/21 [00:01<00:00, 17.00it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4554	0.492	0.771	0.406	643	5322	1967	3163	192	3159	1967	1000	192
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+  5%|▍         | 1/21 [00:00<00:02,  7.47it/s]
+ 19%|█▉        | 4/21 [00:00<00:01, 16.56it/s]
+ 29%|██▊       | 6/21 [00:00<00:01, 13.67it/s]
+ 43%|████▎     | 9/21 [00:00<00:00, 16.40it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 12.46it/s]
+ 62%|██████▏   | 13/21 [00:00<00:00, 13.67it/s]
+ 71%|███████▏  | 15/21 [00:01<00:00, 12.85it/s]
+ 95%|█████████▌| 20/21 [00:01<00:00, 18.62it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4934	0.553	0.764	0.377	643	5322	1856	3315	151	2836	1856	829	151
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 19.42it/s]
+ 33%|███▎      | 7/21 [00:00<00:00, 21.15it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 16.85it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 17.14it/s]
+ 67%|██████▋   | 14/21 [00:00<00:00, 14.51it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 15.51it/s]
+ 95%|█████████▌| 20/21 [00:01<00:00, 19.02it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5411	0.601	0.763	0.344	643	5322	1710	3492	120	2513	1710	683	120
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:01, 15.75it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 21.18it/s]
+ 43%|████▎     | 9/21 [00:00<00:00, 23.37it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 19.01it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 16.60it/s]
+ 95%|█████████▌| 20/21 [00:00<00:00, 22.78it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5819	0.654	0.751	0.315	642	5322	1580	3643	99	2226	1580	547	99
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 23.83it/s]
+ 33%|███▎      | 7/21 [00:00<00:00, 30.96it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 25.80it/s]
+ 67%|██████▋   | 14/21 [00:00<00:00, 20.67it/s]
+ 81%|████████  | 17/21 [00:00<00:00, 22.86it/s]
+100%|██████████| 21/21 [00:00<00:00, 24.51it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6249	0.704	0.744	0.290	642	5322	1464	3778	80	1978	1464	434	80
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 21.44it/s]
+ 33%|███▎      | 7/21 [00:00<00:00, 26.90it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 24.69it/s]
+ 62%|██████▏   | 13/21 [00:00<00:00, 20.38it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 21.73it/s]
+ 95%|█████████▌| 20/21 [00:00<00:00, 25.58it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6586	0.747	0.739	0.262	642	5322	1324	3930	68	1727	1324	335	68
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 24%|██▍       | 5/21 [00:00<00:00, 48.50it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 39.01it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 30.51it/s]
+100%|██████████| 21/21 [00:00<00:00, 37.16it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7004	0.802	0.735	0.235	642	5322	1202	4069	51	1491	1202	238	51
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 49.91it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 36.90it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 33.69it/s]
+100%|██████████| 21/21 [00:00<00:00, 41.42it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7204	0.804	0.722	0.207	642	5322	1062	4219	41	1311	1062	208	41
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 52.85it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 44.95it/s]
+ 81%|████████  | 17/21 [00:00<00:00, 36.29it/s]
+100%|██████████| 21/21 [00:00<00:00, 26.47it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7474	0.826	0.732	0.179	642	5322	923	4367	32	1116	923	161	32
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 19%|█▉        | 4/21 [00:00<00:00, 38.70it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 40.58it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 22.57it/s]
+100%|██████████| 21/21 [00:00<00:00, 26.55it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7627	0.823	0.734	0.156	642	5322	802	4492	28	972	802	142	28
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 10%|▉         | 2/21 [00:00<00:00, 19.19it/s]
+ 43%|████▎     | 9/21 [00:00<00:00, 46.16it/s]
+ 67%|██████▋   | 14/21 [00:00<00:00, 27.25it/s]
+100%|██████████| 21/21 [00:00<00:00, 36.59it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7730	0.815	0.730	0.131	642	5322	672	4627	23	819	672	124	23
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 33%|███▎      | 7/21 [00:00<00:00, 62.11it/s]
+ 67%|██████▋   | 14/21 [00:00<00:00, 46.96it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7930	0.809	0.757	0.106	642	5322	545	4759	18	667	545	104	18
+
+Computing metrics for class motorcycle...
+
+Computing metrics for class pedestrian...
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 71.03it/s]
+ 86%|████████▌ | 18/21 [00:00<00:00, 50.14it/s]
+                                               
+Computed thresholds
+
+Computing metrics for class trailer...
+
+Computing metrics for class truck...
+
+Calculating metrics...
+Saving metrics to: test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025/track
+
+### Final results ###
+
+Per-class results:
+		AMOTA	AMOTP	RECALL	MOTAR	GT	MOTA	MOTP	MT	ML	FAF	TP	FP	FN	IDS	FRAG	TID	LGD
+bicycle 	0.086	1.769	0.171	0.618	1583	0.098	0.850	14	180	20.8	251	96	1313	19	8	1.10	2.67
+bus     	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan
+car     	0.226	1.593	0.315	0.654	5322	0.194	0.751	56	342	85.2	1580	547	3643	99	69	0.95	2.67
+motorcy 	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan
+pedestr 	0.000	2.000	0.000	0.000	445	0.000	2.000	0	60	500.0	0	nan	445	nan	nan	20.00	20.00
+trailer 	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan
+truck   	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan
+
+Aggregated results:
+AMOTA	0.104
+AMOTP	1.787
+RECALL	0.162
+MOTAR	0.424
+GT	2450
+MOTA	0.097
+MOTP	1.200
+MT	70
+ML	582
+FAF	202.0
+TP	1831
+FP	643
+FN	5401
+IDS	118
+FRAG	77
+TID	7.35
+LGD	8.45
+Eval time: 80.1s
+
+Rendering curves
+Initializing nuScenes detection evaluation
+Loaded results from test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025/results_nusc.json. Found detections for 675 samples.
+Loading annotations for val split from nuScenes version: v1.0-trainval
+
+  0%|          | 0/675 [00:00<?, ?it/s]
+  1%|          | 4/675 [00:00<00:20, 32.06it/s]
+  1%|          | 8/675 [00:00<00:18, 35.74it/s]
+  2%|▏         | 12/675 [00:00<00:18, 36.08it/s]
+  2%|▏         | 16/675 [00:00<00:22, 28.89it/s]
+  3%|▎         | 20/675 [00:00<00:21, 30.26it/s]
+  4%|▎         | 24/675 [00:00<00:20, 31.16it/s]
+  4%|▍         | 28/675 [00:00<00:20, 31.20it/s]
+  5%|▍         | 32/675 [00:01<00:21, 30.17it/s]
+  5%|▌         | 36/675 [00:01<00:21, 29.65it/s]
+  6%|▌         | 40/675 [00:01<00:22, 28.78it/s]
+  7%|▋         | 45/675 [00:01<00:18, 33.78it/s]
+  7%|▋         | 49/675 [00:01<00:18, 33.44it/s]
+  8%|▊         | 53/675 [00:01<00:18, 34.43it/s]
+  8%|▊         | 57/675 [00:01<00:18, 33.73it/s]
+  9%|▉         | 61/675 [00:01<00:17, 34.14it/s]
+ 11%|█         | 73/675 [00:02<00:10, 54.74it/s]
+ 12%|█▏        | 79/675 [00:02<00:11, 53.75it/s]
+ 13%|█▎        | 85/675 [00:02<00:11, 51.65it/s]
+ 13%|█▎        | 91/675 [00:02<00:11, 51.12it/s]
+ 14%|█▍        | 97/675 [00:02<00:14, 38.91it/s]
+ 15%|█▌        | 104/675 [00:02<00:12, 44.68it/s]
+ 17%|█▋        | 112/675 [00:02<00:10, 52.54it/s]
+ 18%|█▊        | 120/675 [00:02<00:09, 57.17it/s]
+ 19%|█▉        | 127/675 [00:03<00:09, 59.32it/s]
+ 20%|█▉        | 134/675 [00:03<00:09, 59.66it/s]
+ 21%|██        | 141/675 [00:03<00:09, 58.04it/s]
+ 22%|██▏       | 147/675 [00:03<00:09, 54.21it/s]
+ 23%|██▎       | 153/675 [00:03<00:10, 51.09it/s]
+ 24%|██▍       | 162/675 [00:03<00:09, 54.91it/s]
+ 25%|██▍       | 168/675 [00:03<00:10, 50.62it/s]
+ 26%|██▌       | 176/675 [00:03<00:08, 56.03it/s]
+ 27%|██▋       | 182/675 [00:04<00:08, 54.94it/s]
+ 28%|██▊       | 188/675 [00:04<00:09, 49.02it/s]
+ 29%|██▊       | 194/675 [00:04<00:09, 51.04it/s]
+ 30%|██▉       | 201/675 [00:04<00:08, 54.08it/s]
+ 31%|███       | 210/675 [00:04<00:08, 57.46it/s]
+ 32%|███▏      | 218/675 [00:04<00:07, 61.27it/s]
+ 34%|███▎      | 227/675 [00:04<00:06, 66.85it/s]
+ 35%|███▍      | 236/675 [00:04<00:06, 72.18it/s]
+ 36%|███▋      | 246/675 [00:05<00:05, 78.26it/s]
+ 38%|███▊      | 254/675 [00:05<00:05, 75.32it/s]
+ 39%|███▉      | 262/675 [00:05<00:06, 65.74it/s]
+ 40%|████      | 270/675 [00:05<00:05, 69.20it/s]
+ 41%|████      | 278/675 [00:05<00:05, 69.01it/s]
+ 42%|████▏     | 286/675 [00:05<00:05, 66.39it/s]
+ 43%|████▎     | 293/675 [00:05<00:06, 61.19it/s]
+ 44%|████▍     | 300/675 [00:05<00:06, 58.18it/s]
+ 45%|████▌     | 306/675 [00:06<00:06, 57.40it/s]
+ 46%|████▌     | 312/675 [00:06<00:07, 45.94it/s]
+ 47%|████▋     | 317/675 [00:06<00:08, 42.60it/s]
+ 48%|████▊     | 322/675 [00:06<00:08, 41.09it/s]
+ 48%|████▊     | 327/675 [00:06<00:09, 37.49it/s]
+ 49%|████▉     | 331/675 [00:06<00:10, 32.90it/s]
+ 50%|████▉     | 335/675 [00:07<00:11, 30.42it/s]
+ 50%|█████     | 339/675 [00:07<00:11, 28.07it/s]
+ 51%|█████     | 342/675 [00:07<00:11, 28.18it/s]
+ 51%|█████     | 345/675 [00:07<00:11, 27.75it/s]
+ 52%|█████▏    | 348/675 [00:07<00:12, 26.83it/s]
+ 52%|█████▏    | 351/675 [00:07<00:11, 27.01it/s]
+ 52%|█████▏    | 354/675 [00:07<00:11, 27.61it/s]
+ 53%|█████▎    | 357/675 [00:07<00:12, 24.76it/s]
+ 53%|█████▎    | 360/675 [00:08<00:13, 23.07it/s]
+ 54%|█████▍    | 363/675 [00:08<00:14, 21.68it/s]
+ 54%|█████▍    | 366/675 [00:08<00:14, 21.12it/s]
+ 55%|█████▍    | 369/675 [00:08<00:14, 21.14it/s]
+ 55%|█████▌    | 372/675 [00:08<00:14, 21.06it/s]
+ 56%|█████▌    | 375/675 [00:08<00:13, 22.10it/s]
+ 56%|█████▌    | 378/675 [00:08<00:12, 23.47it/s]
+ 56%|█████▋    | 381/675 [00:08<00:12, 23.64it/s]
+ 57%|█████▋    | 384/675 [00:09<00:14, 20.16it/s]
+ 57%|█████▋    | 387/675 [00:09<00:13, 20.61it/s]
+ 58%|█████▊    | 390/675 [00:09<00:12, 22.11it/s]
+ 58%|█████▊    | 393/675 [00:09<00:12, 21.92it/s]
+ 59%|█████▉    | 400/675 [00:09<00:08, 32.54it/s]
+ 60%|█████▉    | 404/675 [00:09<00:09, 29.97it/s]
+ 60%|██████    | 408/675 [00:10<00:09, 27.30it/s]
+ 61%|██████    | 411/675 [00:10<00:09, 26.88it/s]
+ 61%|██████▏   | 415/675 [00:10<00:09, 27.42it/s]
+ 62%|██████▏   | 418/675 [00:10<00:11, 21.86it/s]
+ 62%|██████▏   | 421/675 [00:10<00:12, 19.96it/s]
+ 63%|██████▎   | 424/675 [00:10<00:12, 20.14it/s]
+ 63%|██████▎   | 427/675 [00:11<00:12, 19.45it/s]
+ 64%|██████▎   | 430/675 [00:11<00:12, 20.02it/s]
+ 64%|██████▍   | 433/675 [00:11<00:11, 21.98it/s]
+ 65%|██████▍   | 436/675 [00:11<00:12, 19.54it/s]
+ 65%|██████▌   | 440/675 [00:11<00:10, 23.03it/s]
+ 66%|██████▌   | 444/675 [00:11<00:08, 26.11it/s]
+ 66%|██████▋   | 448/675 [00:11<00:07, 28.57it/s]
+ 67%|██████▋   | 452/675 [00:11<00:07, 29.99it/s]
+ 68%|██████▊   | 456/675 [00:12<00:08, 27.33it/s]
+ 68%|██████▊   | 459/675 [00:12<00:11, 18.67it/s]
+ 68%|██████▊   | 462/675 [00:12<00:14, 14.21it/s]
+ 69%|██████▊   | 464/675 [00:12<00:14, 14.10it/s]
+ 69%|██████▉   | 466/675 [00:13<00:14, 14.64it/s]
+ 69%|██████▉   | 468/675 [00:13<00:14, 14.54it/s]
+ 70%|██████▉   | 471/675 [00:13<00:12, 16.29it/s]
+ 70%|███████   | 474/675 [00:13<00:11, 17.96it/s]
+ 71%|███████   | 476/675 [00:13<00:11, 16.96it/s]
+ 71%|███████   | 479/675 [00:13<00:10, 18.99it/s]
+ 71%|███████▏  | 482/675 [00:13<00:10, 19.28it/s]
+ 72%|███████▏  | 486/675 [00:13<00:08, 22.84it/s]
+ 72%|███████▏  | 489/675 [00:14<00:08, 22.48it/s]
+ 73%|███████▎  | 492/675 [00:14<00:08, 22.19it/s]
+ 73%|███████▎  | 495/675 [00:14<00:09, 19.37it/s]
+ 74%|███████▍  | 498/675 [00:14<00:09, 18.18it/s]
+ 74%|███████▍  | 500/675 [00:14<00:09, 17.99it/s]
+ 75%|███████▍  | 504/675 [00:14<00:07, 22.20it/s]
+ 75%|███████▌  | 508/675 [00:14<00:06, 24.87it/s]
+ 76%|███████▌  | 511/675 [00:15<00:06, 23.76it/s]
+ 76%|███████▌  | 514/675 [00:15<00:07, 21.37it/s]
+ 77%|███████▋  | 517/675 [00:15<00:08, 18.71it/s]
+ 77%|███████▋  | 519/675 [00:15<00:08, 17.57it/s]
+ 77%|███████▋  | 521/675 [00:15<00:11, 13.92it/s]
+ 77%|███████▋  | 523/675 [00:16<00:10, 14.06it/s]
+ 78%|███████▊  | 529/675 [00:16<00:06, 22.95it/s]
+ 79%|███████▉  | 536/675 [00:16<00:04, 32.32it/s]
+ 80%|████████  | 540/675 [00:16<00:04, 31.22it/s]
+ 81%|████████  | 546/675 [00:16<00:03, 36.89it/s]
+ 82%|████████▏ | 552/675 [00:16<00:03, 40.72it/s]
+ 83%|████████▎ | 557/675 [00:16<00:02, 42.80it/s]
+ 83%|████████▎ | 562/675 [00:16<00:02, 37.68it/s]
+ 84%|████████▍ | 567/675 [00:17<00:03, 33.08it/s]
+ 85%|████████▍ | 573/675 [00:17<00:02, 37.48it/s]
+ 86%|████████▌ | 580/675 [00:17<00:02, 44.76it/s]
+ 87%|████████▋ | 590/675 [00:17<00:01, 51.73it/s]
+ 88%|████████▊ | 596/675 [00:17<00:02, 28.65it/s]
+ 89%|████████▉ | 601/675 [00:18<00:03, 23.57it/s]
+ 90%|████████▉ | 605/675 [00:18<00:03, 20.60it/s]
+ 90%|█████████ | 608/675 [00:18<00:03, 19.78it/s]
+ 91%|█████████ | 611/675 [00:18<00:03, 18.84it/s]
+ 91%|█████████ | 614/675 [00:19<00:03, 16.74it/s]
+ 91%|█████████▏| 616/675 [00:19<00:03, 15.35it/s]
+ 92%|█████████▏| 618/675 [00:19<00:04, 13.97it/s]
+ 92%|█████████▏| 620/675 [00:19<00:03, 13.80it/s]
+ 92%|█████████▏| 622/675 [00:19<00:03, 13.43it/s]
+ 92%|█████████▏| 624/675 [00:19<00:03, 13.87it/s]
+ 93%|█████████▎| 626/675 [00:20<00:03, 14.75it/s]
+ 93%|█████████▎| 628/675 [00:20<00:03, 13.83it/s]
+ 94%|█████████▎| 632/675 [00:20<00:02, 18.03it/s]
+ 94%|█████████▍| 634/675 [00:20<00:02, 18.23it/s]
+ 94%|█████████▍| 636/675 [00:20<00:02, 18.05it/s]
+ 95%|█████████▍| 638/675 [00:20<00:02, 18.09it/s]
+ 95%|█████████▍| 640/675 [00:20<00:01, 17.68it/s]
+ 95%|█████████▌| 642/675 [00:20<00:01, 17.92it/s]
+ 96%|█████████▌| 645/675 [00:21<00:01, 19.04it/s]
+ 96%|█████████▌| 647/675 [00:21<00:01, 19.13it/s]
+ 96%|█████████▌| 649/675 [00:21<00:01, 19.28it/s]
+ 97%|█████████▋| 652/675 [00:21<00:01, 19.65it/s]
+ 97%|█████████▋| 654/675 [00:21<00:01, 19.46it/s]
+ 97%|█████████▋| 656/675 [00:21<00:01, 18.34it/s]
+ 97%|█████████▋| 658/675 [00:21<00:00, 17.53it/s]
+ 98%|█████████▊| 660/675 [00:21<00:00, 16.09it/s]
+ 98%|█████████▊| 662/675 [00:22<00:00, 15.84it/s]
+ 98%|█████████▊| 664/675 [00:22<00:00, 15.61it/s]
+ 99%|█████████▊| 666/675 [00:22<00:00, 15.89it/s]
+ 99%|█████████▉| 668/675 [00:22<00:00, 15.69it/s]
+ 99%|█████████▉| 670/675 [00:22<00:00, 13.86it/s]
+100%|█████████▉| 672/675 [00:22<00:00, 14.08it/s]
+100%|█████████▉| 674/675 [00:22<00:00, 14.90it/s]
+100%|██████████| 675/675 [00:22<00:00, 29.48it/s]
+Loaded ground truth annotations for 675 samples.
+Filtering predictions
+=> Original number of boxes: 4573
+=> After distance based filtering: 4573
+=> After LIDAR and RADAR points based filtering: 4573
+=> After bike rack filtering: 4573
+Filtering ground truth annotations
+=> Original number of boxes: 18277
+=> After distance based filtering: 7874
+=> After LIDAR and RADAR points based filtering: 7874
+=> After bike rack filtering: 7874
+--------------------------------------------------
+Evaluate on motion category, merge class for vehicles and pedestrians...
+evaluate standard motion metrics...
+Accumulating metric data...
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    2.9236   |    5.3673   |     0.5111    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    1.0000   |    1.0000   |     1.0000    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025
+mAP: 0.0171
+mATE: 0.9760
+mASE: 0.9161
+mAOE: 0.9166
+mAVE: 1.0958
+mAAE: 1.0000
+NDS: 0.0277
+Eval time: 17.6s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.169	0.760	0.161	0.250	1.766	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.002	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.000	1.000	1.000	1.000	1.000	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+evaluate motion mAP-minFDE metrics...
+Accumulating metric data...
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    0.6921   |    0.7060   |     0.0731    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    1.0000   |    1.0000   |     1.0000    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025
+mAP: 0.0011
+mATE: 0.9503
+mASE: 0.9168
+mAOE: 0.9199
+mAVE: 0.9609
+mAAE: 1.0000
+NDS: 0.0258
+Eval time: 5.2s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.011	0.503	0.168	0.279	0.687	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.000	1.000	1.000	1.000	1.000	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+evaluate EPA motion metrics...
+Accumulating metric data...
+1579 1639 7429
+EPA  car 0.1022344863343189
+0 0 0
+EPA  truck 0.0
+0 0 0
+EPA  bus 0.0
+0 0 0
+EPA  trailer 0.0
+0 0 0
+EPA  construction_vehicle 0.0
+13 32 445
+EPA  pedestrian -0.006741572882211846
+0 0 0
+EPA  motorcycle 0.0
+0 0 0
+EPA  bicycle 0.0
+0 0 0
+EPA  traffic_cone 0.0
+0 0 0
+EPA  barrier 0.0
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    0.8064   |    0.7893   |     0.0980    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    1.0000   |    1.0000   |     1.0000    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025
+mAP: 0.0038
+mATE: 0.9741
+mASE: 0.9168
+mAOE: 0.9217
+mAVE: 0.9672
+mAAE: 1.0000
+NDS: 0.0239
+Eval time: 10.0s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.038	0.741	0.168	0.296	0.738	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.000	1.000	1.000	1.000	1.000	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+--------------------------------------------------
+Evaluate on detection category...
+Initializing nuScenes detection evaluation
+Loaded results from test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025/results_nusc.json. Found detections for 675 samples.
+Loading annotations for val split from nuScenes version: v1.0-trainval
+
+  0%|          | 0/675 [00:00<?, ?it/s]
+  1%|          | 4/675 [00:00<00:18, 35.81it/s]
+  1%|          | 8/675 [00:00<00:18, 36.83it/s]
+  2%|▏         | 12/675 [00:00<00:18, 35.98it/s]
+  2%|▏         | 16/675 [00:00<00:18, 36.05it/s]
+  3%|▎         | 20/675 [00:00<00:18, 35.12it/s]
+  4%|▎         | 24/675 [00:00<00:19, 33.17it/s]
+  4%|▍         | 28/675 [00:00<00:19, 33.78it/s]
+  5%|▍         | 32/675 [00:00<00:19, 32.96it/s]
+  5%|▌         | 36/675 [00:01<00:22, 28.23it/s]
+  6%|▌         | 39/675 [00:01<00:22, 28.30it/s]
+  7%|▋         | 44/675 [00:01<00:19, 32.26it/s]
+  7%|▋         | 49/675 [00:01<00:17, 35.84it/s]
+  8%|▊         | 54/675 [00:01<00:16, 37.88it/s]
+  9%|▉         | 60/675 [00:01<00:14, 43.60it/s]
+ 10%|▉         | 67/675 [00:01<00:12, 49.83it/s]
+ 11%|█         | 74/675 [00:01<00:11, 52.69it/s]
+ 12%|█▏        | 80/675 [00:02<00:13, 45.56it/s]
+ 13%|█▎        | 85/675 [00:02<00:15, 38.46it/s]
+ 13%|█▎        | 90/675 [00:02<00:14, 39.43it/s]
+ 14%|█▍        | 95/675 [00:02<00:13, 41.66it/s]
+ 15%|█▍        | 100/675 [00:02<00:13, 42.06it/s]
+ 16%|█▌        | 107/675 [00:02<00:11, 48.22it/s]
+ 17%|█▋        | 113/675 [00:02<00:11, 49.42it/s]
+ 18%|█▊        | 120/675 [00:02<00:10, 54.40it/s]
+ 19%|█▊        | 126/675 [00:03<00:10, 52.95it/s]
+ 20%|██        | 137/675 [00:03<00:07, 67.32it/s]
+ 21%|██▏       | 144/675 [00:03<00:07, 66.91it/s]
+ 22%|██▏       | 151/675 [00:03<00:08, 58.23it/s]
+ 23%|██▎       | 158/675 [00:03<00:09, 54.82it/s]
+ 25%|██▍       | 167/675 [00:03<00:08, 61.32it/s]
+ 26%|██▌       | 174/675 [00:03<00:08, 61.90it/s]
+ 27%|██▋       | 185/675 [00:03<00:06, 70.82it/s]
+ 29%|██▊       | 193/675 [00:04<00:09, 53.05it/s]
+ 30%|██▉       | 200/675 [00:04<00:09, 51.63it/s]
+ 31%|███       | 208/675 [00:04<00:08, 57.32it/s]
+ 32%|███▏      | 218/675 [00:04<00:06, 66.84it/s]
+ 33%|███▎      | 226/675 [00:04<00:06, 66.52it/s]
+ 35%|███▍      | 235/675 [00:04<00:06, 71.42it/s]
+ 36%|███▌      | 244/675 [00:04<00:06, 67.75it/s]
+ 37%|███▋      | 252/675 [00:05<00:07, 55.86it/s]
+ 38%|███▊      | 259/675 [00:05<00:07, 57.14it/s]
+ 39%|███▉      | 266/675 [00:05<00:07, 57.49it/s]
+ 41%|████      | 275/675 [00:05<00:06, 64.54it/s]
+ 42%|████▏     | 282/675 [00:05<00:07, 54.02it/s]
+ 43%|████▎     | 288/675 [00:05<00:09, 42.19it/s]
+ 43%|████▎     | 293/675 [00:05<00:09, 42.13it/s]
+ 44%|████▍     | 298/675 [00:06<00:08, 42.70it/s]
+ 45%|████▌     | 305/675 [00:06<00:07, 47.56it/s]
+ 46%|████▌     | 311/675 [00:06<00:08, 41.12it/s]
+ 47%|████▋     | 316/675 [00:06<00:11, 29.92it/s]
+ 47%|████▋     | 320/675 [00:06<00:11, 31.28it/s]
+ 48%|████▊     | 324/675 [00:06<00:11, 31.19it/s]
+ 49%|████▊     | 328/675 [00:07<00:10, 32.23it/s]
+ 49%|████▉     | 332/675 [00:07<00:10, 31.29it/s]
+ 50%|████▉     | 336/675 [00:07<00:10, 32.42it/s]
+ 50%|█████     | 340/675 [00:07<00:10, 32.44it/s]
+ 51%|█████     | 344/675 [00:07<00:11, 28.14it/s]
+ 51%|█████▏    | 347/675 [00:07<00:13, 24.54it/s]
+ 52%|█████▏    | 351/675 [00:07<00:12, 26.86it/s]
+ 53%|█████▎    | 355/675 [00:08<00:12, 26.09it/s]
+ 53%|█████▎    | 358/675 [00:08<00:12, 25.15it/s]
+ 53%|█████▎    | 361/675 [00:08<00:13, 23.32it/s]
+ 54%|█████▍    | 364/675 [00:08<00:12, 24.10it/s]
+ 54%|█████▍    | 367/675 [00:08<00:14, 21.58it/s]
+ 55%|█████▍    | 370/675 [00:08<00:14, 20.96it/s]
+ 55%|█████▌    | 373/675 [00:08<00:13, 22.71it/s]
+ 56%|█████▌    | 376/675 [00:08<00:12, 24.41it/s]
+ 56%|█████▌    | 379/675 [00:09<00:11, 25.25it/s]
+ 57%|█████▋    | 382/675 [00:09<00:11, 24.69it/s]
+ 57%|█████▋    | 385/675 [00:09<00:12, 23.37it/s]
+ 57%|█████▋    | 388/675 [00:09<00:15, 18.77it/s]
+ 58%|█████▊    | 392/675 [00:09<00:12, 22.11it/s]
+ 59%|█████▉    | 398/675 [00:09<00:09, 30.03it/s]
+ 60%|██████    | 405/675 [00:09<00:07, 38.26it/s]
+ 61%|██████    | 411/675 [00:10<00:06, 43.16it/s]
+ 62%|██████▏   | 416/675 [00:10<00:07, 35.80it/s]
+ 62%|██████▏   | 421/675 [00:10<00:07, 32.64it/s]
+ 63%|██████▎   | 425/675 [00:10<00:08, 30.21it/s]
+ 64%|██████▎   | 429/675 [00:10<00:09, 25.15it/s]
+ 64%|██████▍   | 433/675 [00:10<00:09, 26.59it/s]
+ 65%|██████▍   | 436/675 [00:11<00:09, 25.60it/s]
+ 65%|██████▌   | 440/675 [00:11<00:08, 27.73it/s]
+ 66%|██████▌   | 443/675 [00:11<00:08, 27.34it/s]
+ 66%|██████▌   | 446/675 [00:11<00:08, 26.96it/s]
+ 67%|██████▋   | 449/675 [00:11<00:08, 25.60it/s]
+ 67%|██████▋   | 452/675 [00:11<00:08, 25.46it/s]
+ 67%|██████▋   | 455/675 [00:11<00:08, 24.96it/s]
+ 68%|██████▊   | 458/675 [00:11<00:09, 23.23it/s]
+ 68%|██████▊   | 461/675 [00:12<00:09, 21.42it/s]
+ 69%|██████▊   | 464/675 [00:12<00:11, 17.65it/s]
+ 69%|██████▉   | 467/675 [00:12<00:11, 18.90it/s]
+ 70%|██████▉   | 470/675 [00:12<00:11, 17.32it/s]
+ 70%|███████   | 473/675 [00:12<00:10, 18.96it/s]
+ 71%|███████   | 476/675 [00:12<00:09, 20.50it/s]
+ 71%|███████   | 479/675 [00:13<00:09, 21.35it/s]
+ 71%|███████▏  | 482/675 [00:13<00:09, 20.26it/s]
+ 72%|███████▏  | 486/675 [00:13<00:07, 24.59it/s]
+ 73%|███████▎  | 491/675 [00:13<00:06, 30.18it/s]
+ 73%|███████▎  | 495/675 [00:13<00:05, 32.31it/s]
+ 74%|███████▍  | 499/675 [00:13<00:06, 26.52it/s]
+ 74%|███████▍  | 502/675 [00:13<00:07, 23.04it/s]
+ 75%|███████▍  | 506/675 [00:14<00:06, 25.80it/s]
+ 75%|███████▌  | 509/675 [00:14<00:06, 25.78it/s]
+ 76%|███████▌  | 513/675 [00:14<00:05, 28.51it/s]
+ 77%|███████▋  | 517/675 [00:14<00:05, 31.14it/s]
+ 77%|███████▋  | 521/675 [00:14<00:04, 30.98it/s]
+ 78%|███████▊  | 525/675 [00:14<00:04, 32.76it/s]
+ 79%|███████▉  | 533/675 [00:14<00:03, 45.24it/s]
+ 80%|████████  | 540/675 [00:14<00:02, 50.81it/s]
+ 81%|████████  | 546/675 [00:15<00:02, 43.75it/s]
+ 82%|████████▏ | 553/675 [00:15<00:02, 49.35it/s]
+ 83%|████████▎ | 559/675 [00:15<00:02, 47.46it/s]
+ 84%|████████▎ | 564/675 [00:15<00:02, 45.95it/s]
+ 84%|████████▍ | 569/675 [00:15<00:02, 46.45it/s]
+ 85%|████████▌ | 576/675 [00:15<00:01, 52.15it/s]
+ 87%|████████▋ | 590/675 [00:15<00:01, 67.60it/s]
+ 88%|████████▊ | 597/675 [00:16<00:02, 38.84it/s]
+ 89%|████████▉ | 603/675 [00:16<00:02, 31.94it/s]
+ 90%|█████████ | 608/675 [00:16<00:02, 26.82it/s]
+ 91%|█████████ | 612/675 [00:17<00:02, 22.36it/s]
+ 91%|█████████ | 615/675 [00:17<00:03, 19.89it/s]
+ 92%|█████████▏| 618/675 [00:17<00:03, 17.58it/s]
+ 92%|█████████▏| 621/675 [00:17<00:03, 17.60it/s]
+ 92%|█████████▏| 623/675 [00:17<00:03, 16.68it/s]
+ 93%|█████████▎| 626/675 [00:17<00:02, 17.33it/s]
+ 93%|█████████▎| 628/675 [00:18<00:02, 17.37it/s]
+ 94%|█████████▎| 632/675 [00:18<00:02, 20.33it/s]
+ 94%|█████████▍| 635/675 [00:18<00:02, 17.12it/s]
+ 94%|█████████▍| 637/675 [00:18<00:02, 16.27it/s]
+ 95%|█████████▍| 639/675 [00:18<00:02, 16.17it/s]
+ 95%|█████████▌| 642/675 [00:18<00:01, 18.79it/s]
+ 96%|█████████▌| 645/675 [00:18<00:01, 20.42it/s]
+ 96%|█████████▌| 649/675 [00:19<00:01, 23.23it/s]
+ 97%|█████████▋| 652/675 [00:19<00:00, 23.34it/s]
+ 97%|█████████▋| 655/675 [00:19<00:00, 24.66it/s]
+ 97%|█████████▋| 658/675 [00:19<00:00, 22.46it/s]
+ 98%|█████████▊| 661/675 [00:19<00:00, 21.09it/s]
+ 98%|█████████▊| 664/675 [00:19<00:00, 16.62it/s]
+ 99%|█████████▊| 666/675 [00:20<00:00, 16.24it/s]
+ 99%|█████████▉| 668/675 [00:20<00:00, 15.41it/s]
+ 99%|█████████▉| 670/675 [00:20<00:00, 15.64it/s]
+100%|█████████▉| 672/675 [00:20<00:00, 15.37it/s]
+100%|██████████| 675/675 [00:20<00:00, 32.84it/s]
+Loaded ground truth annotations for 675 samples.
+Filtering predictions
+=> Original number of boxes: 4573
+=> After distance based filtering: 4572
+=> After LIDAR and RADAR points based filtering: 4572
+=> After bike rack filtering: 4572
+Filtering ground truth annotations
+=> Original number of boxes: 18277
+=> After distance based filtering: 7338
+=> After LIDAR and RADAR points based filtering: 7338
+=> After bike rack filtering: 7338
+evaluate standard motion metrics...
+Accumulating metric data...
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    2.8671   |    5.3281   |     0.5309    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    3.3916   |    5.9379   |     0.4596    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025
+mAP: 0.0437
+mATE: 0.9582
+mASE: 0.8394
+mAOE: 0.9055
+mAVE: 1.2179
+mAAE: 1.0000
+NDS: 0.0516
+Eval time: 5.1s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.286	0.747	0.148	0.139	1.719	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.152	0.835	0.246	1.010	2.024	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+evaluate EPA motion metrics...
+Accumulating metric data...
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    0.6898   |    0.7007   |     0.0751    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    1.0000   |    1.0000   |     1.0000    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025
+mAP: 0.0019
+mATE: 0.9497
+mASE: 0.9149
+mAOE: 0.9069
+mAVE: 0.9592
+mAAE: 1.0000
+NDS: 0.0279
+Eval time: 4.3s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.019	0.497	0.149	0.162	0.673	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.000	1.000	1.000	1.000	1.000	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+evaluate EPA motion metrics...
+Accumulating metric data...
+1329 1251 5312
+EPA  car 0.13243599372658887
+0 0 0
+EPA  truck 0.0
+0 0 0
+EPA  bus 0.0
+0 0 0
+EPA  trailer 0.0
+0 0 0
+EPA  construction_vehicle 0.0
+13 32 445
+EPA  pedestrian -0.006741572882211846
+0 0 0
+EPA  motorcycle 0.0
+245 397 1581
+EPA  bicycle 0.029411764519849688
+0 0 0
+EPA  traffic_cone 0.0
+0 0 0
+EPA  barrier 0.0
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    0.8020   |    0.7832   |     0.1029    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    0.8276   |    0.8449   |     0.0803    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Thu_Jan__9_18_11_44_2025
+mAP: 0.0066
+mATE: 0.9544
+mASE: 0.8405
+mAOE: 0.9097
+mAVE: 0.9390
+mAAE: 1.0000
+NDS: 0.0390
+Eval time: 8.0s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.054	0.727	0.151	0.158	0.738	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.012	0.817	0.254	1.029	0.775	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+{'pts_bbox_NuScenes/car_AP_dist_0.5': 0.0221, 'pts_bbox_NuScenes/car_AP_dist_1.0': 0.1782, 'pts_bbox_NuScenes/car_AP_dist_2.0': 0.4059, 'pts_bbox_NuScenes/car_AP_dist_4.0': 0.5785, 'pts_bbox_NuScenes/car_trans_err': 0.7961, 'pts_bbox_NuScenes/car_scale_err': 0.1662, 'pts_bbox_NuScenes/car_orient_err': 0.2269, 'pts_bbox_NuScenes/car_vel_err': 1.9552, 'pts_bbox_NuScenes/car_attr_err': 1.0, 'pts_bbox_NuScenes/mATE': 0.9715, 'pts_bbox_NuScenes/mASE': 0.7844, 'pts_bbox_NuScenes/mAOE': 0.9847, 'pts_bbox_NuScenes/mAVE': 1.2288, 'pts_bbox_NuScenes/mAAE': 1.0, 'pts_bbox_NuScenes/truck_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/truck_trans_err': 1.0, 'pts_bbox_NuScenes/truck_scale_err': 1.0, 'pts_bbox_NuScenes/truck_orient_err': 1.0, 'pts_bbox_NuScenes/truck_vel_err': 1.0, 'pts_bbox_NuScenes/truck_attr_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_trans_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_scale_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_orient_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_vel_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_attr_err': 1.0, 'pts_bbox_NuScenes/bus_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/bus_trans_err': 1.0, 'pts_bbox_NuScenes/bus_scale_err': 1.0, 'pts_bbox_NuScenes/bus_orient_err': 1.0, 'pts_bbox_NuScenes/bus_vel_err': 1.0, 'pts_bbox_NuScenes/bus_attr_err': 1.0, 'pts_bbox_NuScenes/trailer_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/trailer_trans_err': 1.0, 'pts_bbox_NuScenes/trailer_scale_err': 1.0, 'pts_bbox_NuScenes/trailer_orient_err': 1.0, 'pts_bbox_NuScenes/trailer_vel_err': 1.0, 'pts_bbox_NuScenes/trailer_attr_err': 1.0, 'pts_bbox_NuScenes/barrier_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/barrier_trans_err': 1.0, 'pts_bbox_NuScenes/barrier_scale_err': 1.0, 'pts_bbox_NuScenes/barrier_orient_err': 1.0, 'pts_bbox_NuScenes/barrier_vel_err': nan, 'pts_bbox_NuScenes/barrier_attr_err': nan, 'pts_bbox_NuScenes/motorcycle_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/motorcycle_trans_err': 1.0, 'pts_bbox_NuScenes/motorcycle_scale_err': 1.0, 'pts_bbox_NuScenes/motorcycle_orient_err': 1.0, 'pts_bbox_NuScenes/motorcycle_vel_err': 1.0, 'pts_bbox_NuScenes/motorcycle_attr_err': 1.0, 'pts_bbox_NuScenes/bicycle_AP_dist_0.5': 0.0008, 'pts_bbox_NuScenes/bicycle_AP_dist_1.0': 0.0795, 'pts_bbox_NuScenes/bicycle_AP_dist_2.0': 0.2453, 'pts_bbox_NuScenes/bicycle_AP_dist_4.0': 0.4211, 'pts_bbox_NuScenes/bicycle_trans_err': 0.9263, 'pts_bbox_NuScenes/bicycle_scale_err': 0.2613, 'pts_bbox_NuScenes/bicycle_orient_err': 1.0413, 'pts_bbox_NuScenes/bicycle_vel_err': 2.1038, 'pts_bbox_NuScenes/bicycle_attr_err': 1.0, 'pts_bbox_NuScenes/pedestrian_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/pedestrian_AP_dist_1.0': 0.0031, 'pts_bbox_NuScenes/pedestrian_AP_dist_2.0': 0.0513, 'pts_bbox_NuScenes/pedestrian_AP_dist_4.0': 0.0853, 'pts_bbox_NuScenes/pedestrian_trans_err': 0.9925, 'pts_bbox_NuScenes/pedestrian_scale_err': 0.417, 'pts_bbox_NuScenes/pedestrian_orient_err': 1.5942, 'pts_bbox_NuScenes/pedestrian_vel_err': 0.7714, 'pts_bbox_NuScenes/pedestrian_attr_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_trans_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_scale_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_orient_err': nan, 'pts_bbox_NuScenes/traffic_cone_vel_err': nan, 'pts_bbox_NuScenes/traffic_cone_attr_err': nan, 'pts_bbox_NuScenes/NDS': 0.05182674802965039, 'pts_bbox_NuScenes/mAP': 0.05178293863936244, 'pts_bbox_NuScenes/amota': 0.10400440391692789, 'pts_bbox_NuScenes/amotp': 1.7874028590581041, 'pts_bbox_NuScenes/recall': 0.1620150415970007, 'pts_bbox_NuScenes/motar': 0.4237757829441726, 'pts_bbox_NuScenes/gt': 2450.0, 'pts_bbox_NuScenes/mota': 0.09733843767342305, 'pts_bbox_NuScenes/motp': 1.2003164917814042, 'pts_bbox_NuScenes/mt': 70.0, 'pts_bbox_NuScenes/ml': 582.0, 'pts_bbox_NuScenes/faf': 201.99390433035293, 'pts_bbox_NuScenes/tp': 1831.0, 'pts_bbox_NuScenes/fp': 643.0, 'pts_bbox_NuScenes/fn': 5401.0, 'pts_bbox_NuScenes/ids': 118.0, 'pts_bbox_NuScenes/frag': 77.0, 'pts_bbox_NuScenes/tid': 7.351741111382313, 'pts_bbox_NuScenes/lgd': 8.445722479863315, 'drivable_iou': 0.7570472359657288, 'lanes_iou': 0.1775427609682083, 'divider_iou': nan, 'crossing_iou': 0.197710320353508, 'contour_iou': 0.15465788543224335}
+{'pts_bbox_NuScenes/car_AP_dist_0.5': 0.0221, 'pts_bbox_NuScenes/car_AP_dist_1.0': 0.1782, 'pts_bbox_NuScenes/car_AP_dist_2.0': 0.4059, 'pts_bbox_NuScenes/car_AP_dist_4.0': 0.5785, 'pts_bbox_NuScenes/car_trans_err': 0.7961, 'pts_bbox_NuScenes/car_scale_err': 0.1662, 'pts_bbox_NuScenes/car_orient_err': 0.2269, 'pts_bbox_NuScenes/car_vel_err': 1.9552, 'pts_bbox_NuScenes/car_attr_err': 1.0, 'pts_bbox_NuScenes/mATE': 0.9715, 'pts_bbox_NuScenes/mASE': 0.7844, 'pts_bbox_NuScenes/mAOE': 0.9847, 'pts_bbox_NuScenes/mAVE': 1.2288, 'pts_bbox_NuScenes/mAAE': 1.0, 'pts_bbox_NuScenes/truck_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/truck_trans_err': 1.0, 'pts_bbox_NuScenes/truck_scale_err': 1.0, 'pts_bbox_NuScenes/truck_orient_err': 1.0, 'pts_bbox_NuScenes/truck_vel_err': 1.0, 'pts_bbox_NuScenes/truck_attr_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_trans_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_scale_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_orient_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_vel_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_attr_err': 1.0, 'pts_bbox_NuScenes/bus_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/bus_trans_err': 1.0, 'pts_bbox_NuScenes/bus_scale_err': 1.0, 'pts_bbox_NuScenes/bus_orient_err': 1.0, 'pts_bbox_NuScenes/bus_vel_err': 1.0, 'pts_bbox_NuScenes/bus_attr_err': 1.0, 'pts_bbox_NuScenes/trailer_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/trailer_trans_err': 1.0, 'pts_bbox_NuScenes/trailer_scale_err': 1.0, 'pts_bbox_NuScenes/trailer_orient_err': 1.0, 'pts_bbox_NuScenes/trailer_vel_err': 1.0, 'pts_bbox_NuScenes/trailer_attr_err': 1.0, 'pts_bbox_NuScenes/barrier_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/barrier_trans_err': 1.0, 'pts_bbox_NuScenes/barrier_scale_err': 1.0, 'pts_bbox_NuScenes/barrier_orient_err': 1.0, 'pts_bbox_NuScenes/barrier_vel_err': nan, 'pts_bbox_NuScenes/barrier_attr_err': nan, 'pts_bbox_NuScenes/motorcycle_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/motorcycle_trans_err': 1.0, 'pts_bbox_NuScenes/motorcycle_scale_err': 1.0, 'pts_bbox_NuScenes/motorcycle_orient_err': 1.0, 'pts_bbox_NuScenes/motorcycle_vel_err': 1.0, 'pts_bbox_NuScenes/motorcycle_attr_err': 1.0, 'pts_bbox_NuScenes/bicycle_AP_dist_0.5': 0.0008, 'pts_bbox_NuScenes/bicycle_AP_dist_1.0': 0.0795, 'pts_bbox_NuScenes/bicycle_AP_dist_2.0': 0.2453, 'pts_bbox_NuScenes/bicycle_AP_dist_4.0': 0.4211, 'pts_bbox_NuScenes/bicycle_trans_err': 0.9263, 'pts_bbox_NuScenes/bicycle_scale_err': 0.2613, 'pts_bbox_NuScenes/bicycle_orient_err': 1.0413, 'pts_bbox_NuScenes/bicycle_vel_err': 2.1038, 'pts_bbox_NuScenes/bicycle_attr_err': 1.0, 'pts_bbox_NuScenes/pedestrian_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/pedestrian_AP_dist_1.0': 0.0031, 'pts_bbox_NuScenes/pedestrian_AP_dist_2.0': 0.0513, 'pts_bbox_NuScenes/pedestrian_AP_dist_4.0': 0.0853, 'pts_bbox_NuScenes/pedestrian_trans_err': 0.9925, 'pts_bbox_NuScenes/pedestrian_scale_err': 0.417, 'pts_bbox_NuScenes/pedestrian_orient_err': 1.5942, 'pts_bbox_NuScenes/pedestrian_vel_err': 0.7714, 'pts_bbox_NuScenes/pedestrian_attr_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_trans_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_scale_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_orient_err': nan, 'pts_bbox_NuScenes/traffic_cone_vel_err': nan, 'pts_bbox_NuScenes/traffic_cone_attr_err': nan, 'pts_bbox_NuScenes/NDS': 0.05182674802965039, 'pts_bbox_NuScenes/mAP': 0.05178293863936244, 'pts_bbox_NuScenes/amota': 0.10400440391692789, 'pts_bbox_NuScenes/amotp': 1.7874028590581041, 'pts_bbox_NuScenes/recall': 0.1620150415970007, 'pts_bbox_NuScenes/motar': 0.4237757829441726, 'pts_bbox_NuScenes/gt': 2450.0, 'pts_bbox_NuScenes/mota': 0.09733843767342305, 'pts_bbox_NuScenes/motp': 1.2003164917814042, 'pts_bbox_NuScenes/mt': 70.0, 'pts_bbox_NuScenes/ml': 582.0, 'pts_bbox_NuScenes/faf': 201.99390433035293, 'pts_bbox_NuScenes/tp': 1831.0, 'pts_bbox_NuScenes/fp': 643.0, 'pts_bbox_NuScenes/fn': 5401.0, 'pts_bbox_NuScenes/ids': 118.0, 'pts_bbox_NuScenes/frag': 77.0, 'pts_bbox_NuScenes/tid': 7.351741111382313, 'pts_bbox_NuScenes/lgd': 8.445722479863315, 'drivable_iou': 0.7570472359657288, 'lanes_iou': 0.1775427609682083, 'divider_iou': nan, 'crossing_iou': 0.197710320353508, 'contour_iou': 0.15465788543224335}

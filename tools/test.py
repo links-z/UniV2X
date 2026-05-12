@@ -5,6 +5,8 @@ import sklearn
 import mmcv
 import os
 import warnings
+import torch.multiprocessing as mp
+mp.set_start_method('fork', force=True)
 from mmcv import Config, DictAction
 from mmcv.cnn import fuse_conv_bn
 from mmcv.parallel import MMDataParallel, MMDistributedDataParallel

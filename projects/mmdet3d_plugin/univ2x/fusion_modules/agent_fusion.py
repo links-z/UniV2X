@@ -105,7 +105,7 @@ class AgentQueryFusion(nn.Module):
 
 
 
-    def _query_matching_old(self, inf_ref_pts, veh_ref_pts, veh_mask, veh_pred_dims):
+    def _query_matching(self, inf_ref_pts, veh_ref_pts, veh_mask, veh_pred_dims):
         """
         inf_ref_pts: [..., 3] (xyz)
         veh_ref_pts: [..., 3] (xyz)
@@ -129,7 +129,7 @@ class AgentQueryFusion(nn.Module):
 
 
 
-    def _query_matching(self, inf_ref_pts, veh_ref_pts, veh_mask, veh_pred_dims):
+    def _query_matching_old(self, inf_ref_pts, veh_ref_pts, veh_mask, veh_pred_dims):
         inf_nums = inf_ref_pts.shape[0]
         veh_nums = veh_ref_pts.shape[0]
 

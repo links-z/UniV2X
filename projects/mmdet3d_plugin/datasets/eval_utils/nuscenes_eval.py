@@ -586,6 +586,7 @@ class TrackingEval_custom(TrackingEval):
 
         # Convert boxes to tracks format.
         from nuscenes.eval.tracking.loaders import create_tracks as create_tracks_orig
+        from nuscenes.eval.tracking.loaders import interpolate_tracks
         from collections import defaultdict
 
         # Custom create_tracks for SPD dataset
@@ -613,6 +614,23 @@ class TrackingEval_custom(TrackingEval):
                 scene_token = sample_record['scene_token']
                 if scene_token in tracks:
                     tracks[scene_token][sample_record['timestamp']] = all_boxes.boxes[sample_token]
+
+            if not gt:
+                for scene_id, scene_tracks in tracks.items():
+                    track_id_scores = defaultdict(list)
+                    for timestamp, boxes in scene_tracks.items():
+                        for box in boxes:
+                            track_id_scores[box.tracking_id].append(box.tracking_score)
+                    track_id_avg_scores = {tid: np.mean(scores) for tid, scores in track_id_scores.items()}
+                    for timestamp, boxes in scene_tracks.items():
+                        for box in boxes:
+                            box.tracking_score = track_id_avg_scores[box.tracking_id]
+
+            for scene_token in tracks.keys():
+                tracks[scene_token] = interpolate_tracks(tracks[scene_token])
+                if not gt:
+                    tracks[scene_token] = defaultdict(list, sorted(tracks[scene_token].items(), key=lambda kv: kv[0]))
+
             return tracks
 
         self.tracks_gt = create_tracks_spd(gt_boxes, nusc, self.eval_set, gt=True)
