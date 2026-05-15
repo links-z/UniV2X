@@ -85,10 +85,14 @@ class MotionHead(BaseMotionHead):
                       gt_labels_3d,
                       gt_fut_traj=None,
                       gt_fut_traj_mask=None,
-                      gt_sdc_fut_traj=None, 
-                      gt_sdc_fut_traj_mask=None, 
+                      gt_sdc_fut_traj=None,
+                      gt_sdc_fut_traj_mask=None,
                       outs_track={},
-                      outs_seg={}
+                      outs_seg={},
+                      inf_track_query=None,
+                      inf_track_scores=None,
+                      inf_track_pos=None,
+                      inf_track_history=None,
                   ):
         """Forward function
         Args:
@@ -126,7 +130,9 @@ class MotionHead(BaseMotionHead):
         
         memory, memory_mask, memory_pos, lane_query, _, lane_query_pos, hw_lvl = outs_seg['args_tuple']
 
-        outs_motion = self(bev_embed, track_query, lane_query, lane_query_pos, track_boxes)
+        outs_motion = self(bev_embed, track_query, lane_query, lane_query_pos, track_boxes,
+                           inf_track_query=inf_track_query, inf_track_scores=inf_track_scores,
+                           inf_track_pos=inf_track_pos, inf_track_history=inf_track_history)
         loss_inputs = [gt_bboxes_3d, gt_fut_traj, gt_fut_traj_mask, outs_motion, all_matched_idxes, track_boxes]
         losses = self.loss(*loss_inputs)
 
@@ -157,7 +163,8 @@ class MotionHead(BaseMotionHead):
         ret_dict = dict(losses=losses, outs_motion=outs_motion, track_boxes=track_boxes)
         return ret_dict
 
-    def forward_test(self, bev_embed, outs_track={}, outs_seg={}):
+    def forward_test(self, bev_embed, outs_track={}, outs_seg={}, inf_track_query=None,
+                     inf_track_scores=None, inf_track_pos=None, inf_track_history=None):
         """Test function"""
         track_query = outs_track['track_query_embeddings'][None, None, ...]
         track_boxes = outs_track['track_bbox_results']
@@ -170,7 +177,9 @@ class MotionHead(BaseMotionHead):
         track_boxes[0][2] = torch.cat([track_boxes[0][2], sdc_track_boxes[0][2]], dim=0)
         track_boxes[0][3] = torch.cat([track_boxes[0][3], sdc_track_boxes[0][3]], dim=0)      
         memory, memory_mask, memory_pos, lane_query, _, lane_query_pos, hw_lvl = outs_seg['args_tuple']
-        outs_motion = self(bev_embed, track_query, lane_query, lane_query_pos, track_boxes)
+        outs_motion = self(bev_embed, track_query, lane_query, lane_query_pos, track_boxes,
+                           inf_track_query=inf_track_query, inf_track_scores=inf_track_scores,
+                           inf_track_pos=inf_track_pos, inf_track_history=inf_track_history)
         traj_results = self.get_trajs(outs_motion, track_boxes)
         bboxes, scores, labels, bbox_index, mask = track_boxes[0]
         outs_motion['track_scores'] = scores[None, :]
@@ -203,12 +212,16 @@ class MotionHead(BaseMotionHead):
         return traj_results, outs_motion
 
     @auto_fp16(apply_to=('bev_embed', 'track_query', 'lane_query', 'lane_query_pos', 'lane_query_embed', 'prev_bev'))
-    def forward(self, 
-                bev_embed, 
-                track_query, 
-                lane_query, 
-                lane_query_pos, 
-                track_bbox_results):
+    def forward(self,
+                bev_embed,
+                track_query,
+                lane_query,
+                lane_query_pos,
+                track_bbox_results,
+                inf_track_query=None,
+                inf_track_scores=None,
+                inf_track_pos=None,
+                inf_track_history=None):
         """
         Applies forward pass on the model for motion prediction using bird's eye view (BEV) embedding, track query, lane query, and track bounding box results.
 
@@ -235,7 +248,24 @@ class MotionHead(BaseMotionHead):
 
         # extract the last frame of the track query
         track_query = track_query[:, -1]
-        
+
+        # Enhance track_query with infrastructure information via cross-attention
+        if inf_track_query is not None:
+            # A1: position-aware - add position encoding to inf queries
+            if inf_track_pos is not None:
+                inf_pos_emb = self.inf_pos_embedding(pos2posemb2d(inf_track_pos.to(device)))
+                inf_q = inf_track_query + inf_pos_emb
+            else:
+                inf_q = inf_track_query
+            # A3: confidence weighting - scale inf queries by detection scores
+            if inf_track_scores is not None:
+                inf_q = inf_q * inf_track_scores.unsqueeze(-1).to(device)
+            # A2: temporal - concatenate with previous frame inf queries
+            if inf_track_history is not None:
+                inf_q = torch.cat([inf_track_history.to(device), inf_q], dim=1)
+            attn_out, _ = self.inf_cross_attn(track_query, inf_q, inf_q)
+            track_query = self.inf_cross_attn_norm(track_query + attn_out)
+
         # encode the center point of the track query
         reference_points_track = self._extract_tracking_centers(
             track_bbox_results, self.pc_range)

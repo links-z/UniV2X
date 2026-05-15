@@ -85,6 +85,15 @@ class BaseMotionHead(nn.Module):
             nn.ReLU(),
             nn.Linear(self.embed_dims*2, self.embed_dims),
         )
+        # Cross-attention for infrastructure track queries
+        self.inf_cross_attn = nn.MultiheadAttention(self.embed_dims, num_heads=8, batch_first=True)
+        self.inf_cross_attn_norm = nn.LayerNorm(self.embed_dims)
+        # A1: position encoding for inf queries
+        self.inf_pos_embedding = nn.Sequential(
+            nn.Linear(self.embed_dims, self.embed_dims),
+            nn.ReLU(),
+            nn.Linear(self.embed_dims, self.embed_dims),
+        )
     
     def _init_layers(self):
         """Initialize classification branch and regression branch of head."""
