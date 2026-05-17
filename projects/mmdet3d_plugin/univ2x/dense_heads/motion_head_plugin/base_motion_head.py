@@ -94,6 +94,14 @@ class BaseMotionHead(nn.Module):
             nn.ReLU(),
             nn.Linear(self.embed_dims, self.embed_dims),
         )
+        # Deepening 1: adaptive gate for fusion
+        self.inf_fusion_gate = nn.Sequential(
+            nn.Linear(self.embed_dims * 2, self.embed_dims),
+            nn.Sigmoid(),
+        )
+        # Deepening 2: temporal transformer for multi-frame inf queries
+        self.inf_temporal_attn = nn.MultiheadAttention(self.embed_dims, num_heads=8, batch_first=True)
+        self.inf_temporal_norm = nn.LayerNorm(self.embed_dims)
     
     def _init_layers(self):
         """Initialize classification branch and regression branch of head."""

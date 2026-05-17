@@ -260,11 +260,17 @@ class MotionHead(BaseMotionHead):
             # A3: confidence weighting - scale inf queries by detection scores
             if inf_track_scores is not None:
                 inf_q = inf_q * inf_track_scores.unsqueeze(-1).to(device)
-            # A2: temporal - concatenate with previous frame inf queries
+            # Deepening 2: temporal transformer over multi-frame inf queries
             if inf_track_history is not None:
-                inf_q = torch.cat([inf_track_history.to(device), inf_q], dim=1)
+                hist = inf_track_history.to(device)
+                # use current inf_q as query, history as key/value
+                inf_q_temporal, _ = self.inf_temporal_attn(inf_q, hist, hist)
+                inf_q = self.inf_temporal_norm(inf_q + inf_q_temporal)
+            # cross-attention: ego track_query attends to inf queries
             attn_out, _ = self.inf_cross_attn(track_query, inf_q, inf_q)
-            track_query = self.inf_cross_attn_norm(track_query + attn_out)
+            # Deepening 1: adaptive gate controls fusion ratio
+            gate = self.inf_fusion_gate(torch.cat([track_query, attn_out], dim=-1))
+            track_query = self.inf_cross_attn_norm(track_query + gate * attn_out)
 
         # encode the center point of the track query
         reference_points_track = self._extract_tracking_centers(

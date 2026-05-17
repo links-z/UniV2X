@@ -44,6 +44,7 @@ class UniV2X(UniV2XTrack):
         load_from='',
         **kwargs,
     ):
+        freeze_for_finetune = kwargs.pop('freeze_for_finetune', False)
         super(UniV2X, self).__init__(is_cooperation=is_cooperation,
                                                                     is_ego_agent=is_ego_agent,
                                                                     pc_range=pc_range,
@@ -60,17 +61,23 @@ class UniV2X(UniV2XTrack):
             self.motion_head = build_head(motion_head)
         if planning_head:
             self.planning_head = build_head(planning_head)
-        
+
         self.task_loss_weight = task_loss_weight
         assert set(task_loss_weight.keys()) == \
                {'track', 'occ', 'motion', 'map', 'planning'}
-    
+
         self.is_cooperation = is_cooperation
         self.save_track_query = save_track_query
         self.save_track_query_file_root = save_track_query_file_root
         self.read_track_query_file_root = read_track_query_file_root
 
         self.is_ego_agent = is_ego_agent
+
+        # Freeze all params except new inf cross-attention layers for fine-tuning
+        if freeze_for_finetune:
+            for name, param in self.named_parameters():
+                if 'inf_cross_attn' not in name and 'inf_pos_embedding' not in name:
+                    param.requires_grad = False
 
 
     @property
