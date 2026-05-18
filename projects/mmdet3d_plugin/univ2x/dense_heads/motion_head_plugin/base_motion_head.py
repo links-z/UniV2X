@@ -88,18 +88,23 @@ class BaseMotionHead(nn.Module):
         # Cross-attention for infrastructure track queries
         self.inf_cross_attn = nn.MultiheadAttention(self.embed_dims, num_heads=8, batch_first=True)
         self.inf_cross_attn_norm = nn.LayerNorm(self.embed_dims)
-        # A1: position encoding for inf queries
+        # A1: position encoding + spatial bias projection (distance -> attention bias)
         self.inf_pos_embedding = nn.Sequential(
             nn.Linear(self.embed_dims, self.embed_dims),
             nn.ReLU(),
             nn.Linear(self.embed_dims, self.embed_dims),
         )
-        # Deepening 1: adaptive gate for fusion
+        self.inf_spatial_bias_proj = nn.Linear(1, 1)
+        # A3: reliability gate (inf_score + proximity -> per-inf-query weight)
+        self.inf_reliability_gate = nn.Sequential(
+            nn.Linear(2, 16), nn.ReLU(), nn.Linear(16, 1), nn.Sigmoid()
+        )
+        # D1: enhanced fusion gate (includes mean inf score + mean distance)
         self.inf_fusion_gate = nn.Sequential(
-            nn.Linear(self.embed_dims * 2, self.embed_dims),
+            nn.Linear(self.embed_dims * 2 + 2, self.embed_dims),
             nn.Sigmoid(),
         )
-        # Deepening 2: temporal transformer for multi-frame inf queries
+        # D2: temporal transformer for multi-frame inf queries
         self.inf_temporal_attn = nn.MultiheadAttention(self.embed_dims, num_heads=8, batch_first=True)
         self.inf_temporal_norm = nn.LayerNorm(self.embed_dims)
     

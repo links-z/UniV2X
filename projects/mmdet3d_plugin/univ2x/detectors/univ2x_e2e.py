@@ -73,10 +73,10 @@ class UniV2X(UniV2XTrack):
 
         self.is_ego_agent = is_ego_agent
 
-        # Freeze all params except new inf cross-attention layers for fine-tuning
+        # Freeze backbone/BEV encoder, unfreeze entire motion_head for fine-tuning
         if freeze_for_finetune:
             for name, param in self.named_parameters():
-                if 'inf_cross_attn' not in name and 'inf_pos_embedding' not in name:
+                if not name.startswith('motion_head'):
                     param.requires_grad = False
 
 
