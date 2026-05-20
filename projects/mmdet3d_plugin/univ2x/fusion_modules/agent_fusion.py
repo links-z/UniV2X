@@ -247,7 +247,7 @@ class AgentQueryFusion(nn.Module):
 
         # matching
         veh_mask = torch.where(veh.scores >= 0.05)[0]
-        veh_idx, inf_idx, cost_matrix = self._query_matching(inf_ref_pts, veh_ref_pts, veh_mask, veh.pred_boxes[..., [2,3,5]]) # veh.pred_boxes x,y,dx,dy,z,dz
+        veh_idx, inf_idx, cost_matrix = self._query_matching_old(inf_ref_pts, veh_ref_pts, veh_mask, veh.pred_boxes[..., [2,3,5]]) # veh.pred_boxes x,y,dx,dy,z,dz
 
         # ref_pts normalization
         inf_ref_pts = self._loc_norm(inf_ref_pts, self.pc_range)

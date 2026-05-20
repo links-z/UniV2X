@@ -20,7 +20,7 @@ from mmdet.models import build_loss
 from einops import rearrange
 from mmdet.models.utils.transformer import inverse_sigmoid
 from ..dense_heads.track_head_plugin import MemoryBank, QueryInteractionModule, Instances, RuntimeTrackerBase
-from ..fusion_modules import AgentQueryFusion
+from ..fusion_modules import AgentQueryFusion, LearnableAgentQueryFusion
 import mmcv,os
 import torch.nn.functional as F
 
@@ -79,6 +79,7 @@ class UniV2XTrack(MVXTwoStageDetector):
         freeze_bev_encoder=False,
         queue_length=3,
         is_cooperation=False,
+        use_learnable_fusion=False,
         is_ego_agent=False,
         return_track_query=True,
         save_track_query=False,
@@ -169,8 +170,8 @@ class UniV2XTrack(MVXTwoStageDetector):
         # cross-agent query interaction
         self.is_cooperation = is_cooperation
         if self.is_cooperation:
-            self.cross_agent_query_interaction = AgentQueryFusion(pc_range=self.pc_range,
-                                                                                    embed_dims=self.embed_dims)
+            fusion_cls = LearnableAgentQueryFusion if use_learnable_fusion else AgentQueryFusion
+            self.cross_agent_query_interaction = fusion_cls(pc_range=self.pc_range, embed_dims=self.embed_dims)
 
         self.save_track_query = save_track_query
         self.save_track_query_file_root = save_track_query_file_root
@@ -582,6 +583,9 @@ class UniV2XTrack(MVXTwoStageDetector):
         if not self.is_ego_agent:
             out_track_instances = self._update_inf_track_embedding(out_track_instances)
         out["track_instances"] = out_track_instances
+        # collect match_loss from fusion module if present
+        if hasattr(track_instances, '_match_loss'):
+            out['match_loss'] = track_instances._match_loss
         return out
 
     def select_active_track_query(self, track_instances, active_index, img_metas, with_mask=True):
@@ -697,6 +701,8 @@ class UniV2XTrack(MVXTwoStageDetector):
         out.update({k: frame_res[k] for k in get_keys})
         
         losses = self.criterion.losses_dict
+        if 'match_loss' in frame_res:
+            losses['match_loss'] = frame_res['match_loss']
         return losses, out
 
     def upsample_bev_if_tiny(self, outs_track):

@@ -521,6 +521,7 @@ is_ego_agent = True
 model_ego_agent = dict(
     type="UniV2X",
     is_cooperation=is_cooperation,
+    use_learnable_fusion=True,
     gt_iou_threshold=train_gt_iou_threshold,
     queue_length=queue_length,
     use_grid_mask=True,
