@@ -165,7 +165,6 @@ class UniV2XTrack(MVXTwoStageDetector):
         self.gt_iou_threshold = gt_iou_threshold
         self.bev_h, self.bev_w = self.pts_bbox_head.bev_h, self.pts_bbox_head.bev_w
         self.freeze_bev_encoder = freeze_bev_encoder
-        self.prev_inf_track_query = None  # temporal buffer for A2
 
         # cross-agent query interaction
         self.is_cooperation = is_cooperation
@@ -833,32 +832,6 @@ class UniV2XTrack(MVXTwoStageDetector):
         out.update(self.select_active_track_query(track_instances, active_index, img_metas))
         out.update(self.select_sdc_track_query(track_instances[track_instances.obj_idxes==-2], img_metas))
 
-        # Save inf track query embeddings for motion head
-        if self.is_ego_agent and self.is_cooperation:
-            # A2: reset temporal buffer at scene start
-            if prev_bev is None:
-                self.prev_inf_track_query = None
-            inf_active = other_agent_track_instances.scores > self.track_base.filter_score_thresh
-            inf_emb = other_agent_track_instances.output_embedding[inf_active]
-            inf_scores = other_agent_track_instances.scores[inf_active]
-            inf_pos = other_agent_track_instances.ref_pts[inf_active, :2]  # [N_inf, 2]
-            if inf_emb.shape[0] == 0:
-                inf_emb = inf_emb.new_zeros(1, self.embed_dims)
-                inf_scores = inf_scores.new_zeros(1)
-                inf_pos = inf_pos.new_zeros(1, 2)
-            # A2: temporal - concatenate with previous frame
-            inf_history = self.prev_inf_track_query  # [1, N_prev, D] or None
-            self.prev_inf_track_query = inf_emb[None].detach()
-            out['inf_track_query_embeddings'] = inf_emb[None]   # [1, N_inf, D]
-            out['inf_track_query_scores'] = inf_scores[None]    # [1, N_inf]
-            out['inf_track_query_pos'] = inf_pos[None]          # [1, N_inf, 2]
-            out['inf_track_query_history'] = inf_history        # [1, N_prev, D] or None
-        else:
-            out['inf_track_query_embeddings'] = None
-            out['inf_track_query_scores'] = None
-            out['inf_track_query_pos'] = None
-            out['inf_track_query_history'] = None
-
         """ update with memory_bank """
         if self.memory_bank is not None:
             track_instances = self.memory_bank(track_instances)
@@ -941,9 +914,6 @@ class UniV2XTrack(MVXTwoStageDetector):
                     "boxes_3d", "scores_3d", "labels_3d", "track_scores", "track_ids"]
         if self.with_motion_head:
             get_keys += ["sdc_boxes_3d", "sdc_scores_3d", "sdc_track_scores", "sdc_track_bbox_results", "sdc_embedding"]
-        if self.is_ego_agent and self.is_cooperation:
-            get_keys += ["inf_track_query_embeddings", "inf_track_query_scores",
-                         "inf_track_query_pos", "inf_track_query_history"]
         results[0].update({k: frame_res[k] for k in get_keys})
 
         # UniV2X: inf_track_query

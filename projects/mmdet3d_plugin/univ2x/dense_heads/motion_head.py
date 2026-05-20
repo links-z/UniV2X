@@ -52,11 +52,6 @@ class MotionHead(BaseMotionHead):
                  loss_traj=dict(),
                  num_classes=0,
                  vehicle_id_list=[0, 1, 2, 3, 4, 6, 7],
-                 ablation_no_pos=False,
-                 ablation_no_score=False,
-                 ablation_no_temporal=False,
-                 ablation_no_gate=False,
-                 ablation_no_inf=False,
                  **kwargs):
         super(MotionHead, self).__init__()
         
@@ -64,14 +59,9 @@ class MotionHead(BaseMotionHead):
         self.bev_w = bev_w
         self.num_cls_fcs = num_cls_fcs - 1
         self.num_reg_fcs = num_cls_fcs - 1
-        self.embed_dims = embed_dims
+        self.embed_dims = embed_dims        
         self.num_anchor = num_anchor
         self.num_anchor_group = len(group_id_list)
-        self.ablation_no_pos = ablation_no_pos
-        self.ablation_no_score = ablation_no_score
-        self.ablation_no_temporal = ablation_no_temporal
-        self.ablation_no_gate = ablation_no_gate
-        self.ablation_no_inf = ablation_no_inf
         
         # we merge the classes into groups for anchor assignment
         self.cls2group = [0 for i in range(num_classes)]
@@ -95,14 +85,10 @@ class MotionHead(BaseMotionHead):
                       gt_labels_3d,
                       gt_fut_traj=None,
                       gt_fut_traj_mask=None,
-                      gt_sdc_fut_traj=None,
-                      gt_sdc_fut_traj_mask=None,
+                      gt_sdc_fut_traj=None, 
+                      gt_sdc_fut_traj_mask=None, 
                       outs_track={},
-                      outs_seg={},
-                      inf_track_query=None,
-                      inf_track_scores=None,
-                      inf_track_pos=None,
-                      inf_track_history=None,
+                      outs_seg={}
                   ):
         """Forward function
         Args:
@@ -140,9 +126,7 @@ class MotionHead(BaseMotionHead):
         
         memory, memory_mask, memory_pos, lane_query, _, lane_query_pos, hw_lvl = outs_seg['args_tuple']
 
-        outs_motion = self(bev_embed, track_query, lane_query, lane_query_pos, track_boxes,
-                           inf_track_query=inf_track_query, inf_track_scores=inf_track_scores,
-                           inf_track_pos=inf_track_pos, inf_track_history=inf_track_history)
+        outs_motion = self(bev_embed, track_query, lane_query, lane_query_pos, track_boxes)
         loss_inputs = [gt_bboxes_3d, gt_fut_traj, gt_fut_traj_mask, outs_motion, all_matched_idxes, track_boxes]
         losses = self.loss(*loss_inputs)
 
@@ -173,8 +157,7 @@ class MotionHead(BaseMotionHead):
         ret_dict = dict(losses=losses, outs_motion=outs_motion, track_boxes=track_boxes)
         return ret_dict
 
-    def forward_test(self, bev_embed, outs_track={}, outs_seg={}, inf_track_query=None,
-                     inf_track_scores=None, inf_track_pos=None, inf_track_history=None):
+    def forward_test(self, bev_embed, outs_track={}, outs_seg={}):
         """Test function"""
         track_query = outs_track['track_query_embeddings'][None, None, ...]
         track_boxes = outs_track['track_bbox_results']
@@ -187,9 +170,7 @@ class MotionHead(BaseMotionHead):
         track_boxes[0][2] = torch.cat([track_boxes[0][2], sdc_track_boxes[0][2]], dim=0)
         track_boxes[0][3] = torch.cat([track_boxes[0][3], sdc_track_boxes[0][3]], dim=0)      
         memory, memory_mask, memory_pos, lane_query, _, lane_query_pos, hw_lvl = outs_seg['args_tuple']
-        outs_motion = self(bev_embed, track_query, lane_query, lane_query_pos, track_boxes,
-                           inf_track_query=inf_track_query, inf_track_scores=inf_track_scores,
-                           inf_track_pos=inf_track_pos, inf_track_history=inf_track_history)
+        outs_motion = self(bev_embed, track_query, lane_query, lane_query_pos, track_boxes)
         traj_results = self.get_trajs(outs_motion, track_boxes)
         bboxes, scores, labels, bbox_index, mask = track_boxes[0]
         outs_motion['track_scores'] = scores[None, :]
@@ -222,16 +203,12 @@ class MotionHead(BaseMotionHead):
         return traj_results, outs_motion
 
     @auto_fp16(apply_to=('bev_embed', 'track_query', 'lane_query', 'lane_query_pos', 'lane_query_embed', 'prev_bev'))
-    def forward(self,
-                bev_embed,
-                track_query,
-                lane_query,
-                lane_query_pos,
-                track_bbox_results,
-                inf_track_query=None,
-                inf_track_scores=None,
-                inf_track_pos=None,
-                inf_track_history=None):
+    def forward(self, 
+                bev_embed, 
+                track_query, 
+                lane_query, 
+                lane_query_pos, 
+                track_bbox_results):
         """
         Applies forward pass on the model for motion prediction using bird's eye view (BEV) embedding, track query, lane query, and track bounding box results.
 
@@ -258,60 +235,10 @@ class MotionHead(BaseMotionHead):
 
         # extract the last frame of the track query
         track_query = track_query[:, -1]
-
-        # extract ego positions early (needed for spatial computations)
-        reference_points_track = self._extract_tracking_centers(track_bbox_results, self.pc_range)
-
-        # Enhance track_query with infrastructure information via cross-attention
-        if inf_track_query is not None and not self.ablation_no_inf:
-            ego_pos = reference_points_track.to(device)   # [B, N_ego, 2]
-            inf_pos = inf_track_pos.to(device)             # [B, N_inf, 2]
-            dist = torch.cdist(ego_pos, inf_pos)           # [B, N_ego, N_inf]
-
-            # A1: position encoding + spatial bias to attention scores
-            if inf_track_pos is not None and not self.ablation_no_pos:
-                inf_pos_emb = self.inf_pos_embedding(pos2posemb2d(inf_pos))
-                inf_q = inf_track_query + inf_pos_emb
-                # spatial bias: learned function of distance, shape [B*8, N_ego, N_inf]
-                spatial_bias = self.inf_spatial_bias_proj(dist.unsqueeze(-1)).squeeze(-1)
-                B_sz, N_ego, N_inf = spatial_bias.shape
-                attn_bias = spatial_bias.unsqueeze(1).expand(-1, 8, -1, -1).reshape(B_sz * 8, N_ego, N_inf)
-            else:
-                inf_q = inf_track_query
-                attn_bias = None
-
-            # A3: reliability gate using inf score + proximity
-            if inf_track_scores is not None and not self.ablation_no_score:
-                min_dist = dist.min(dim=1).values          # [B, N_inf]
-                rel_input = torch.stack([
-                    inf_track_scores.to(device),
-                    1.0 / (1.0 + min_dist)
-                ], dim=-1)                                  # [B, N_inf, 2]
-                reliability = self.inf_reliability_gate(rel_input)  # [B, N_inf, 1]
-                inf_q = inf_q * reliability
-
-            # D2: temporal transformer
-            if inf_track_history is not None and not self.ablation_no_temporal:
-                hist = inf_track_history.to(device)
-                inf_q_temporal, _ = self.inf_temporal_attn(inf_q, hist, hist)
-                inf_q = self.inf_temporal_norm(inf_q + inf_q_temporal)
-
-            # cross-attention with spatial bias
-            attn_out, _ = self.inf_cross_attn(track_query, inf_q, inf_q,
-                                               attn_mask=attn_bias if not self.ablation_no_pos else None)
-
-            # D1: enhanced gate with mean inf score + mean distance
-            if not self.ablation_no_gate:
-                s_i_mean = inf_track_scores.to(device).mean(dim=-1, keepdim=True).unsqueeze(-1).expand(
-                    track_query.shape[0], track_query.shape[1], 1)   # [B, N_ego, 1]
-                d_mean = dist.mean(dim=-1, keepdim=True)              # [B, N_ego, 1]
-                gate_input = torch.cat([track_query, attn_out, s_i_mean, d_mean], dim=-1)
-                gate = self.inf_fusion_gate(gate_input)
-                track_query = self.inf_cross_attn_norm(track_query + gate * attn_out)
-            else:
-                track_query = self.inf_cross_attn_norm(track_query + attn_out)
-
+        
         # encode the center point of the track query
+        reference_points_track = self._extract_tracking_centers(
+            track_bbox_results, self.pc_range)
         track_query_pos = self.boxes_query_embedding_layer(pos2posemb2d(reference_points_track.to(device)))  # B, A, D
         
         # construct the learnable query positional embedding

@@ -44,7 +44,6 @@ class UniV2X(UniV2XTrack):
         load_from='',
         **kwargs,
     ):
-        freeze_for_finetune = kwargs.pop('freeze_for_finetune', False)
         super(UniV2X, self).__init__(is_cooperation=is_cooperation,
                                                                     is_ego_agent=is_ego_agent,
                                                                     pc_range=pc_range,
@@ -61,23 +60,17 @@ class UniV2X(UniV2XTrack):
             self.motion_head = build_head(motion_head)
         if planning_head:
             self.planning_head = build_head(planning_head)
-
+        
         self.task_loss_weight = task_loss_weight
         assert set(task_loss_weight.keys()) == \
                {'track', 'occ', 'motion', 'map', 'planning'}
-
+    
         self.is_cooperation = is_cooperation
         self.save_track_query = save_track_query
         self.save_track_query_file_root = save_track_query_file_root
         self.read_track_query_file_root = read_track_query_file_root
 
         self.is_ego_agent = is_ego_agent
-
-        # Freeze backbone/BEV encoder, unfreeze entire motion_head for fine-tuning
-        if freeze_for_finetune:
-            for name, param in self.named_parameters():
-                if not name.startswith('motion_head'):
-                    param.requires_grad = False
 
 
     @property
@@ -221,14 +214,10 @@ class UniV2X(UniV2XTrack):
         # Forward Motion Head
         if self.with_motion_head:
             ret_dict_motion = self.motion_head.forward_train(bev_embed,
-                                                        gt_bboxes_3d, gt_labels_3d,
-                                                        gt_fut_traj, gt_fut_traj_mask,
-                                                        gt_sdc_fut_traj, gt_sdc_fut_traj_mask,
-                                                        outs_track=outs_track, outs_seg=outs_seg,
-                                                        inf_track_query=outs_track.get('inf_track_query_embeddings', None),
-                                                        inf_track_scores=outs_track.get('inf_track_query_scores', None),
-                                                        inf_track_pos=outs_track.get('inf_track_query_pos', None),
-                                                        inf_track_history=outs_track.get('inf_track_query_history', None),
+                                                        gt_bboxes_3d, gt_labels_3d, 
+                                                        gt_fut_traj, gt_fut_traj_mask, 
+                                                        gt_sdc_fut_traj, gt_sdc_fut_traj_mask, 
+                                                        outs_track=outs_track, outs_seg=outs_seg
                                                     )
             losses_motion = ret_dict_motion["losses"]
             outs_motion = ret_dict_motion["outs_motion"]
@@ -361,13 +350,7 @@ class UniV2X(UniV2XTrack):
             )
 
         if self.with_motion_head:
-            result_motion, outs_motion = self.motion_head.forward_test(
-                bev_embed, outs_track=result_track[0], outs_seg=result_seg[0],
-                inf_track_query=result_track[0].get('inf_track_query_embeddings', None),
-                inf_track_scores=result_track[0].get('inf_track_query_scores', None),
-                inf_track_pos=result_track[0].get('inf_track_query_pos', None),
-                inf_track_history=result_track[0].get('inf_track_query_history', None),
-            )
+            result_motion, outs_motion = self.motion_head.forward_test(bev_embed, outs_track=result_track[0], outs_seg=result_seg[0])
             outs_motion['bev_pos'] = result_track[0]['bev_pos']
 
         outs_occ = dict()
