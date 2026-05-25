@@ -193,7 +193,9 @@ final_track_score = min(det_score, assoc_score)
 - FP 不超过 baseline 太多。
 - AMOTA 相比 baseline 有提升。
 
-## 4. 第二阶段增强创新性
+## 4. 第二阶段增强创新性（暂缓）
+
+本阶段创新性更强，但训练和验证成本明显更高。当前论文主线先不依赖 Step 7-8，只有在 A/B/C/D/E/G 六组实验已经稳定且仍需要增强说服力时，再考虑加入。
 
 MVP 成功后，再逐步增加创新模块。
 
@@ -278,7 +280,7 @@ L_preserve = L1(box_student, box_teacher)
 
 ### 5.1 必须保留的对照
 
-实验组：
+考虑服务器成本，主论文实验压缩为 6 组。A/B/C 尽量复用已有结果或少量补跑，D/E/G 是新方法主线。
 
 | 编号 | 方法 | 作用 |
 | --- | --- | --- |
@@ -287,10 +289,13 @@ L_preserve = L1(box_student, box_teacher)
 | C | Post-process Sinkhorn | 证明 association 有潜力但 FP 高 |
 | D | Detection-preserved only | 验证 mAP 可恢复 |
 | E | D + Partial OT | 验证 association 提升 |
-| F | E + Candidate pool | 验证 FP 控制 |
-| G | F + Score calibration | 验证 AMOTA/FP 平衡 |
-| H | G + Uncertainty-aware cost | 验证鲁棒性 |
-| I | H + Track query memory | 最终完整方法 |
+| G | E + Candidate pool + Score calibration | 最终主方法，验证 AMOTA/FP 平衡 |
+
+暂不作为主论文必跑：
+
+- F: 只加 candidate pool。若 G 效果异常，再补 F 定位问题。
+- H: uncertainty-aware cost。成本高，先作为未来工作或附加实验。
+- I: track query memory。需要训练验证，先不做主线依赖。
 
 ### 5.2 主要指标
 
@@ -307,21 +312,16 @@ L_preserve = L1(box_student, box_teacher)
 
 建议每个实验都整理成统一表格，不只保留日志。
 
-### 5.3 鲁棒性实验
+### 5.3 鲁棒性实验（可选）
 
-如果时间允许，做以下扰动：
+成本受限时，鲁棒性实验不作为首轮必跑。只有主结果已经稳定，且投稿需要额外说服力时，再选择 1-2 个小实验补充。
+
+优先级：
 
 1. pose noise
 2. communication delay
-3. query drop / bandwidth limit
-4. infrastructure score threshold variation
-5. distance range split
-6. occlusion / low visibility subset
 
-鲁棒性实验的目的：
-
-- 证明 uncertainty-aware association 有意义。
-- 证明方法不是只靠调阈值刷指标。
+暂不优先做 query drop、distance split、occlusion subset，除非主实验结果需要进一步解释。
 
 ## 6. 消融实验写法
 
@@ -333,18 +333,15 @@ L_preserve = L1(box_student, box_teacher)
 
 ### Table 2: Ablation Study
 
-逐步加入：
+主消融只保留 A/B/C/D/E/G 六组。组件解释按以下顺序：
 
 - detection-preserved
 - partial OT
-- candidate pool
-- score calibration
-- uncertainty
-- memory
+- candidate pool + score calibration
 
-### Table 3: Robustness Study
+### Table 3: Robustness Study（可选）
 
-在 pose noise / delay / query drop 下比较。
+只有主结果稳定且篇幅允许时，再补 pose noise 或 delay。
 
 ### Table 4: Error Analysis
 
@@ -447,28 +444,21 @@ AMOTA 保持或提升
 AMOTA / FP 平衡优于 Step 5
 ```
 
-### Step 7: 加 uncertainty-aware cost
+### Step 7: uncertainty-aware cost（暂缓）
 
-先用手工 uncertainty：
+该步骤需要额外训练和鲁棒性验证，当前不作为主论文必做内容。只有 A/B/C/D/E/G 六组结果已经稳定，且仍需要增强创新性时，再加入。
+
+保留为未来扩展：
 
 - score low -> uncertainty high
 - distance far -> uncertainty high
 - pose noise setting -> uncertainty high
 
-后续再考虑 learnable uncertainty head。
+### Step 8: track query memory（暂缓）
 
-通过条件：
+该步骤工作量最大，需要额外训练、状态维护和长序列验证，当前不做主线依赖。
 
-```text
-clean setting 不下降
-noise/delay setting 更稳
-```
-
-### Step 8: 加 track query memory
-
-只有当前面结果稳定后再加。
-
-优先做简单 memory：
+保留为未来扩展：
 
 - track state
 - last feature
@@ -476,16 +466,6 @@ noise/delay setting 更稳
 - hit count
 - miss count
 - association confidence
-
-不要一开始上复杂 Transformer memory。
-
-通过条件：
-
-```text
-IDS 进一步下降
-AMOTA 进一步提升
-FP 不爆炸
-```
 
 ## 8. 失败判断与回退策略
 
