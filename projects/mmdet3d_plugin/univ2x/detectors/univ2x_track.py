@@ -80,6 +80,7 @@ class UniV2XTrack(MVXTwoStageDetector):
         queue_length=3,
         is_cooperation=False,
         use_learnable_fusion=False,
+        use_detection_preserved_coop=False,
         is_ego_agent=False,
         return_track_query=True,
         save_track_query=False,
@@ -169,6 +170,7 @@ class UniV2XTrack(MVXTwoStageDetector):
 
         # cross-agent query interaction
         self.is_cooperation = is_cooperation
+        self.use_detection_preserved_coop = use_detection_preserved_coop
         if self.is_cooperation:
             fusion_cls = LearnableAgentQueryFusion if use_learnable_fusion else AgentQueryFusion
             self.cross_agent_query_interaction = fusion_cls(pc_range=self.pc_range, embed_dims=self.embed_dims)
@@ -478,7 +480,7 @@ class UniV2XTrack(MVXTwoStageDetector):
         )
 
         # agent fusion with query interaction
-        if self.is_ego_agent and self.is_cooperation and other_agent_results:
+        if self.is_ego_agent and self.is_cooperation and other_agent_results and not self.use_detection_preserved_coop:
             # # load other-agent query offline
             # load_from_file = True
             # if load_from_file:
@@ -492,15 +494,19 @@ class UniV2XTrack(MVXTwoStageDetector):
                 ego2other_rt = other_agent_result['ego2other_rt']
                 other_agent_pc_range = other_agent_result['pc_range']
                 track_nums_src = len(track_instances)
+                ego_query_for_det = track_instances.query.clone()
                 track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range)
                 track_nums_new = len(track_instances)
                 add_nums = track_nums_new - track_nums_src
 
                 bev_embed,bev_pos = self._get_coop_bev_embed(bev_embed, bev_pos, track_instances, track_nums_new-add_nums)
 
+        det_query = track_instances.query.clone()
+        if 'ego_query_for_det' in locals():
+            det_query[:len(ego_query_for_det)] = ego_query_for_det
         det_output = self.pts_bbox_head.get_detections(
             bev_embed,
-            object_query_embeds=track_instances.query,
+            object_query_embeds=det_query,
             ref_points=track_instances.ref_pts,
             img_metas=img_metas,
         )
@@ -780,7 +786,7 @@ class UniV2XTrack(MVXTwoStageDetector):
         bev_embed, bev_pos = self.get_bevs(img, img_metas, prev_bev=prev_bev)
 
         # agent fusion with query interaction
-        if self.is_ego_agent and self.is_cooperation:
+        if self.is_ego_agent and self.is_cooperation and other_agent_results and not self.use_detection_preserved_coop:
             for other_agent_name in other_agent_results.keys():
                 sample_idx_inf = img_metas[0]['sample_idx_inf']
                 if self.read_track_query_file_root and sample_idx_inf != -1:
@@ -793,15 +799,19 @@ class UniV2XTrack(MVXTwoStageDetector):
                 ego2other_rt = other_agent_results[other_agent_name][0]['ego2other_rt']
                 other_agent_pc_range = other_agent_results[other_agent_name][0]['pc_range']
                 track_nums_src = len(track_instances)
+                ego_query_for_det = track_instances.query.clone()
                 track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range)
                 track_nums_new = len(track_instances)
                 add_nums = track_nums_new - track_nums_src
 
                 bev_embed,bev_pos = self._get_coop_bev_embed(bev_embed, bev_pos, track_instances, track_nums_new-add_nums)
 
+        det_query = track_instances.query.clone()
+        if 'ego_query_for_det' in locals():
+            det_query[:len(ego_query_for_det)] = ego_query_for_det
         det_output = self.pts_bbox_head.get_detections(
-            bev_embed, 
-            object_query_embeds=track_instances.query,
+            bev_embed,
+            object_query_embeds=det_query,
             ref_points=track_instances.ref_pts,
             img_metas=img_metas,
         )
