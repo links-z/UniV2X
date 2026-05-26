@@ -1,0 +1,76 @@
+理由：B1 ep1 已经证明方向有效，AMOTA 从 ft-v2 的 0.1024 提到 0.1119，接近 baseline 0.1178；Sweep1 又把 FP/IDS 压到可接受范围：FP=656, IDS=42, AMOTA=0.1101。现在差的不是方向，而是还差 0.0077 AMOTA。Sweep1 日志支持 mAP=0.0399, AMOTA=0.110, Recall=0.211, FP=656, IDS=42；Sweep2 虽然 AMOTA 高一点但 FP/IDS 回升；Sweep3 FP 最低但 AMOTA 掉到 0.106。
+
+但不要直接 resume
+
+关键点：不要用 resume_from 继续训练。
+
+因为 resume_from 可能会恢复 optimizer state 和 lr scheduler，导致你改的 lr_mult=0.02 / 0.5 不一定真正生效。
+
+应该新建一个 config：
+
+_base_ = './univ2x_coop_e2e_sinkhorn_detadapt_pilot.py'
+
+load_from = 'projects/work_dirs_e2e_univ2x/univ2x_coop_e2e_sinkhorn_detadapt_pilot/epoch_1.pth'
+resume_from = None
+
+total_epochs = 1
+
+optimizer = dict(
+    type='AdamW',
+    lr=2e-4,
+    weight_decay=0.01,
+    paramwise_cfg=dict(
+        custom_keys={
+            'img_backbone': dict(lr_mult=0.0),
+            'img_neck': dict(lr_mult=0.0),
+            'bev_encoder': dict(lr_mult=0.0),
+
+            'pts_bbox_head': dict(lr_mult=0.02),
+            'cross_agent_query_interaction': dict(lr_mult=0.5),
+
+            'map_head': dict(lr_mult=0.0),
+            'motion_head': dict(lr_mult=0.0),
+            'planning_head': dict(lr_mult=0.0),
+        }
+    )
+)
+
+也就是：
+
+模块	ep1	ep2 建议
+pts_bbox_head	0.05	0.02
+cross_agent_query_interaction	1.0	0.5
+backbone / BEV	0	0
+训练后用 Sweep1 参数 eval
+
+训练代码保持 feature fusion 开启。
+eval 时用当前最佳 Sweep1 参数：
+
+score_thr = 0.35
+topk = 5
+min_dist = 2.0
+
+目标：
+
+指标	ep2 是否成功
+AMOTA	≥ 0.113，最好 ≥ 0.115
+mAP	≥ 0.040
+FP	≤ 680
+IDS	≤ 50
+Recall	≥ 0.21
+
+如果 ep2 后变成：
+
+AMOTA 0.113+
+FP 650–680
+IDS 40–50
+
+就值得作为新主结果。
+如果 AMOTA 没涨，或者 FP/IDS 又升到类似 Sweep2，那么停止训练，最终选 Sweep1。
+
+我的判断
+
+可以继续训 ep2，但只训这一轮低学习率 pilot。
+
+不要再无脑训 3 epoch。
+这次 ep2 是最后一次冲 baseline AMOTA 的合理尝试。

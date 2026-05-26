@@ -179,6 +179,7 @@ class SPDE2EDataset(NuScenesDataset):
         self.class_range=class_range
         if class_range is not None:
             self.eval_detection_configs.class_range = class_range
+            self.eval_detection_configs.class_names = list(self.eval_detection_configs.class_names)
         self.new_range_100 = new_range_100
         self.other_agent_names = other_agent_names
 

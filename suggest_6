@@ -1,0 +1,189 @@
+我会选 方案 2：重新训练，彻底冻结检测头，只训练 cross_agent_query_interaction / association 相关模块。
+
+不建议直接拿现在的 PostProc 投。原因很明确：PostProc 的 AMOTA 虽然最高，但论文故事站不稳。
+
+我的判断
+方案 1：接受 PostProc 结果投稿，不推荐
+
+PostProc thr=0.3：
+
+指标	Baseline	PostProc thr=0.3
+mAP	0.0526	0.0526
+AMOTA	0.1178	0.1304
+Recall	0.2055	0.2232
+FP	661	898
+IDS	120	118
+
+这个结果表面上是 AMOTA +10.7%，但核心问题是：
+
+IDS 几乎没降，FP 大幅上涨。
+
+如果你的论文叫 Sinkhorn association refinement，审稿人会期待看到：
+
+IDS 明显下降；
+轨迹更稳定；
+FP 不显著增加；
+mAP 保持。
+
+但你现在是：
+
+mAP 保持；
+AMOTA 上升；
+Recall 上升；
+FP 增加很多；
+IDS 基本不变。
+
+这会让人觉得：PostProc 主要改变了 tracking score / 评估阈值下的有效框数量，而不是显著改善关联。
+
+所以这条线如果投 workshop 可以勉强讲，但不适合作为你的小论文主线。它的最大问题不是结果差，而是贡献解释不够硬。
+
+方案 2：冻结检测头重新训练，最值得做
+
+我建议你做这个。
+
+因为 ep1-Sweep1 已经证明了一个重要现象：
+
+指标	Baseline	ep1-Sweep1
+mAP	0.0526	0.0399
+AMOTA	0.1178	0.1101
+Recall	0.2055	0.2112
+FP	661	656
+IDS	120	42
+
+这里虽然 mAP 掉了，但 IDS 从 120 降到 42，这个信号很强。
+
+这说明训练确实学到了更好的 tracking / association 表达，只是把检测头也带坏了。
+所以最自然、最合理的下一步就是：
+
+冻结 detection head，保留 baseline 检测能力，只训练 cross-agent query interaction / tracking association 相关模块。
+
+这个逻辑非常适合写论文：
+
+UniV2X 检测能力较弱时不应被 tracking 优化牵连，因此我们提出 detection-preserved cooperative association learning，在冻结检测能力的前提下优化跨视角关联。
+
+UniV2X 本身也强调 cross-view data matching and fusion 是 agent fusion 的关键步骤，而且其 fusion 过程包含 temporal synchronization、spatial synchronization、cross-view matching and fusion、data adaptation 等模块，这正好给你的优化留下空间。
+
+我建议你现在不要放弃
+
+你现在的结果其实不是失败，而是已经暴露出一个很清楚的研究点：
+
+检测和跟踪优化存在冲突。直接训练会降低 mAP，但能显著降低 IDS；后处理能保持 mAP，但不能真正降低 IDS。
+
+这正好可以变成论文动机。
+
+你可以把问题定义成：
+
+在 V2X cooperative tracking 中，检测性能和 ID consistency 存在耦合冲突。现有联合优化容易牺牲检测精度，纯后处理又难以真正降低 ID switches。为此，我们提出冻结检测头的 tracking-oriented cooperative query interaction learning。
+
+这个比单纯说“我调了 Sinkhorn”更有说服力。
+
+下一步实验我建议这样做
+第一轮：严格冻结检测头
+
+把：
+
+pts_bbox_head lr_mult=0.05
+
+改成：
+
+pts_bbox_head lr_mult=0.0
+
+但要注意，只设置 lr_mult=0.0 有时还不够，最好确认这些参数没有梯度更新：
+
+requires_grad = False
+
+重点冻结：
+
+classification branch；
+bbox regression branch；
+detection query embedding；
+detection decoder；
+score / confidence prediction 分支；
+原始 TrackFormer 检测相关部分。
+
+只训练：
+
+cross_agent_query_interaction；
+agent fusion MLP；
+query matching / query update；
+tracking ID / association 相关分支；
+temporal query interaction，如果代码里有。
+
+目标不是让 mAP 变高，而是：
+
+指标	目标
+mAP	0.0526 左右
+AMOTA	≥ 0.120
+IDS	≤ 70
+FP	≤ 720
+
+只要达到这个表，就可以写。
+
+第二轮：如果 FP 或 AMOTA 不稳，加 conservative score calibration
+
+你现在 PostProc 的问题是 FP 增加太多，所以冻结训练后也要防止 tracking_score 把低质量框抬起来。
+
+可以加一个简单规则：
+
+new_tracking_score = min(original_det_score, refined_tracking_score)
+
+或者：
+
+new_tracking_score = original_det_score * refined_tracking_score
+
+这样可以避免 Sinkhorn / tracking 模块把低置信框变成高置信框。
+
+这会让你的论文结果更稳：
+
+mAP 保持；
+FP 不爆；
+IDS 下降；
+AMOTA 小幅提升。
+第三轮：做一个非常关键的消融
+
+你最终论文里一定要有这个表：
+
+Method	mAP	AMOTA	FP	IDS
+Baseline	0.0526	0.1178	661	120
+Train w/o freezing	0.0399	0.1101	656	42
+PostProc only	0.0526	0.1304	898	118
+Frozen detection training	约 0.0526	目标 ≥0.120	目标 ≤720	目标 ≤70
+Frozen + score calibration	最优	最优	更稳	更稳
+
+这个表的故事会非常清楚：
+
+不冻结：IDS 降，但 mAP 掉；
+后处理：mAP 保持，但 FP 高、IDS 不降；
+我们的方法：mAP 保持，同时降低 IDS。
+如果冻结训练失败怎么办？
+
+如果冻结检测头后出现：
+
+mAP 仍然下降；
+IDS 没明显下降；
+AMOTA 不如 baseline；
+
+那我建议你不要继续死磕 Sinkhorn 方向，而是转到更稳的方向：
+
+Reliability-aware Query Gate for V2X Cooperative Tracking
+
+也就是加一个可靠性门控，让 infrastructure query 不是全部融合，而是根据距离、score、feature similarity、延迟等决定是否融合。
+
+这个方向比 Sinkhorn 更像模型方法，也更贴合 UniV2X 的不足：UniV2X 的 AgentFusion 依赖跨视角同步、匹配和融合，但具体融合模块还有很大优化空间。
+
+最终选择
+
+我选：
+
+方案 2：重新训练，彻底冻结检测头
+
+现在不要投稿 PostProc 结果。
+PostProc 可以作为论文里的一个 baseline 或 ablation，但不要当主方法。
+
+你的主线应该改成：
+
+Detection-preserved cooperative tracking optimization for V2X autonomous driving.
+
+一句话概括：
+
+先用冻结检测头训练验证能不能做到 mAP 不掉、IDS 明显下降；如果成功，这就是你的投稿主结果。

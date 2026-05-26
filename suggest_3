@@ -1,0 +1,397 @@
+A：Baseline Detection + Sinkhorn Association
+核心思路
+
+A 的目标是：
+
+保留 baseline 的检测能力
+只替换 tracking association / ID assignment
+
+也就是：
+
+模块	使用
+detection box / score / class	baseline 原始输出
+track ID / association	你的 Sinkhorn 匹配
+feature fusion	不再直接改 detection query
+目标	保住 mAP，同时降低 IDS
+
+这个方向最直接针对你现在的硬伤：
+mAP 下降。
+
+你当前 ep1-Sweep1 的问题是：IDS 很好，但 mAP 掉了。Sweep1 是 mAP=0.0399, AMOTA≈0.110, Recall=0.211, FP=656, IDS=42；ep2 又证明继续训练会伤 Recall 和 AMOTA。
+
+所以 A 的逻辑是：
+
+既然 baseline 检测强，就不要动 detection；你的 Sinkhorn 只负责把 ID 关联做稳。
+
+A 为什么有机会
+
+如果你能做到：
+
+指标	目标
+mAP	接近 baseline 0.0526
+AMOTA	接近或超过 0.1178
+FP	接近 661
+IDS	明显低于 120，最好 40–70
+
+那论文就会强很多。
+
+因为你的故事会变成：
+
+UniV2X baseline detection 能力强，但 ID association 不稳定。我们保留检测结果，仅优化跨车路关联，从而显著降低 ID switches。
+
+这比现在的：
+
+AMOTA 略低、mAP 明显下降，但 IDS 下降
+
+更容易说服审稿人。
+
+A 的最大优点
+1. 不需要重新训练
+
+A 可以先做 zero-shot / post-processing ablation。
+
+你不用再训练模型，而是基于 baseline 输出做 association refinement。
+
+时间成本大概是：
+
+0.5–1 天能出第一版结果
+
+比 B 低很多。
+
+2. 能直接解决 mAP 硬伤
+
+如果 detection json 完全来自 baseline，那么 detection mAP 理论上保持：
+
+mAP ≈ 0.0526
+
+这会直接消除审稿人最容易攻击的问题：
+
+你是不是牺牲 detection 换 IDS？
+
+3. 论文故事更干净
+
+A 的论文主线可以写成：
+
+Detection-preserved Sinkhorn association for V2X cooperative tracking.
+
+中文：
+
+检测保持式 Sinkhorn 协同关联优化。
+
+这个故事非常清楚：
+
+baseline 检测强
+baseline IDS 高
+ours 保留检测
+ours 降 IDS
+A 的风险
+风险 1：Sinkhorn 需要 query feature
+
+你现在的 Sinkhorn 是基于 query feature / learned similarity 的。
+如果直接用 baseline 输出，而 baseline forward 里没有你需要的 cross-agent query interaction 信息，你需要改代码导出：
+
+ego query feature
+infra query feature
+bbox
+score
+class
+track id
+timestamp
+
+如果拿不到 query feature，只能用：
+
+bbox center
+velocity
+class
+score
+motion distance
+
+做 Sinkhorn association，那方法会变弱，创新性也会弱一点。
+
+风险 2：只改 ID，AMOTA 不一定大幅涨
+
+AMOTA 不只看 IDS，还看：
+
+Recall
+FP
+FN
+score threshold 下的 MOTAR
+
+如果你只降低 IDS，但 FP / FN / Recall 不变，AMOTA 可能只小幅提升。
+
+但这也有价值。因为如果 mAP 保住、IDS 降很多，即使 AMOTA 只略涨，也比现在更容易投稿。
+
+风险 3：不能做成“拼接结果”
+
+论文里不能写成：
+
+detection 用 baseline json
+tracking 用 ours json
+
+这会显得像作弊或后处理拼结果。
+
+你必须把它包装成一个完整方法：
+
+在 baseline detection 输出后，引入 Sinkhorn-based association refinement，对 track ID 进行重分配和跨主体合并。
+
+也就是说，A 应该是一个 后处理关联模块，不是简单拿两个结果文件拼。
+
+A 应该怎么做
+
+最小可行版本：
+
+1. 使用 baseline checkpoint 生成 detection/tracking outputs
+2. 保持 bbox、class、score 不变
+3. 对每一帧或短时间窗口内的 tracklets 建立 association cost
+4. 使用 Sinkhorn 得到 soft assignment
+5. 根据高置信匹配重分配 / 合并 track ID
+6. 输出新的 results_nusc.json
+7. 重新评估 tracking
+
+匹配代价可以先用：
+
+class consistency
+center distance
+velocity consistency
+heading consistency
+score confidence
+query similarity，如果能拿到 query
+
+如果能拿到 query，最好写成：
+
+learned query similarity + geometric prior + Sinkhorn assignment
+
+这样和你原方法保持一致。
+
+A 成功后的论文结果会怎样
+
+理想情况：
+
+指标	Baseline	A 目标
+mAP	0.0526	0.0526
+AMOTA	0.1178	≥0.1178
+Recall	0.205	≈0.205
+FP	661	≈661
+IDS	120	40–70
+
+如果达到这个，论文可以明显更有底气。
+
+即使结果是：
+
+指标	A 可能结果
+mAP	0.0526
+AMOTA	0.115
+FP	661
+IDS	60
+
+也比现在的 ep1-Sweep1 更适合投稿。
+
+A 的总体判断
+维度	评价
+时间成本	低
+成功概率	中高
+对 mAP 问题	直接解决
+对论文帮助	很大
+风险	association 改 ID 后 AMOTA 未必大涨
+是否推荐	强烈推荐先做
+
+我的判断：
+
+A 是你现在最值得做的最后补强实验。
+
+
+
+
+我同意你的判断
+
+用 baseline checkpoint 时，cross_agent_query_interaction 没训练过，所以不能直接用 learned query similarity。
+
+所以第一版不要用 query feature，先做：
+
+geometry-based Sinkhorn association refinement
+
+也就是用：
+
+bbox center distance
+class consistency
+velocity consistency
+score confidence
+temporal continuity
+
+来构造 cost matrix，然后用 Sinkhorn 做 soft assignment，再重分配 track ID。
+
+这个虽然创新性弱一点，但非常适合作为：
+
+post-hoc Sinkhorn association refinement for V2X cooperative tracking
+
+这条路线为什么值得做
+
+你现在 ep1-Sweep1 是：
+
+指标	Baseline	ep1-Sweep1
+mAP	0.0526	0.0399
+AMOTA	0.1178	0.1101
+Recall	0.205	0.211
+FP	661	656
+IDS	120	42
+
+ep1-Sweep1 的问题是 mAP 掉了。
+如果 post-processing 方案能得到：
+
+指标	目标
+mAP	0.0526
+AMOTA	≥ 0.115
+FP	≈ 661
+IDS	≤ 70，最好 ≤ 60
+
+那它就比现在的 ep1-Sweep1 更适合投稿。
+
+我建议你这样实现
+输入
+
+用 baseline checkpoint 先跑出：
+
+results_nusc_det.json
+results_nusc.json
+
+然后只处理：
+
+results_nusc.json
+
+不要动：
+
+results_nusc_det.json
+
+这样 detection mAP 理论上保持 baseline。
+
+第一版算法
+Step 1：按 scene / timestamp 排序
+
+对每个 scene 的每一帧 track box：
+
+sample_token
+translation
+size
+rotation
+velocity
+detection_name
+detection_score
+tracking_id
+
+按时间顺序组织。
+
+Step 2：构造跨帧 association cost
+
+对上一帧 tracks 和当前帧 detections 构造 cost matrix：
+
+cost = 
+  λ_dist * center_distance
++ λ_vel  * velocity_error
++ λ_cls  * class_mismatch
+- λ_score * detection_score
+
+推荐初始参数：
+
+lambda_dist = 1.0
+lambda_vel = 0.5
+lambda_cls = 10.0
+lambda_score = 0.2
+
+max_dist_car = 4.0
+max_dist_bicycle = 2.5
+max_dist_pedestrian = 1.5
+
+class 不同直接禁止匹配：
+
+if prev_class != curr_class:
+    cost = INF
+Step 3：Sinkhorn soft assignment
+
+把 cost 转成 similarity：
+
+sim = -cost / temperature
+
+推荐：
+
+temperature = 0.5
+
+然后：
+
+M = sinkhorn(sim)
+
+匹配条件：
+
+match_conf = M.max(dim=-1)
+match_idx = M.argmax(dim=-1)
+
+valid = match_conf > 0.3 and distance < class_max_dist
+Step 4：重分配 track ID
+
+如果当前检测和上一帧某 track 匹配成功：
+
+curr.tracking_id = prev.tracking_id
+
+否则新建 ID。
+
+这一步只改：
+
+tracking_id
+
+不改：
+
+translation / size / rotation / score / class
+第一版不要做复杂
+
+先不要加入：
+
+query feature
+learned similarity
+long-term memory
+Kalman filter
+appearance embedding
+
+第一版只验证一个问题：
+
+geometry Sinkhorn 能不能在 baseline mAP 不变的前提下降 IDS？
+
+如果 IDS 从 120 降到 70 以下，就值得继续。
+
+结果判断
+结果	判断
+mAP≈0.0526，IDS≤60，AMOTA≥0.1178	非常成功，可以作为主结果
+mAP≈0.0526，IDS 60–80，AMOTA接近baseline	可投稿，小论文故事成立
+mAP≈0.0526，IDS几乎不变	geometry-only 不够，需要 query/motion feature
+IDS下降但 AMOTA下降	说明错误 merge 太多，需要更严格 gate
+注意一个关键点
+
+不要说这是“融合模块训练结果”。
+
+要把它包装为：
+
+Detection-preserved Sinkhorn association refinement
+
+中文：
+
+检测保持的 Sinkhorn 关联优化
+
+论文里可以写：
+
+为避免协同特征融合对检测分支造成扰动，我们进一步提出检测保持式关联优化策略，在不改变检测框与置信度的情况下，仅通过 Sinkhorn assignment 优化 track ID 一致性。
+
+这正好回应你现在 mAP 掉的问题。
+
+我的建议
+
+让它实现。
+
+这是目前最值得做的补强实验。
+如果成功，你论文主结果就从：
+
+mAP 掉 24%，但 IDS 降了
+
+变成：
+
+mAP 保持 baseline，IDS 显著下降
+
+这两个投稿说服力完全不一样。
+

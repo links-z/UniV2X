@@ -1,0 +1,628 @@
+我给你一个更像“能投稿”的完整方案：不是继续修补当前 fusion，而是把论文重构为 检测保持的 tracklet 级 Sinkhorn 关联优化。这样既保留你的 Sinkhorn 创新，又避免 mAP 硬伤。
+
+已思考 18s
+
+可以。我建议你把方向彻底调整成下面这个，而不是继续纠结 feature fusion：
+
+检测保持的 Tracklet 级 Sinkhorn 关联优化
+
+英文题目可以叫：
+
+Detection-Preserved Tracklet-Level Sinkhorn Association for V2X Cooperative Tracking
+
+中文：
+
+面向 V2X 协同跟踪的检测保持式 Tracklet 级 Sinkhorn 关联优化方法
+
+这比你现在的“feature fusion 改 query”更适合投稿。
+
+1. 为什么这个方向更好？
+
+你现在其实已经发现了三个事实：
+
+方案	优点	硬伤
+ep1+Sweep1	IDS 从 120 降到 42，FP 持平	mAP 和 AMOTA 低于 baseline
+PostProc	mAP 不掉，AMOTA 超 baseline	FP 从 661 涨到 889，IDS 没改善
+ep2 继续训练	没有价值	AMOTA / Recall 明显下降
+
+ep1+Sweep1 的日志结果是 mAP=0.0399, AMOTA≈0.110, Recall=0.211, FP=656, IDS=42，说明 feature-level Sinkhorn 的确能大幅降低 IDS，但会伤 detection。
+ep2 则掉到 mAP=0.0394, AMOTA=0.101, Recall=0.163, FP=614, IDS=45，说明继续训练不是正确路线。
+
+所以你现在最好的方向不是继续训练 detector，而是：
+
+保留 baseline detection
+不新增框、不删框、不改 score
+只优化 tracklet ID 关联
+
+这样可以同时避免两个硬伤：
+
+不伤 mAP
+不增加 FP
+
+然后把 Sinkhorn 用在它最该用的位置：
+
+tracklet association / ID refinement
+2. 新方法应该怎么设计？
+
+我建议方法叫：
+
+Safe Tracklet-level Sinkhorn Association，STSA
+
+或者：
+
+Detection-Preserved Sinkhorn Association，DPSA
+
+核心思想：
+
+Baseline 的 detection 已经很好，所以不再改变 detection；我们只在 tracklet 层面用 Sinkhorn 重新优化 ID 连接，减少 ID switch 和 fragmentation。
+
+方法结构
+Step 1：使用 baseline 输出
+
+输入：
+
+baseline results_nusc.json
+baseline results_nusc_det.json
+
+但方法只改：
+
+tracking_id
+
+绝对不要改：
+
+bbox
+score
+class
+detection output
+
+这样理论上：
+
+mAP 保持 0.0526
+FP 基本保持 661
+Recall 基本保持 0.205
+Step 2：构建 tracklet，而不是逐帧匹配
+
+你现在 PostProc 的问题是 FP 暴涨，说明它太像“恢复更多框 / 更激进关联”。
+新方法必须从 frame-level association 改成 tracklet-level association。
+
+也就是先把 baseline 结果中连续的短轨迹片段整理成 tracklet：
+
+T_i = {box_t, box_t+1, ..., box_t+k}
+
+然后只判断：
+
+tracklet A 和 tracklet B 是否属于同一个真实目标
+
+这比逐帧匹配稳很多。
+
+Step 3：构造 association 特征
+
+对两个 tracklet 之间的候选边，计算：
+
+1. 时间间隔 Δt
+2. 预测中心距离 distance
+3. 速度一致性 velocity consistency
+4. 朝向差 yaw difference
+5. 尺寸差 size difference
+6. 类别一致性 class consistency
+7. 平均 score
+8. 轨迹运动方向一致性
+
+候选边必须先过滤：
+
+same_class == True
+time_gap <= 3 frames
+predicted_center_dist < threshold
+
+推荐阈值：
+
+car_dist_thr = 4.0
+bicycle_dist_thr = 2.0
+pedestrian_dist_thr = 1.2
+max_gap = 3
+Step 4：学习一个轻量 association scorer
+
+这是你新论文的关键。
+
+不要再训练 UniV2X detector。
+只训练一个很小的 MLP：
+
+edge_score = MLP(tracklet_pair_features)
+
+训练目标：
+
+如果两个 tracklet 属于同一个 GT instance → positive
+否则 → negative
+
+这可以用验证集或训练集的 GT track ID 自动构造监督信号。
+
+这个模块很小，不影响 detection，所以：
+
+mAP 不会掉
+FP 不会涨
+训练成本低
+Step 5：Sinkhorn 做一对一软分配
+
+对候选 tracklet pair 的 edge score 做 Sinkhorn：
+
+M = sinkhorn(edge_score)
+
+然后只在高置信时合并 ID：
+
+if match_conf > 0.7 and match_margin > 0.15 and no_conflict:
+    merge_tracklet_id(A, B)
+else:
+    keep_baseline_id
+
+最关键是：
+
+fallback 到 baseline
+
+只要不确定，就保留 baseline ID。
+这能防止错误关联导致 FP / IDS / FRAG 恶化。
+
+3. 这个方向的优势
+
+它能把你现在两个方案的优点合起来：
+
+目标	当前 ep1+Sweep1	当前 PostProc	新 STSA 目标
+mAP 不下降	否	是	是
+AMOTA 超 baseline	否	是	目标是是
+FP 不增加	是	否	是
+IDS 下降	是	否	目标是是
+
+新方法的理想目标：
+
+指标	Baseline	STSA 目标
+mAP	0.0526	0.0526
+AMOTA	0.1178	0.120+
+Recall	0.205	0.205 左右
+FP	661	660 左右
+IDS	120	70 以下，最好 60 以下
+
+只要做到：
+
+mAP 不变
+AMOTA 略高于 baseline
+IDS 明显下降
+FP 不明显增加
+
+这就比你现在两个方案都更适合投稿。
+
+4. 论文怎么写？
+
+你的论文不要再叫“feature fusion”。
+应该叫：
+
+Detection-Preserved Association Refinement
+
+论文故事这样写：
+
+问题提出
+
+原始 UniV2X 检测性能较好，但协同跟踪中存在明显 ID switch。
+
+现有问题
+
+直接进行 feature-level cooperative fusion 会降低 IDS，但会扰动 detection query，导致 mAP 下降。
+
+方法
+
+提出检测保持式 tracklet-level Sinkhorn association：
+
+不改变 detection
+不改变 score
+不改变 bbox
+只优化 tracklet ID 连接
+核心贡献
+
+可以写三点：
+
+Contribution 1
+
+We propose a detection-preserved Sinkhorn association framework for V2X cooperative tracking, which refines track identity without modifying detection outputs.
+
+中文：
+
+提出检测保持式 Sinkhorn 关联优化框架，在不改变检测输出的情况下优化跟踪身份一致性。
+
+Contribution 2
+
+We formulate tracklet association as a constrained optimal transport problem and solve it with Sinkhorn assignment.
+
+中文：
+
+将 tracklet 关联建模为带约束的最优传输问题，并通过 Sinkhorn 分配求解。
+
+Contribution 3
+
+We analyze the trade-off between feature-level fusion and detection-preserved association, showing that feature fusion improves ID stability but may harm detection, while the proposed tracklet-level association preserves detection quality.
+
+中文：
+
+系统分析特征级融合与检测保持式关联之间的权衡，说明前者有利于降低 IDS，但可能损害检测；后者可保持检测性能并提升整体跟踪表现。
+
+5. 实验怎么设计？
+
+你的实验表建议这样排：
+
+主表
+Method	mAP	AMOTA	Recall	FP	IDS
+UniV2X Baseline	0.0526	0.1178	0.205	661	120
+Raw PostProc Sinkhorn	0.0526	0.1303	0.223	889	117
+Feature-level Sinkhorn	0.0399	0.1101	0.211	656	42
+Ours STSA	0.0526	≥0.120	≈0.205	≈661	<70
+
+这个表非常有说服力，因为它说明：
+
+Raw PostProc 召回强但 FP 高
+Feature-level fusion 降 IDS 但伤 mAP
+STSA 兼顾 mAP、AMOTA 和 IDS
+消融表
+Ablation 1：association level
+Variant	mAP	AMOTA	FP	IDS
+Frame-level Sinkhorn	0.0526	0.1303	889	117
+Tracklet-level Sinkhorn	0.0526	?	?	?
+Tracklet-level + safe gate	0.0526	?	?	?
+Ablation 2：gating
+Gate	AMOTA	FP	IDS
+no gate	high AMOTA, high FP	high	high
+confidence gate	better	lower	lower
+confidence + margin gate	best balance	lower	lower
+Ablation 3：score source
+Score	AMOTA	IDS
+geometry only	?	?
+geometry + velocity	?	?
+geometry + velocity + learned MLP	best	best
+6. 现在最该做的优化实验
+
+不要再训练 UniV2X。
+你现在应该做这个：
+
+实验 1：Safe PostProc，只改 ID
+
+确保：
+
+box 数量完全等于 baseline
+score 完全等于 baseline
+class 完全等于 baseline
+bbox 完全等于 baseline
+只改 tracking_id
+
+如果 FP 还变，说明代码还有地方改了输出集合。
+
+目标：
+
+FP ≈ 661
+Recall ≈ 0.205
+mAP = 0.0526
+IDS < 120
+实验 2：Tracklet-level geometry Sinkhorn
+
+不要逐帧做，改成 tracklet-level。
+
+目标：
+
+IDS 从 120 降到 80 以下
+FP 不变
+AMOTA ≥ baseline
+实验 3：Learned edge scorer
+
+训练一个小 MLP，不训 detector。
+
+输入：
+
+tracklet pair features
+
+输出：
+
+same object probability
+
+然后用 Sinkhorn 约束一对一匹配。
+
+这是你真正的新方法。
+
+7. 论文最终定位
+
+你的小论文可以这样定位：
+
+本文不是追求更强 detection，而是解决 V2X cooperative tracking 中的身份一致性问题。通过检测保持式 tracklet-level Sinkhorn association，在不影响检测性能的前提下优化轨迹关联。
+
+这就避开了你现在最大的硬伤。
+
+8. 我给你的最终建议
+
+不要继续：
+
+feature fusion 训练
+ep3
+继续调 complement
+继续用 raw postproc 当最终方案
+
+现在换成：
+
+STSA：Safe Tracklet-level Sinkhorn Association
+
+这是最好的新方向。
+
+它的目标非常清楚：
+
+mAP 保持 baseline
+FP 保持 baseline
+用 Sinkhorn 降 IDS
+最终让 AMOTA 超 baseline
+
+这才是最适合你现在投稿小论文的路线。
+
+这个可行吗？ 我要投稿发表论文的
+已思考几秒
+
+可行。而且这是你现在最适合“投稿小论文”的方向。
+
+但要说实话：
+不是你一提出 STSA 就能发，而是 STSA 这个方向比你当前 ep1+Sweep1 / raw PostProc 更有机会形成一篇完整论文。
+
+结论先说
+
+我建议你现在把论文方向定为：
+
+Detection-Preserved Tracklet-level Sinkhorn Association for V2X Cooperative Tracking
+
+中文：
+
+面向 V2X 协同跟踪的检测保持式 Tracklet 级 Sinkhorn 关联优化方法
+
+这个方向可行，原因是它正好解决你现在两个方案各自的硬伤。
+
+你当前两个结果的问题
+方案 1：ep1+Sweep1
+
+优点：
+
+IDS: 120 → 42
+FP: 661 → 656
+
+缺点：
+
+mAP: 0.0526 → 0.0399
+AMOTA: 0.1178 → 0.1101
+
+这个结果说明 feature-level Sinkhorn 对 ID 稳定性有用，但 mAP 和 AMOTA 掉了。ep1+Sweep1 日志支持 mAP=0.0399, AMOTA≈0.110, Recall=0.211, FP=656, IDS=42。
+
+方案 2：Raw PostProc Sinkhorn
+
+优点：
+
+mAP: 0.0526 → 0.0526
+AMOTA: 0.1178 → 0.1303
+Recall: 0.2055 → 0.2226
+
+缺点：
+
+FP: 661 → 889
+IDS: 120 → 117
+
+这个结果能说明 post-processing Sinkhorn 可以提升 AMOTA，但 FP 增加太多，IDS 没明显改善。
+
+STSA 为什么更适合投稿？
+
+STSA 的目标是把两个方案的优点合起来：
+
+目标	ep1+Sweep1	Raw PostProc	STSA 目标
+mAP 不下降	否	是	是
+AMOTA 超 baseline	否	是	是
+FP 不增加	是	否	是
+IDS 下降	是	否	是
+
+也就是说，STSA 的目标不是继续训练 detector，而是：
+
+保留 baseline detection
+不新增框
+不删框
+不改 score
+不改 bbox
+只优化 tracklet ID 关联
+
+这样理论上：
+
+mAP 保持 0.0526
+FP 接近 661
+Recall 接近 0.2055
+
+然后通过 tracklet-level Sinkhorn 去降低 IDS。
+
+这比 raw PostProc 更安全，也比 feature-level fusion 更容易解释。
+
+这个方向能不能投稿？
+可以投稿，但目标要现实
+
+适合投：
+
+CVPR / ICCV / ECCV workshop
+ITSC / IV
+IROS / ICRA workshop
+自动驾驶、协同感知、智能交通相关小论文
+中文核心 / 工程应用类论文
+
+不适合直接投：
+
+CVPR / ICCV / ECCV 主会
+NeurIPS / ICLR 主会
+强 SOTA benchmark 论文
+
+除非 STSA 最终真的做到：
+
+mAP = 0.0526
+AMOTA > 0.1178
+FP ≈ 661
+IDS < 80
+
+如果能做到这个，投稿说服力会明显增强。
+
+你现在应该怎么做？
+
+我建议按三步走。
+
+第一步：Safe PostProc，只改 ID
+
+这是必须先做的 sanity check。
+
+要求：
+
+results_nusc.json 里的 box 数量不变
+translation 不变
+size 不变
+rotation 不变
+velocity 不变
+score 不变
+class 不变
+只改 tracking_id
+
+然后评估。
+
+目标：
+
+指标	目标
+mAP	0.0526
+FP	≈661
+Recall	≈0.2055
+IDS	<120
+AMOTA	≥0.1178
+
+如果只改 ID 之后 FP 还大涨，说明代码不是纯 ID refinement，还动了输出集合。
+
+这一步非常关键。
+
+第二步：Frame-level 改成 Tracklet-level
+
+不要逐帧 Sinkhorn。逐帧容易误匹配，也容易造成 FP / FRAG 问题。
+
+改成：
+
+短轨迹片段 tracklet ↔ tracklet 关联
+
+只在两个 tracklet 之间满足这些条件时才考虑合并：
+
+同类别
+时间间隔 ≤ 3 帧
+运动方向一致
+速度一致
+预测位置距离足够近
+score 足够高
+
+初始阈值可以这样设：
+
+car_dist_thr = 4.0
+bicycle_dist_thr = 2.0
+pedestrian_dist_thr = 1.2
+max_gap = 3
+match_conf_thr = 0.7
+match_margin_thr = 0.15
+
+不确定就 fallback：
+
+保留 baseline ID
+第三步：加轻量 MLP edge scorer
+
+这是你的论文创新点。
+
+不要再训练 UniV2X。
+只训练一个小 MLP 判断两个 tracklet 是否属于同一个目标。
+
+输入特征：
+
+时间间隔 Δt
+预测中心距离
+速度差
+方向差
+尺寸差
+类别一致性
+平均 score
+tracklet 长度
+
+输出：
+
+same-object score
+
+然后用 Sinkhorn 做一对一分配。
+
+这样你论文的方法就不是简单后处理，而是：
+
+tracklet-level optimal transport association with learned edge scoring.
+
+这个有论文味。
+
+你论文可以怎么写？
+论文主线
+
+不要再写“feature fusion 提升检测跟踪”。
+
+改成：
+
+原始 UniV2X 检测性能较好，但协同跟踪中存在 ID switch 和轨迹碎片问题。直接进行 feature-level fusion 会降低 IDS，但会扰动 detection query，导致 mAP 下降。因此，我们提出检测保持式 tracklet-level Sinkhorn association，在不改变检测输出的前提下优化轨迹身份一致性。
+
+贡献点
+
+可以写三点：
+
+贡献 1
+
+提出检测保持式 V2X tracklet association 框架，不改变 bbox、score、class，只优化 ID。
+
+贡献 2
+
+将跨 tracklet 关联建模为 Sinkhorn optimal transport，并引入几何、速度、方向和置信度约束。
+
+贡献 3
+
+系统分析 feature-level fusion 与 detection-preserved association 的 trade-off，证明前者更利于降低 IDS，后者更利于保持 mAP 和提升 AMOTA。
+
+实验部分怎么设计？
+
+主表建议这样：
+
+Method	mAP	AMOTA	Recall	FP	IDS
+UniV2X Baseline	0.0526	0.1178	0.2055	661	120
+Feature-level Sinkhorn	0.0399	0.1101	0.2112	656	42
+Raw PostProc Sinkhorn	0.0526	0.1303	0.2226	889	117
+Ours STSA	0.0526	目标 >0.1178	≈0.205	≈661	目标 <80
+
+只要 STSA 达到：
+
+mAP = 0.0526
+AMOTA ≥ 0.118
+FP ≤ 700
+IDS ≤ 80
+
+就比现在两个方案都更适合作为主结果。
+
+如果 STSA 没有超过 baseline 怎么办？
+
+也还能写，但论文定位变成 trade-off 分析：
+
+Feature-level Sinkhorn：显著降低 IDS，但伤 mAP
+Raw PostProc：提升 AMOTA，但增加 FP
+STSA：在二者之间取得更平衡结果
+
+但最理想当然是 STSA 超 baseline。
+
+最终判断
+
+可行。
+
+而且这是你目前最像“能投稿论文”的方向。
+
+但你要马上停止这几件事：
+
+不要继续 ep3
+不要继续 feature fusion 训练
+不要继续只调 complement
+不要直接把 raw PostProc 当最终方法
+
+现在应该转向：
+
+STSA：检测保持式 Tracklet 级 Sinkhorn 关联优化
+
+一句话：
+
+这个方向既保留你的 Sinkhorn 创新，又能绕开 mAP 下降硬伤，是你现在最有希望投稿小论文的方案。

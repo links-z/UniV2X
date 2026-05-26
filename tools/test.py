@@ -269,7 +269,8 @@ def main():
         kwargs['jsonfile_prefix'] = osp.join('test', args.config.split(
             '/')[-1].split('.')[-2], time.ctime().replace(' ', '_').replace(':', '_'))
         if args.format_only:
-            dataset.format_results(outputs, **kwargs)
+            fmt_outputs = outputs['bbox_results'] if isinstance(outputs, dict) else outputs
+            dataset.format_results(fmt_outputs, **kwargs)
 
         if args.eval:
             eval_kwargs = cfg.get('evaluation', {}).copy()

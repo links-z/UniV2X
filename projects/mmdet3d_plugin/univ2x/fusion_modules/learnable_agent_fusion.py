@@ -34,7 +34,11 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
 
         self.temperature = nn.Parameter(torch.tensor(temperature))
         self.dustbin_score = nn.Parameter(torch.tensor(0.0))
-        self.new_obj_threshold = nn.Parameter(torch.tensor(0.5))
+        self.new_obj_threshold = nn.Parameter(torch.tensor(0.8))
+
+        # zero-init last layer of fusion_mlp so initial fusion is near no-op
+        nn.init.zeros_(self.fusion_mlp[-1].weight)
+        nn.init.zeros_(self.fusion_mlp[-1].bias)
 
         # init match projections close to identity so initial behavior resembles L2 matching
         nn.init.eye_(self.match_proj_q.weight)
@@ -187,14 +191,16 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
             veh.query, inf.query, veh_ref_pts, inf_ref_pts, veh_scores, inf_scores)
         M, M_aug = self._dustbin_sinkhorn(S)  # M: [N_v, N_i], M_aug: [N_v+1, N_i+1]
 
-        # reliability-gated fusion: gate by max match confidence per vehicle query
+        # reliability-gated fusion: only fuse queries with confident matches
         inf_feat = inf.query[:, self.embed_dims:]                    # [N_i, C]
         inf_fused = torch.matmul(M, inf_feat)                        # [N_v, C]
         veh_feat = veh.query[:, self.embed_dims:].clone()            # [N_v, C]
-        match_conf = M.max(dim=1).values.unsqueeze(-1)               # [N_v, 1]
+        match_conf = M.max(dim=1).values                             # [N_v]
+        fusion_mask = (match_conf > 0.3).unsqueeze(-1)               # [N_v, 1]
         delta = self.fusion_mlp(torch.cat([veh_feat, inf_fused], dim=-1))
         new_query = veh.query.clone()
-        new_query[:, self.embed_dims:] = veh_feat + match_conf * delta
+        new_query[:, self.embed_dims:] = torch.where(
+            fusion_mask, veh_feat + match_conf.unsqueeze(-1) * delta, veh_feat)
         veh.query = new_query
 
         # auxiliary matching loss (only during training)
@@ -203,22 +209,40 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
             match_loss = self.compute_matching_loss(
                 M_aug, veh_ref_pts, inf_ref_pts, veh_scores, inf_scores)
 
-        # quality-aware new object complement
-        # a new object: dustbin prob high + inf_score high + far from all veh queries
-        dustbin_prob = M_aug[:-1, -1]                                # [N_v] veh→dustbin
-        inf_dustbin_prob = M_aug[-1, :-1]                            # [N_i] inf→dustbin
-        min_dist_to_veh = torch.cdist(
-            inf_ref_pts[:, :3], veh_ref_pts[:, :3]).min(dim=1).values  # [N_i]
-        novelty = (min_dist_to_veh / (min_dist_to_veh.max() + 1e-6)).clamp(0, 1)
-        inf_s = inf_scores if inf_scores is not None else torch.ones(
-            len(inf), device=inf_ref_pts.device)
-        threshold_val = self.new_obj_threshold.clamp(0.1, 0.9)
-        new_obj_mask = (inf_dustbin_prob > threshold_val) & \
-                       (inf_s > 0.1) & \
-                       (novelty > 0.3)
-        if new_obj_mask.any():
-            for idx in torch.where(new_obj_mask)[0]:
-                veh = Instances.cat([veh, inf[idx]])
+        # conservative complement: restore recall while preserving low IDS/FP
+        complement_score_thr = 0.35
+        complement_used_thr = 0.15
+        complement_min_dist = 2.0
+        complement_topk = 5
+        complement_score_scale = 0.5
+
+        if inf_scores is not None and len(inf) > 0:
+            # inf queries not matched by Sinkhorn (assigned to dustbin)
+            inf_used = M_aug[:len(veh), :len(inf)].max(dim=0).values  # [N_i]
+            unmatched_mask = inf_used < complement_used_thr
+            score_mask = inf_scores > complement_score_thr
+
+            # distance filter: not too close to any existing veh query
+            if len(veh_ref_pts) > 0:
+                dist_to_veh = torch.cdist(
+                    inf_ref_pts[:, :3], veh_ref_pts[:, :3])  # [N_i, N_v]
+                min_dist = dist_to_veh.min(dim=1).values      # [N_i]
+                dist_mask = min_dist > complement_min_dist
+            else:
+                dist_mask = torch.ones(len(inf), dtype=torch.bool, device=inf_scores.device)
+
+            candidate_mask = unmatched_mask & score_mask & dist_mask
+            candidate_indices = candidate_mask.nonzero(as_tuple=False).squeeze(1)
+
+            if len(candidate_indices) > 0:
+                candidate_scores = inf_scores[candidate_indices]
+                k = min(complement_topk, len(candidate_indices))
+                topk_idx = torch.topk(candidate_scores, k).indices
+                selected = candidate_indices[topk_idx]
+
+                new_inf = inf[selected]
+                new_inf.scores = inf_scores[selected] * complement_score_scale
+                veh = Instances.cat([veh, new_inf])
 
         if match_loss is not None:
             # store on veh for the caller to pick up if needed

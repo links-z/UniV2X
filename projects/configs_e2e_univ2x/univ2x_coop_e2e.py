@@ -557,7 +557,7 @@ model_ego_agent = dict(
     freeze_img_backbone=True,
     freeze_img_neck=True,
     freeze_bn=True,
-    freeze_bev_encoder=False,
+    freeze_bev_encoder=True,
     score_thresh=0.4,
     filter_score_thresh=0.35,
     qim_args=dict(
@@ -1207,12 +1207,12 @@ lr_config = dict(
     warmup_ratio=1.0 / 3,
     min_lr_ratio=1e-3,
 )
-total_epochs = 20
-evaluation = dict(interval=2, pipeline=test_pipeline)
+total_epochs = 5
+evaluation = dict(interval=1, pipeline=test_pipeline)
 runner = dict(type="EpochBasedRunner", max_epochs=total_epochs)
 log_config = dict(
     interval=10, hooks=[dict(type="TextLoggerHook"), dict(type="TensorboardLoggerHook")]
 )
 checkpoint_config = dict(interval=1)
-load_from = "ckpts/univ2x_coop_e2e_stg1.pth"
+load_from = "ckpts/univ2x_coop_e2e_stg2.pth"
 find_unused_parameters = True

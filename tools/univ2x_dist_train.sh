@@ -33,4 +33,4 @@ python -m torch.distributed.launch \
     --launcher pytorch ${@:3} \
     --deterministic \
     --work-dir ${WORK_DIR} \
-    2>&1 | tee ${WORK_DIR}logs/train.$T
+    2>&1 | tee ${WORK_DIR}logs/train.$T train_sinkhorn.log
