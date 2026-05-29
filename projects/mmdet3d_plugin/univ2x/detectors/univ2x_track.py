@@ -494,19 +494,15 @@ class UniV2XTrack(MVXTwoStageDetector):
                 ego2other_rt = other_agent_result['ego2other_rt']
                 other_agent_pc_range = other_agent_result['pc_range']
                 track_nums_src = len(track_instances)
-                ego_query_for_det = track_instances.query.clone()
                 track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range)
                 track_nums_new = len(track_instances)
                 add_nums = track_nums_new - track_nums_src
 
                 bev_embed,bev_pos = self._get_coop_bev_embed(bev_embed, bev_pos, track_instances, track_nums_new-add_nums)
 
-        det_query = track_instances.query.clone()
-        if 'ego_query_for_det' in locals():
-            det_query[:len(ego_query_for_det)] = ego_query_for_det
         det_output = self.pts_bbox_head.get_detections(
             bev_embed,
-            object_query_embeds=det_query,
+            object_query_embeds=track_instances.query,
             ref_points=track_instances.ref_pts,
             img_metas=img_metas,
         )
@@ -799,19 +795,15 @@ class UniV2XTrack(MVXTwoStageDetector):
                 ego2other_rt = other_agent_results[other_agent_name][0]['ego2other_rt']
                 other_agent_pc_range = other_agent_results[other_agent_name][0]['pc_range']
                 track_nums_src = len(track_instances)
-                ego_query_for_det = track_instances.query.clone()
                 track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range)
                 track_nums_new = len(track_instances)
                 add_nums = track_nums_new - track_nums_src
 
                 bev_embed,bev_pos = self._get_coop_bev_embed(bev_embed, bev_pos, track_instances, track_nums_new-add_nums)
 
-        det_query = track_instances.query.clone()
-        if 'ego_query_for_det' in locals():
-            det_query[:len(ego_query_for_det)] = ego_query_for_det
         det_output = self.pts_bbox_head.get_detections(
             bev_embed,
-            object_query_embeds=det_query,
+            object_query_embeds=track_instances.query,
             ref_points=track_instances.ref_pts,
             img_metas=img_metas,
         )
