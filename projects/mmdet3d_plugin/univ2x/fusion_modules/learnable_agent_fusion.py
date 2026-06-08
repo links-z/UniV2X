@@ -133,7 +133,8 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
         loss = F.binary_cross_entropy(M_aug.clamp(1e-6, 1 - 1e-6), M_gt)
         return loss
 
-    def forward(self, inf, veh, ego2other_rt, other_agent_pc_range, threshold=0.3):
+    def forward(self, inf, veh, ego2other_rt, other_agent_pc_range, threshold=0.3,
+                gamma=1.0, complement_thr=0.3):
         inf_mask = torch.where(inf.obj_idxes >= 0)
         inf = inf[inf_mask]
         if len(inf) == 0:
@@ -194,7 +195,7 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
         match_conf = M.max(dim=1).values.unsqueeze(-1)               # [N_v, 1]
         delta = self.fusion_mlp(torch.cat([veh_feat, inf_fused], dim=-1))
         new_query = veh.query.clone()
-        new_query[:, self.embed_dims:] = veh_feat + match_conf * delta
+        new_query[:, self.embed_dims:] = veh_feat + (match_conf ** gamma) * delta
         veh.query = new_query
 
         # auxiliary matching loss (only during training)
@@ -204,7 +205,7 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
                 M_aug, veh_ref_pts, inf_ref_pts, veh_scores, inf_scores)
 
         # complement: inf queries not claimed by any vehicle query
-        inf_accept_idx = [i for i in range(len(inf)) if M[:, i].max().item() > 0.3]
+        inf_accept_idx = [i for i in range(len(inf)) if M[:, i].max().item() > complement_thr]
         veh = self._query_complementation(inf, veh, inf_accept_idx)
 
         if match_loss is not None:

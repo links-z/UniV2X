@@ -7,6 +7,7 @@
 
 import torch
 import torch.nn as nn
+import os
 from mmcv.runner import auto_fp16
 from mmdet.models import DETECTORS
 from mmdet3d.core import bbox3d2result
@@ -174,6 +175,8 @@ class UniV2XTrack(MVXTwoStageDetector):
         if self.is_cooperation:
             fusion_cls = LearnableAgentQueryFusion if use_learnable_fusion else AgentQueryFusion
             self.cross_agent_query_interaction = fusion_cls(pc_range=self.pc_range, embed_dims=self.embed_dims)
+        self.fusion_gamma = float(os.environ.get('FUSION_GAMMA', 1.0))
+        self.fusion_complement_thr = float(os.environ.get('FUSION_COMPLEMENT_THR', 0.3))
 
         self.save_track_query = save_track_query
         self.save_track_query_file_root = save_track_query_file_root
@@ -494,7 +497,7 @@ class UniV2XTrack(MVXTwoStageDetector):
                 ego2other_rt = other_agent_result['ego2other_rt']
                 other_agent_pc_range = other_agent_result['pc_range']
                 track_nums_src = len(track_instances)
-                track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range)
+                track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range, gamma=self.fusion_gamma, complement_thr=self.fusion_complement_thr)
                 track_nums_new = len(track_instances)
                 add_nums = track_nums_new - track_nums_src
 
@@ -651,6 +654,9 @@ class UniV2XTrack(MVXTwoStageDetector):
         out = dict()
         out['univ2x_track_instances_list'] = []
 
+        total_match_loss = None
+        match_loss_count = 0
+
         for i in range(num_frame):
             prev_img = img[:, :i, ...] if i != 0 else img[:, :1, ...]
             prev_img_metas = copy.deepcopy(img_metas)
@@ -693,6 +699,11 @@ class UniV2XTrack(MVXTwoStageDetector):
             # all_matched_idxes: len=dec nums, N*2
             track_instances = frame_res["track_instances"]
 
+            if 'match_loss' in frame_res:
+                total_match_loss = frame_res['match_loss'] if total_match_loss is None \
+                    else total_match_loss + frame_res['match_loss']
+                match_loss_count += 1
+
             # used for ego-agent fusion
             if not self.is_ego_agent and self.return_track_query:
                 out['univ2x_track_instances_list'].append(track_instances)
@@ -701,10 +712,10 @@ class UniV2XTrack(MVXTwoStageDetector):
                     "track_query_embeddings", "track_query_matched_idxes", "track_bbox_results",
                     "sdc_boxes_3d", "sdc_scores_3d", "sdc_track_scores", "sdc_track_bbox_results", "sdc_embedding"]
         out.update({k: frame_res[k] for k in get_keys})
-        
+
         losses = self.criterion.losses_dict
-        if 'match_loss' in frame_res:
-            losses['match_loss'] = frame_res['match_loss']
+        if total_match_loss is not None:
+            losses['match_loss'] = total_match_loss / match_loss_count
         return losses, out
 
     def upsample_bev_if_tiny(self, outs_track):
@@ -795,7 +806,7 @@ class UniV2XTrack(MVXTwoStageDetector):
                 ego2other_rt = other_agent_results[other_agent_name][0]['ego2other_rt']
                 other_agent_pc_range = other_agent_results[other_agent_name][0]['pc_range']
                 track_nums_src = len(track_instances)
-                track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range)
+                track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range, gamma=self.fusion_gamma, complement_thr=self.fusion_complement_thr)
                 track_nums_new = len(track_instances)
                 add_nums = track_nums_new - track_nums_src
 

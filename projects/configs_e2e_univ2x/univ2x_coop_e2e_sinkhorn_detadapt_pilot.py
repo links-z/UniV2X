@@ -1,4 +1,4 @@
-_base_ = ['./univ2x_coop_e2e_compA_ft.py']
+_base_ = ['./univ2x_coop_e2e_compA_ft(ablation).py']
 
 load_from = 'ckpts/univ2x_coop_e2e_stg2.pth'
 resume_from = None
