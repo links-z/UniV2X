@@ -6,6 +6,19 @@ auto_resume = False
 
 work_dir = 'projects/work_dirs_e2e_univ2x/univ2x_author_unfreeze_bboxhead_lr5e5'
 
+total_epochs = 1
+runner = dict(type='EpochBasedRunner', max_epochs=1)
+
+checkpoint_config = dict(by_epoch=False, interval=300, max_keep_ckpts=3)
+
+log_config = dict(
+    interval=10,
+    hooks=[
+        dict(type='TextLoggerHook'),
+        dict(type='TensorboardLoggerHook'),
+    ]
+)
+
 optimizer = dict(
     type='AdamW',
     lr=5e-5,
