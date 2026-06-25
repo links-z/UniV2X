@@ -81,12 +81,16 @@ class UniV2XTrack(MVXTwoStageDetector):
         queue_length=3,
         is_cooperation=False,
         use_learnable_fusion=False,
+        ablation_use_sinkhorn=True,
+        ablation_use_gate=True,
+        ablation_use_complement=True,
         use_detection_preserved_coop=False,
         is_ego_agent=False,
         return_track_query=True,
         save_track_query=False,
         save_track_query_file_root='',
-        read_track_query_file_root=''
+        read_track_query_file_root='',
+        match_loss_weight=0.05
     ):
         super(UniV2XTrack, self).__init__(
             img_backbone=img_backbone,
@@ -174,7 +178,12 @@ class UniV2XTrack(MVXTwoStageDetector):
         self.use_detection_preserved_coop = use_detection_preserved_coop
         if self.is_cooperation:
             fusion_cls = LearnableAgentQueryFusion if use_learnable_fusion else AgentQueryFusion
-            self.cross_agent_query_interaction = fusion_cls(pc_range=self.pc_range, embed_dims=self.embed_dims)
+            fusion_kwargs = dict(pc_range=self.pc_range, embed_dims=self.embed_dims, match_loss_weight=match_loss_weight)
+            if use_learnable_fusion:
+                fusion_kwargs.update(use_sinkhorn=ablation_use_sinkhorn,
+                                     use_gate=ablation_use_gate,
+                                     use_complement=ablation_use_complement)
+            self.cross_agent_query_interaction = fusion_cls(**fusion_kwargs)
         self.fusion_gamma = float(os.environ.get('FUSION_GAMMA', 1.0))
         self.fusion_complement_thr = float(os.environ.get('FUSION_COMPLEMENT_THR', 0.3))
 

@@ -12,11 +12,14 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
     """Dustbin Sinkhorn-based differentiable cross-agent query matching and fusion."""
 
     def __init__(self, pc_range, embed_dims=256, num_sinkhorn_iters=20, temperature=0.1,
-                 match_loss_weight=0.05):
+                 match_loss_weight=0.05, use_sinkhorn=True, use_gate=True, use_complement=True):
         super().__init__(pc_range=pc_range, embed_dims=embed_dims)
 
         self.num_iters = num_sinkhorn_iters
         self.match_loss_weight = match_loss_weight
+        self.use_sinkhorn = use_sinkhorn
+        self.use_gate = use_gate
+        self.use_complement = use_complement
 
         # learnable matching projections
         self.match_proj_q = nn.Linear(embed_dims, embed_dims)
@@ -186,13 +189,25 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
         # dustbin Sinkhorn soft matching
         S = self._compute_score_matrix(
             veh.query, inf.query, veh_ref_pts, inf_ref_pts, veh_scores, inf_scores)
-        M, M_aug = self._dustbin_sinkhorn(S)  # M: [N_v, N_i], M_aug: [N_v+1, N_i+1]
+
+        if self.use_sinkhorn:
+            M, M_aug = self._dustbin_sinkhorn(S)  # M: [N_v, N_i], M_aug: [N_v+1, N_i+1]
+        else:
+            # w/o Sinkhorn: simple row-normalized softmax matching
+            M = F.softmax(S, dim=1)
+            M_aug = M  # no dustbin augmentation
 
         # reliability-gated fusion: gate by max match confidence per vehicle query
         inf_feat = inf.query[:, self.embed_dims:]                    # [N_i, C]
         inf_fused = torch.matmul(M, inf_feat)                        # [N_v, C]
         veh_feat = veh.query[:, self.embed_dims:].clone()            # [N_v, C]
-        match_conf = M.max(dim=1).values.unsqueeze(-1)               # [N_v, 1]
+
+        if self.use_gate:
+            match_conf = M.max(dim=1).values.unsqueeze(-1)           # [N_v, 1]
+        else:
+            # w/o Gate: no confidence-aware gating
+            match_conf = torch.ones(M.shape[0], 1, device=M.device)
+
         delta = self.fusion_mlp(torch.cat([veh_feat, inf_fused], dim=-1))
         new_query = veh.query.clone()
         new_query[:, self.embed_dims:] = veh_feat + (match_conf ** gamma) * delta
@@ -200,13 +215,14 @@ class LearnableAgentQueryFusion(AgentQueryFusion):
 
         # auxiliary matching loss (only during training)
         match_loss = None
-        if self.training:
+        if self.training and self.use_sinkhorn:
             match_loss = self.compute_matching_loss(
                 M_aug, veh_ref_pts, inf_ref_pts, veh_scores, inf_scores)
 
         # complement: inf queries not claimed by any vehicle query
-        inf_accept_idx = [i for i in range(len(inf)) if M[:, i].max().item() > complement_thr]
-        veh = self._query_complementation(inf, veh, inf_accept_idx)
+        if self.use_complement:
+            inf_accept_idx = [i for i in range(len(inf)) if M[:, i].max().item() > complement_thr]
+            veh = self._query_complementation(inf, veh, inf_accept_idx)
 
         if match_loss is not None:
             # store on veh for the caller to pick up if needed
