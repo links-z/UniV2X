@@ -1,0 +1,897 @@
+projects.mmdet3d_plugin
+======
+Loading NuScenes tables for version v1.0-trainval...
+4 category,
+0 attribute,
+4 visibility,
+4704 instance,
+4 sensor,
+2 calibrated_sensor,
+2196 ego_pose,
+6 log,
+67 scene,
+2196 sample,
+2196 sample_data,
+54171 sample_annotation,
+6 map,
+
+Initializing nuScenes detection evaluation
+Loaded results from test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026/results_nusc_det.json. Found detections for 675 samples.
+Loading annotations for val split from nuScenes version: v1.0-trainval
+
+  0%|          | 0/675 [00:00<?, ?it/s]
+  9%|▉         | 62/675 [00:00<00:00, 617.58it/s]
+ 23%|██▎       | 153/675 [00:00<00:00, 788.29it/s]
+ 41%|████      | 277/675 [00:00<00:00, 991.29it/s]
+ 56%|█████▌    | 377/675 [00:00<00:00, 730.12it/s]
+ 68%|██████▊   | 458/675 [00:00<00:00, 629.58it/s]
+ 78%|███████▊  | 527/675 [00:00<00:00, 578.79it/s]
+ 89%|████████▊ | 599/675 [00:00<00:00, 610.83it/s]
+ 98%|█████████▊| 664/675 [00:01<00:00, 499.77it/s]
+100%|██████████| 675/675 [00:01<00:00, 595.53it/s]
+Loaded ground truth annotations for 675 samples.
+Filtering predictions
+=> Original number of boxes: 156441
+=> After distance based filtering: 156406
+=> After LIDAR and RADAR points based filtering: 156406
+=> After bike rack filtering: 156406
+Filtering ground truth annotations
+=> Original number of boxes: 18277
+=> After distance based filtering: 7338
+=> After LIDAR and RADAR points based filtering: 7338
+=> After bike rack filtering: 7338
+Accumulating metric data...
+Calculating metrics...
+Saving metrics to: test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026/det
+mAP: 0.0526
+mATE: 0.9721
+mASE: 0.7837
+mAOE: 0.9789
+mAVE: 1.2146
+mAAE: 1.0000
+NDS: 0.0528
+Eval time: 18.8s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.290	0.802	0.166	0.229	1.954	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.044	1.016	0.410	1.542	0.739	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.192	0.902	0.261	1.039	2.023	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+======
+Loading NuScenes tables for version v1.0-trainval...
+4 category,
+0 attribute,
+4 visibility,
+4704 instance,
+4 sensor,
+2 calibrated_sensor,
+2196 ego_pose,
+6 log,
+67 scene,
+2196 sample,
+2196 sample_data,
+54171 sample_annotation,
+6 map,
+Done loading in 0.747 seconds.
+======
+Reverse indexing ...
+Done reverse indexing in 0.2 seconds.
+======
+Initializing nuScenes tracking evaluation
+Loaded results from test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026/results_nusc.json. Found detections for 675 samples.
+Loading annotations for val split from nuScenes version: v1.0-trainval
+
+  0%|          | 0/675 [00:00<?, ?it/s]
+ 10%|█         | 69/675 [00:00<00:00, 688.17it/s]
+ 26%|██▋       | 178/675 [00:00<00:00, 922.95it/s]
+ 44%|████▍     | 297/675 [00:00<00:00, 1042.76it/s]
+ 60%|█████▉    | 402/675 [00:00<00:00, 742.64it/s] 
+ 72%|███████▏  | 486/675 [00:00<00:00, 637.50it/s]
+ 83%|████████▎ | 561/675 [00:00<00:00, 663.13it/s]
+ 94%|█████████▍| 633/675 [00:03<00:00, 99.79it/s] 
+100%|██████████| 675/675 [00:03<00:00, 212.18it/s]
+Loaded ground truth annotations for 675 samples.
+Filtering tracks
+=> Original number of boxes: 4435
+=> After distance based filtering: 4435
+=> After LIDAR and RADAR points based filtering: 4435
+=> After bike rack filtering: 4435
+Filtering ground truth tracks
+=> Original number of boxes: 18277
+=> After distance based filtering: 7338
+=> After LIDAR and RADAR points based filtering: 7338
+=> After bike rack filtering: 7338
+Accumulating metric data...
+Computing metrics for class bicycle...
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+  5%|▍         | 1/21 [00:00<00:04,  4.74it/s]
+ 19%|█▉        | 4/21 [00:00<00:01, 11.90it/s]
+ 29%|██▊       | 6/21 [00:00<00:01, 13.27it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 19.64it/s]
+ 62%|██████▏   | 13/21 [00:00<00:00, 20.94it/s]
+ 76%|███████▌  | 16/21 [00:01<00:00, 15.17it/s]
+ 90%|█████████ | 19/21 [00:01<00:00, 17.99it/s]
+                                               
+Computed thresholds
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 105.57it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4340	0.305	0.839	0.310	466	1583	430	1093	60	789	430	299	60
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 119.78it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4734	0.399	0.831	0.276	466	1583	391	1146	46	672	391	235	46
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 62%|██████▏   | 13/21 [00:00<00:00, 120.43it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4941	0.458	0.843	0.250	466	1583	356	1188	39	588	356	193	39
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 67%|██████▋   | 14/21 [00:00<00:00, 136.46it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5291	0.497	0.836	0.221	464	1583	318	1233	32	510	318	160	32
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 67%|██████▋   | 14/21 [00:00<00:00, 136.11it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5591	0.565	0.836	0.195	463	1583	285	1275	23	432	285	124	23
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 132.92it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5949	0.699	0.810	0.166	462	1583	249	1320	14	338	249	75	14
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 142.04it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6291	0.731	0.793	0.140	461	1583	212	1362	9	278	212	57	9
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 148.18it/s]
+                                                
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6543	0.751	0.787	0.115	460	1583	177	1401	5	226	177	44	5
+
+Computing metrics for class bus...
+
+Computing metrics for class car...
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+  5%|▍         | 1/21 [00:00<00:04,  4.94it/s]
+ 14%|█▍        | 3/21 [00:00<00:02,  7.61it/s]
+ 19%|█▉        | 4/21 [00:00<00:02,  7.06it/s]
+ 29%|██▊       | 6/21 [00:00<00:02,  7.06it/s]
+ 38%|███▊      | 8/21 [00:00<00:01,  9.50it/s]
+ 48%|████▊     | 10/21 [00:01<00:01, 10.75it/s]
+ 57%|█████▋    | 12/21 [00:01<00:00,  9.54it/s]
+ 67%|██████▋   | 14/21 [00:01<00:00, 10.69it/s]
+ 76%|███████▌  | 16/21 [00:01<00:00,  8.21it/s]
+ 81%|████████  | 17/21 [00:02<00:00,  7.67it/s]
+100%|██████████| 21/21 [00:02<00:00, 11.37it/s]
+                                               
+Computed thresholds
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 25.14it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 24.10it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 33.62it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 33.83it/s]
+ 90%|█████████ | 19/21 [00:00<00:00, 34.92it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4258	0.386	0.769	0.424	644	5322	2045	3064	213	3513	2045	1255	213
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 25.42it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 24.62it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 34.58it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 34.95it/s]
+ 90%|█████████ | 19/21 [00:00<00:00, 36.57it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4549	0.465	0.768	0.404	643	5322	1970	3171	181	3205	1970	1054	181
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 25.53it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 24.86it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 34.84it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 34.20it/s]
+ 95%|█████████▌| 20/21 [00:00<00:00, 37.89it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4882	0.531	0.765	0.376	643	5322	1843	3323	156	2864	1843	865	156
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 27.39it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 26.40it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 36.14it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 36.05it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5317	0.600	0.750	0.343	643	5322	1699	3498	125	2504	1699	680	125
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 29.76it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 28.66it/s]
+ 57%|█████▋    | 12/21 [00:00<00:00, 39.69it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 39.60it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.5735	0.652	0.745	0.318	642	5322	1588	3631	103	2244	1588	553	103
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 19%|█▉        | 4/21 [00:00<00:00, 31.32it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 41.57it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 41.71it/s]
+100%|██████████| 21/21 [00:00<00:00, 44.54it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6088	0.691	0.745	0.292	642	5322	1468	3770	84	2006	1468	454	84
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 19%|█▉        | 4/21 [00:00<00:00, 33.19it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 44.22it/s]
+ 71%|███████▏  | 15/21 [00:00<00:00, 45.81it/s]
+100%|██████████| 21/21 [00:00<00:00, 48.34it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6513	0.751	0.740	0.266	642	5322	1345	3909	68	1748	1345	335	68
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 19%|█▉        | 4/21 [00:00<00:00, 34.54it/s]
+ 48%|████▊     | 10/21 [00:00<00:00, 47.21it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 45.96it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.6939	0.792	0.731	0.235	642	5322	1200	4071	51	1501	1200	250	51
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 19%|█▉        | 4/21 [00:00<00:00, 37.62it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 49.62it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 49.31it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7204	0.818	0.737	0.206	642	5322	1061	4224	37	1291	1061	193	37
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+  5%|▍         | 1/21 [00:02<00:42,  2.11s/it]
+ 10%|▉         | 2/21 [00:02<00:17,  1.06it/s]
+ 14%|█▍        | 3/21 [00:02<00:12,  1.46it/s]
+ 19%|█▉        | 4/21 [00:02<00:08,  2.00it/s]
+ 24%|██▍       | 5/21 [00:02<00:05,  2.80it/s]
+ 29%|██▊       | 6/21 [00:03<00:04,  3.31it/s]
+ 48%|████▊     | 10/21 [00:03<00:01,  7.91it/s]
+ 57%|█████▋    | 12/21 [00:03<00:01,  8.09it/s]
+ 71%|███████▏  | 15/21 [00:03<00:00,  9.65it/s]
+ 81%|████████  | 17/21 [00:04<00:00,  8.31it/s]
+100%|██████████| 21/21 [00:04<00:00, 12.24it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7412	0.829	0.737	0.182	642	5322	937	4353	32	1129	937	160	32
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 28.31it/s]
+ 29%|██▊       | 6/21 [00:00<00:00, 26.47it/s]
+ 62%|██████▏   | 13/21 [00:00<00:00, 44.47it/s]
+ 86%|████████▌ | 18/21 [00:00<00:00, 43.69it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7621	0.836	0.732	0.157	642	5322	812	4485	25	970	812	133	25
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 19%|█▉        | 4/21 [00:00<00:00, 32.29it/s]
+ 52%|█████▏    | 11/21 [00:00<00:00, 46.25it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 44.31it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7722	0.826	0.736	0.135	642	5322	694	4606	22	837	694	121	22
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 24%|██▍       | 5/21 [00:00<00:00, 46.34it/s]
+ 67%|██████▋   | 14/21 [00:00<00:00, 67.80it/s]
+100%|██████████| 21/21 [00:00<00:00, 63.54it/s]
+                                               
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.7916	0.816	0.747	0.111	642	5322	572	4732	18	695	572	105	18
+
+Computing metrics for class motorcycle...
+
+Computing metrics for class pedestrian...
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+ 14%|█▍        | 3/21 [00:00<00:00, 25.97it/s]
+ 33%|███▎      | 7/21 [00:00<00:00, 30.92it/s]
+ 76%|███████▌  | 16/21 [00:00<00:00, 46.97it/s]
+                                               
+Computed thresholds
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+                                      
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4311	0.411	0.973	0.133	192	445	56	386	3	92	56	33	3
+
+
+  0%|          | 0/21 [00:00<?, ?it/s]
+                                      
+		MOTAR	MOTP	Recall	Frames	GT	GT-Mtch	GT-Miss	GT-IDS	Pred	Pred-TP	Pred-FP	Pred-IDS
+thr_0.4904	0.326	1.045	0.108	190	445	46	397	2	79	46	31	2
+
+Computing metrics for class trailer...
+
+Computing metrics for class truck...
+
+Calculating metrics...
+Saving metrics to: test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026/track
+
+### Final results ###
+
+Per-class results:
+		AMOTA	AMOTP	RECALL	MOTAR	GT	MOTA	MOTP	MT	ML	FAF	TP	FP	FN	IDS	FRAG	TID	LGD
+bicycle 	0.110	1.764	0.166	0.699	1583	0.110	0.810	16	178	16.2	249	75	1320	14	8	0.94	2.47
+bus     	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan
+car     	0.225	1.593	0.318	0.652	5322	0.194	0.745	51	338	86.1	1588	553	3631	103	70	0.88	2.67
+motorcy 	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan
+pedestr 	0.018	1.950	0.133	0.411	445	0.052	0.973	0	50	17.2	56	33	386	3	2	1.53	3.47
+trailer 	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan
+truck   	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan	nan
+
+Aggregated results:
+AMOTA	0.118
+AMOTP	1.769
+RECALL	0.205
+MOTAR	0.587
+GT	2450
+MOTA	0.119
+MOTP	0.843
+MT	67
+ML	566
+FAF	39.9
+TP	1893
+FP	661
+FN	5337
+IDS	120
+FRAG	80
+TID	1.12
+LGD	2.87
+Eval time: 62.2s
+
+Rendering curves
+Initializing nuScenes detection evaluation
+Loaded results from test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026/results_nusc.json. Found detections for 675 samples.
+Loading annotations for val split from nuScenes version: v1.0-trainval
+
+  0%|          | 0/675 [00:00<?, ?it/s]
+  1%|          | 6/675 [00:00<00:12, 54.27it/s]
+  2%|▏         | 12/675 [00:00<00:12, 52.96it/s]
+  3%|▎         | 18/675 [00:00<00:12, 53.68it/s]
+  4%|▎         | 24/675 [00:00<00:12, 53.76it/s]
+  4%|▍         | 30/675 [00:00<00:11, 54.25it/s]
+  5%|▌         | 36/675 [00:00<00:12, 52.65it/s]
+  6%|▌         | 42/675 [00:00<00:11, 53.71it/s]
+  7%|▋         | 49/675 [00:00<00:10, 57.84it/s]
+  8%|▊         | 55/675 [00:01<00:11, 55.01it/s]
+ 10%|▉         | 66/675 [00:01<00:08, 70.30it/s]
+ 11%|█▏        | 77/675 [00:01<00:07, 80.11it/s]
+ 13%|█▎        | 86/675 [00:01<00:07, 75.12it/s]
+ 14%|█▍        | 94/675 [00:01<00:07, 74.91it/s]
+ 15%|█▌        | 103/675 [00:01<00:07, 78.21it/s]
+ 17%|█▋        | 113/675 [00:01<00:06, 83.86it/s]
+ 19%|█▊        | 125/675 [00:01<00:05, 94.07it/s]
+ 21%|██        | 141/675 [00:01<00:04, 110.50it/s]
+ 23%|██▎       | 153/675 [00:02<00:04, 105.33it/s]
+ 25%|██▍       | 168/675 [00:02<00:04, 114.70it/s]
+ 27%|██▋       | 181/675 [00:02<00:04, 117.66it/s]
+ 29%|██▊       | 193/675 [00:02<00:04, 109.60it/s]
+ 31%|███       | 208/675 [00:02<00:03, 119.61it/s]
+ 33%|███▎      | 222/675 [00:02<00:03, 124.12it/s]
+ 35%|███▌      | 238/675 [00:02<00:03, 133.86it/s]
+ 37%|███▋      | 252/675 [00:02<00:03, 129.12it/s]
+ 39%|███▉      | 266/675 [00:02<00:03, 123.50it/s]
+ 41%|████▏     | 279/675 [00:03<00:03, 114.24it/s]
+ 43%|████▎     | 291/675 [00:03<00:03, 100.31it/s]
+ 45%|████▍     | 302/675 [00:03<00:04, 90.15it/s] 
+ 46%|████▌     | 312/675 [00:03<00:04, 78.17it/s]
+ 48%|████▊     | 321/675 [00:03<00:05, 67.33it/s]
+ 49%|████▊     | 329/675 [00:03<00:05, 61.43it/s]
+ 50%|████▉     | 336/675 [00:04<00:06, 56.23it/s]
+ 51%|█████     | 342/675 [00:04<00:06, 53.10it/s]
+ 52%|█████▏    | 348/675 [00:04<00:06, 51.80it/s]
+ 52%|█████▏    | 354/675 [00:04<00:06, 50.50it/s]
+ 53%|█████▎    | 360/675 [00:04<00:07, 43.73it/s]
+ 54%|█████▍    | 365/675 [00:04<00:07, 40.59it/s]
+ 55%|█████▍    | 370/675 [00:04<00:07, 39.24it/s]
+ 56%|█████▌    | 375/675 [00:05<00:07, 40.01it/s]
+ 56%|█████▋    | 380/675 [00:05<00:07, 40.03it/s]
+ 57%|█████▋    | 385/675 [00:05<00:07, 38.94it/s]
+ 58%|█████▊    | 389/675 [00:05<00:08, 35.47it/s]
+ 59%|█████▊    | 396/675 [00:05<00:06, 42.56it/s]
+ 60%|██████    | 407/675 [00:05<00:04, 58.22it/s]
+ 61%|██████▏   | 414/675 [00:05<00:04, 61.02it/s]
+ 62%|██████▏   | 421/675 [00:05<00:04, 53.13it/s]
+ 63%|██████▎   | 427/675 [00:06<00:04, 49.84it/s]
+ 64%|██████▍   | 433/675 [00:06<00:05, 48.23it/s]
+ 65%|██████▌   | 439/675 [00:06<00:05, 46.68it/s]
+ 66%|██████▌   | 444/675 [00:06<00:04, 47.17it/s]
+ 67%|██████▋   | 450/675 [00:06<00:04, 48.77it/s]
+ 67%|██████▋   | 455/675 [00:06<00:05, 43.64it/s]
+ 68%|██████▊   | 460/675 [00:06<00:05, 38.79it/s]
+ 69%|██████▉   | 465/675 [00:07<00:05, 37.84it/s]
+ 69%|██████▉   | 469/675 [00:07<00:05, 37.25it/s]
+ 70%|███████   | 473/675 [00:07<00:05, 36.78it/s]
+ 71%|███████   | 477/675 [00:07<00:05, 36.08it/s]
+ 71%|███████▏  | 482/675 [00:07<00:05, 37.67it/s]
+ 72%|███████▏  | 488/675 [00:07<00:04, 42.24it/s]
+ 73%|███████▎  | 494/675 [00:07<00:03, 45.70it/s]
+ 74%|███████▍  | 499/675 [00:07<00:03, 45.59it/s]
+ 75%|███████▍  | 506/675 [00:07<00:03, 50.50it/s]
+ 76%|███████▌  | 513/675 [00:08<00:02, 54.45it/s]
+ 77%|███████▋  | 520/675 [00:08<00:02, 56.29it/s]
+ 78%|███████▊  | 526/675 [00:08<00:02, 57.00it/s]
+ 80%|███████▉  | 537/675 [00:08<00:01, 70.69it/s]
+ 81%|████████  | 547/675 [00:08<00:01, 77.45it/s]
+ 82%|████████▏ | 555/675 [00:08<00:01, 76.03it/s]
+ 83%|████████▎ | 563/675 [00:08<00:01, 66.72it/s]
+ 84%|████████▍ | 570/675 [00:08<00:01, 65.62it/s]
+ 86%|████████▌ | 581/675 [00:08<00:01, 77.10it/s]
+ 88%|████████▊ | 591/675 [00:09<00:01, 79.92it/s]
+ 89%|████████▉ | 600/675 [00:09<00:01, 48.69it/s]
+ 90%|████████▉ | 607/675 [00:09<00:01, 40.39it/s]
+ 91%|█████████ | 613/675 [00:09<00:01, 36.71it/s]
+ 92%|█████████▏| 618/675 [00:10<00:01, 34.39it/s]
+ 92%|█████████▏| 623/675 [00:10<00:01, 32.94it/s]
+ 93%|█████████▎| 627/675 [00:10<00:01, 32.36it/s]
+ 94%|█████████▎| 632/675 [00:10<00:01, 35.34it/s]
+ 94%|█████████▍| 636/675 [00:10<00:01, 34.48it/s]
+ 95%|█████████▍| 640/675 [00:10<00:00, 35.28it/s]
+ 95%|█████████▌| 644/675 [00:10<00:00, 34.86it/s]
+ 96%|█████████▌| 648/675 [00:10<00:00, 35.51it/s]
+ 97%|█████████▋| 653/675 [00:11<00:00, 37.22it/s]
+ 97%|█████████▋| 657/675 [00:11<00:00, 36.48it/s]
+ 98%|█████████▊| 661/675 [00:11<00:00, 34.22it/s]
+ 99%|█████████▊| 665/675 [00:11<00:00, 33.03it/s]
+ 99%|█████████▉| 669/675 [00:11<00:00, 32.03it/s]
+100%|█████████▉| 673/675 [00:11<00:00, 32.07it/s]
+100%|██████████| 675/675 [00:11<00:00, 57.60it/s]
+Loaded ground truth annotations for 675 samples.
+Filtering predictions
+=> Original number of boxes: 4435
+=> After distance based filtering: 4435
+=> After LIDAR and RADAR points based filtering: 4435
+=> After bike rack filtering: 4435
+Filtering ground truth annotations
+=> Original number of boxes: 18277
+=> After distance based filtering: 7874
+=> After LIDAR and RADAR points based filtering: 7874
+=> After bike rack filtering: 7874
+--------------------------------------------------
+Evaluate on motion category, merge class for vehicles and pedestrians...
+evaluate standard motion metrics...
+Accumulating metric data...
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    2.9116   |    5.3395   |     0.5042    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.6224   |    2.8644   |     0.6578    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    1.0000   |    1.0000   |     1.0000    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026
+mAP: 0.0173
+mATE: 0.9786
+mASE: 0.8551
+mAOE: 1.0041
+mAVE: 1.0625
+mAAE: 1.0000
+NDS: 0.0253
+Eval time: 10.8s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.164	0.759	0.160	0.254	1.760	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.009	1.027	0.392	1.783	0.741	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.000	1.000	1.000	1.000	1.000	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+evaluate motion mAP-minFDE metrics...
+Accumulating metric data...
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    0.6885   |    0.7004   |     0.0729    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    1.0000   |    1.0000   |     1.0000    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026
+mAP: 0.0011
+mATE: 0.9500
+mASE: 0.9167
+mAOE: 0.9221
+mAVE: 0.9610
+mAAE: 1.0000
+NDS: 0.0256
+Eval time: 2.6s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.011	0.500	0.167	0.299	0.688	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.000	1.000	1.000	1.000	1.000	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+evaluate EPA motion metrics...
+Accumulating metric data...
+1564 1576 7429
+EPA  car 0.10445551204138442
+0 0 0
+EPA  truck 0.0
+0 0 0
+EPA  bus 0.0
+0 0 0
+EPA  trailer 0.0
+0 0 0
+EPA  construction_vehicle 0.0
+22 31 445
+EPA  pedestrian 0.014606741244792332
+0 0 0
+EPA  motorcycle 0.0
+0 0 0
+EPA  bicycle 0.0
+0 0 0
+EPA  traffic_cone 0.0
+0 0 0
+EPA  barrier 0.0
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    0.8082   |    0.7895   |     0.0983    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    1.0000   |    1.0000   |     1.0000    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026
+mAP: 0.0039
+mATE: 0.9746
+mASE: 0.9167
+mAOE: 0.9231
+mAVE: 0.9649
+mAAE: 1.0000
+NDS: 0.0240
+Eval time: 6.0s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.039	0.746	0.167	0.308	0.719	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.000	1.000	1.000	1.000	1.000	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+--------------------------------------------------
+Evaluate on detection category...
+Initializing nuScenes detection evaluation
+Loaded results from test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026/results_nusc.json. Found detections for 675 samples.
+Loading annotations for val split from nuScenes version: v1.0-trainval
+
+  0%|          | 0/675 [00:00<?, ?it/s]
+  1%|          | 7/675 [00:00<00:10, 62.52it/s]
+  2%|▏         | 14/675 [00:00<00:11, 59.55it/s]
+  3%|▎         | 20/675 [00:00<00:11, 57.91it/s]
+  4%|▍         | 26/675 [00:00<00:11, 57.64it/s]
+  5%|▍         | 32/675 [00:00<00:11, 57.23it/s]
+  6%|▌         | 38/675 [00:00<00:11, 53.93it/s]
+  7%|▋         | 46/675 [00:00<00:10, 61.20it/s]
+  8%|▊         | 54/675 [00:00<00:09, 65.44it/s]
+  9%|▉         | 64/675 [00:00<00:08, 75.48it/s]
+ 11%|█▏        | 76/675 [00:01<00:06, 87.32it/s]
+ 13%|█▎        | 85/675 [00:01<00:07, 80.12it/s]
+ 14%|█▍        | 94/675 [00:01<00:07, 76.71it/s]
+ 15%|█▌        | 103/675 [00:01<00:07, 78.20it/s]
+ 17%|█▋        | 113/675 [00:01<00:06, 84.07it/s]
+ 19%|█▊        | 125/675 [00:01<00:05, 93.55it/s]
+ 21%|██        | 141/675 [00:01<00:04, 111.21it/s]
+ 23%|██▎       | 153/675 [00:01<00:04, 107.34it/s]
+ 25%|██▍       | 167/675 [00:01<00:04, 115.40it/s]
+ 27%|██▋       | 179/675 [00:02<00:04, 115.10it/s]
+ 28%|██▊       | 191/675 [00:02<00:04, 110.19it/s]
+ 30%|███       | 204/675 [00:02<00:04, 115.36it/s]
+ 32%|███▏      | 219/675 [00:02<00:03, 122.75it/s]
+ 35%|███▍      | 235/675 [00:02<00:03, 132.73it/s]
+ 37%|███▋      | 249/675 [00:02<00:03, 131.98it/s]
+ 39%|███▉      | 263/675 [00:02<00:03, 125.40it/s]
+ 41%|████      | 276/675 [00:02<00:03, 118.68it/s]
+ 43%|████▎     | 288/675 [00:03<00:03, 102.84it/s]
+ 44%|████▍     | 299/675 [00:03<00:04, 88.41it/s] 
+ 46%|████▌     | 309/675 [00:03<00:04, 82.14it/s]
+ 47%|████▋     | 318/675 [00:03<00:05, 69.83it/s]
+ 48%|████▊     | 326/675 [00:03<00:05, 62.26it/s]
+ 49%|████▉     | 333/675 [00:03<00:06, 56.90it/s]
+ 50%|█████     | 339/675 [00:04<00:06, 53.83it/s]
+ 51%|█████     | 345/675 [00:04<00:06, 52.88it/s]
+ 52%|█████▏    | 351/675 [00:04<00:06, 51.33it/s]
+ 53%|█████▎    | 357/675 [00:04<00:06, 46.74it/s]
+ 54%|█████▎    | 362/675 [00:04<00:07, 43.08it/s]
+ 54%|█████▍    | 367/675 [00:04<00:07, 40.79it/s]
+ 55%|█████▌    | 372/675 [00:04<00:07, 40.08it/s]
+ 56%|█████▌    | 377/675 [00:04<00:07, 41.14it/s]
+ 57%|█████▋    | 382/675 [00:05<00:07, 40.40it/s]
+ 57%|█████▋    | 387/675 [00:05<00:07, 40.43it/s]
+ 58%|█████▊    | 392/675 [00:05<00:06, 42.00it/s]
+ 60%|█████▉    | 402/675 [00:05<00:04, 56.85it/s]
+ 61%|██████    | 413/675 [00:05<00:03, 68.86it/s]
+ 62%|██████▏   | 421/675 [00:05<00:04, 57.78it/s]
+ 63%|██████▎   | 428/675 [00:05<00:04, 53.50it/s]
+ 64%|██████▍   | 434/675 [00:06<00:04, 51.67it/s]
+ 65%|██████▌   | 440/675 [00:06<00:04, 50.55it/s]
+ 66%|██████▌   | 446/675 [00:06<00:04, 50.27it/s]
+ 67%|██████▋   | 452/675 [00:06<00:04, 50.80it/s]
+ 68%|██████▊   | 458/675 [00:06<00:04, 44.73it/s]
+ 69%|██████▊   | 463/675 [00:06<00:05, 41.31it/s]
+ 69%|██████▉   | 468/675 [00:06<00:05, 40.91it/s]
+ 70%|███████   | 473/675 [00:06<00:05, 40.04it/s]
+ 71%|███████   | 478/675 [00:07<00:05, 39.18it/s]
+ 72%|███████▏  | 483/675 [00:07<00:04, 41.37it/s]
+ 72%|███████▏  | 489/675 [00:07<00:04, 45.85it/s]
+ 73%|███████▎  | 496/675 [00:07<00:03, 49.61it/s]
+ 74%|███████▍  | 502/675 [00:07<00:03, 50.64it/s]
+ 76%|███████▌  | 510/675 [00:07<00:02, 56.50it/s]
+ 77%|███████▋  | 517/675 [00:07<00:02, 59.31it/s]
+ 77%|███████▋  | 523/675 [00:07<00:02, 59.42it/s]
+ 79%|███████▉  | 533/675 [00:07<00:02, 69.54it/s]
+ 80%|████████  | 543/675 [00:08<00:01, 76.34it/s]
+ 82%|████████▏ | 556/675 [00:08<00:01, 88.77it/s]
+ 84%|████████▎ | 565/675 [00:08<00:01, 77.19it/s]
+ 85%|████████▌ | 574/675 [00:08<00:01, 78.87it/s]
+ 87%|████████▋ | 590/675 [00:08<00:00, 99.00it/s]
+ 89%|████████▉ | 601/675 [00:08<00:01, 57.48it/s]
+ 90%|█████████ | 610/675 [00:09<00:01, 45.95it/s]
+ 91%|█████████▏| 617/675 [00:09<00:01, 40.77it/s]
+ 92%|█████████▏| 623/675 [00:09<00:01, 38.21it/s]
+ 93%|█████████▎| 628/675 [00:09<00:01, 38.11it/s]
+ 94%|█████████▍| 634/675 [00:09<00:01, 40.43it/s]
+ 95%|█████████▍| 639/675 [00:10<00:00, 40.66it/s]
+ 95%|█████████▌| 644/675 [00:10<00:00, 40.92it/s]
+ 96%|█████████▌| 649/675 [00:10<00:00, 41.66it/s]
+ 97%|█████████▋| 654/675 [00:10<00:00, 41.90it/s]
+ 98%|█████████▊| 659/675 [00:10<00:00, 38.80it/s]
+ 98%|█████████▊| 664/675 [00:10<00:00, 35.71it/s]
+ 99%|█████████▉| 668/675 [00:10<00:00, 34.78it/s]
+100%|█████████▉| 672/675 [00:10<00:00, 34.36it/s]
+100%|██████████| 675/675 [00:11<00:00, 61.31it/s]
+Loaded ground truth annotations for 675 samples.
+Filtering predictions
+=> Original number of boxes: 4435
+=> After distance based filtering: 4435
+=> After LIDAR and RADAR points based filtering: 4435
+=> After bike rack filtering: 4435
+Filtering ground truth annotations
+=> Original number of boxes: 18277
+=> After distance based filtering: 7338
+=> After LIDAR and RADAR points based filtering: 7338
+=> After bike rack filtering: 7338
+evaluate standard motion metrics...
+Accumulating metric data...
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    2.8825   |    5.3562   |     0.5273    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.6224   |    2.8644   |     0.6578    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    3.1819   |    5.5244   |     0.4329    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026
+mAP: 0.0449
+mATE: 0.9590
+mASE: 0.7785
+mAOE: 0.9933
+mAVE: 1.1766
+mAAE: 1.0000
+NDS: 0.0494
+Eval time: 2.9s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.276	0.748	0.147	0.138	1.729	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.014	1.027	0.392	1.783	0.741	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.159	0.815	0.246	1.019	1.943	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+evaluate EPA motion metrics...
+Accumulating metric data...
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    0.6861   |    0.6998   |     0.0752    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    0.6978   |    0.7258   |     0.0632    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026
+mAP: 0.0021
+mATE: 0.9016
+mASE: 0.8404
+mAOE: 0.9051
+mAVE: 0.9316
+mAAE: 1.0000
+NDS: 0.0432
+Eval time: 2.4s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.019	0.494	0.149	0.158	0.670	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.002	0.522	0.255	0.989	0.782	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+evaluate EPA motion metrics...
+Accumulating metric data...
+1304 1230 5312
+EPA  car 0.12970632505702875
+0 0 0
+EPA  truck 0.0
+0 0 0
+EPA  bus 0.0
+0 0 0
+EPA  trailer 0.0
+0 0 0
+EPA  construction_vehicle 0.0
+22 31 445
+EPA  pedestrian 0.014606741244792332
+0 0 0
+EPA  motorcycle 0.0
+258 354 1581
+EPA  bicycle 0.051233396260383327
+0 0 0
+EPA  traffic_cone 0.0
+0 0 0
+EPA  barrier 0.0
+Calculating metrics...
++----------------------+-------------+-------------+---------------+
+|     class names      | min_ade_err | min_fde_err | miss_rate_err |
++----------------------+-------------+-------------+---------------+
+|         car          |    0.8059   |    0.7903   |     0.1034    |
+|        truck         |    1.0000   |    1.0000   |     1.0000    |
+|         bus          |    1.0000   |    1.0000   |     1.0000    |
+|       trailer        |    1.0000   |    1.0000   |     1.0000    |
+| construction_vehicle |    1.0000   |    1.0000   |     1.0000    |
+|      pedestrian      |    1.0000   |    1.0000   |     1.0000    |
+|      motorcycle      |    1.0000   |    1.0000   |     1.0000    |
+|       bicycle        |    0.8036   |    0.7936   |     0.0680    |
+|     traffic_cone     |    1.0000   |    1.0000   |     1.0000    |
+|       barrier        |    1.0000   |    1.0000   |     1.0000    |
++----------------------+-------------+-------------+---------------+
+Saving metrics to: test/univ2x_coop_e2e/Fri_May__1_18_59_41_2026
+mAP: 0.0069
+mATE: 0.9517
+mASE: 0.8404
+mAOE: 0.9133
+mAVE: 0.9350
+mAAE: 1.0000
+NDS: 0.0394
+Eval time: 5.6s
+
+Per-class results:
+Object Class	AP	ATE	ASE	AOE	AVE	AAE
+car	0.051	0.732	0.149	0.157	0.721	1.000
+truck	0.000	1.000	1.000	1.000	1.000	1.000
+bus	0.000	1.000	1.000	1.000	1.000	1.000
+trailer	0.000	1.000	1.000	1.000	1.000	1.000
+construction_vehicle	0.000	1.000	1.000	1.000	1.000	1.000
+pedestrian	0.000	1.000	1.000	1.000	1.000	1.000
+motorcycle	0.000	1.000	1.000	1.000	1.000	1.000
+bicycle	0.017	0.785	0.255	1.062	0.758	1.000
+traffic_cone	0.000	1.000	1.000	nan	nan	nan
+barrier	0.000	1.000	1.000	1.000	nan	nan
+{'pts_bbox_NuScenes/car_AP_dist_0.5': 0.0216, 'pts_bbox_NuScenes/car_AP_dist_1.0': 0.1725, 'pts_bbox_NuScenes/car_AP_dist_2.0': 0.3994, 'pts_bbox_NuScenes/car_AP_dist_4.0': 0.5668, 'pts_bbox_NuScenes/car_trans_err': 0.8024, 'pts_bbox_NuScenes/car_scale_err': 0.1662, 'pts_bbox_NuScenes/car_orient_err': 0.2293, 'pts_bbox_NuScenes/car_vel_err': 1.954, 'pts_bbox_NuScenes/car_attr_err': 1.0, 'pts_bbox_NuScenes/mATE': 0.9721, 'pts_bbox_NuScenes/mASE': 0.7837, 'pts_bbox_NuScenes/mAOE': 0.9789, 'pts_bbox_NuScenes/mAVE': 1.2146, 'pts_bbox_NuScenes/mAAE': 1.0, 'pts_bbox_NuScenes/truck_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/truck_trans_err': 1.0, 'pts_bbox_NuScenes/truck_scale_err': 1.0, 'pts_bbox_NuScenes/truck_orient_err': 1.0, 'pts_bbox_NuScenes/truck_vel_err': 1.0, 'pts_bbox_NuScenes/truck_attr_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_trans_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_scale_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_orient_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_vel_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_attr_err': 1.0, 'pts_bbox_NuScenes/bus_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/bus_trans_err': 1.0, 'pts_bbox_NuScenes/bus_scale_err': 1.0, 'pts_bbox_NuScenes/bus_orient_err': 1.0, 'pts_bbox_NuScenes/bus_vel_err': 1.0, 'pts_bbox_NuScenes/bus_attr_err': 1.0, 'pts_bbox_NuScenes/trailer_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/trailer_trans_err': 1.0, 'pts_bbox_NuScenes/trailer_scale_err': 1.0, 'pts_bbox_NuScenes/trailer_orient_err': 1.0, 'pts_bbox_NuScenes/trailer_vel_err': 1.0, 'pts_bbox_NuScenes/trailer_attr_err': 1.0, 'pts_bbox_NuScenes/barrier_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/barrier_trans_err': 1.0, 'pts_bbox_NuScenes/barrier_scale_err': 1.0, 'pts_bbox_NuScenes/barrier_orient_err': 1.0, 'pts_bbox_NuScenes/barrier_vel_err': nan, 'pts_bbox_NuScenes/barrier_attr_err': nan, 'pts_bbox_NuScenes/motorcycle_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/motorcycle_trans_err': 1.0, 'pts_bbox_NuScenes/motorcycle_scale_err': 1.0, 'pts_bbox_NuScenes/motorcycle_orient_err': 1.0, 'pts_bbox_NuScenes/motorcycle_vel_err': 1.0, 'pts_bbox_NuScenes/motorcycle_attr_err': 1.0, 'pts_bbox_NuScenes/bicycle_AP_dist_0.5': 0.0016, 'pts_bbox_NuScenes/bicycle_AP_dist_1.0': 0.0859, 'pts_bbox_NuScenes/bicycle_AP_dist_2.0': 0.2507, 'pts_bbox_NuScenes/bicycle_AP_dist_4.0': 0.4286, 'pts_bbox_NuScenes/bicycle_trans_err': 0.9023, 'pts_bbox_NuScenes/bicycle_scale_err': 0.2608, 'pts_bbox_NuScenes/bicycle_orient_err': 1.0392, 'pts_bbox_NuScenes/bicycle_vel_err': 2.0234, 'pts_bbox_NuScenes/bicycle_attr_err': 1.0, 'pts_bbox_NuScenes/pedestrian_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/pedestrian_AP_dist_1.0': 0.0041, 'pts_bbox_NuScenes/pedestrian_AP_dist_2.0': 0.07, 'pts_bbox_NuScenes/pedestrian_AP_dist_4.0': 0.101, 'pts_bbox_NuScenes/pedestrian_trans_err': 1.0159, 'pts_bbox_NuScenes/pedestrian_scale_err': 0.4103, 'pts_bbox_NuScenes/pedestrian_orient_err': 1.542, 'pts_bbox_NuScenes/pedestrian_vel_err': 0.7391, 'pts_bbox_NuScenes/pedestrian_attr_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_trans_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_scale_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_orient_err': nan, 'pts_bbox_NuScenes/traffic_cone_vel_err': nan, 'pts_bbox_NuScenes/traffic_cone_attr_err': nan, 'pts_bbox_NuScenes/NDS': 0.052804669843537225, 'pts_bbox_NuScenes/mAP': 0.05255575698269629, 'pts_bbox_NuScenes/amota': 0.11778189909314223, 'pts_bbox_NuScenes/amotp': 1.7691209557252996, 'pts_bbox_NuScenes/recall': 0.20548740077007546, 'pts_bbox_NuScenes/motar': 0.5870908968728458, 'pts_bbox_NuScenes/gt': 2450.0, 'pts_bbox_NuScenes/mota': 0.11869301056613964, 'pts_bbox_NuScenes/motp': 0.842653180730799, 'pts_bbox_NuScenes/mt': 67.0, 'pts_bbox_NuScenes/ml': 566.0, 'pts_bbox_NuScenes/faf': 39.85277929495219, 'pts_bbox_NuScenes/tp': 1893.0, 'pts_bbox_NuScenes/fp': 661.0, 'pts_bbox_NuScenes/fn': 5337.0, 'pts_bbox_NuScenes/ids': 120.0, 'pts_bbox_NuScenes/frag': 80.0, 'pts_bbox_NuScenes/tid': 1.1175995024875622, 'pts_bbox_NuScenes/lgd': 2.8685219734660037, 'drivable_iou': 0.7566102147102356, 'lanes_iou': 0.1774606853723526, 'divider_iou': nan, 'crossing_iou': 0.19713161885738373, 'contour_iou': 0.15471313893795013}
+{'pts_bbox_NuScenes/car_AP_dist_0.5': 0.0216, 'pts_bbox_NuScenes/car_AP_dist_1.0': 0.1725, 'pts_bbox_NuScenes/car_AP_dist_2.0': 0.3994, 'pts_bbox_NuScenes/car_AP_dist_4.0': 0.5668, 'pts_bbox_NuScenes/car_trans_err': 0.8024, 'pts_bbox_NuScenes/car_scale_err': 0.1662, 'pts_bbox_NuScenes/car_orient_err': 0.2293, 'pts_bbox_NuScenes/car_vel_err': 1.954, 'pts_bbox_NuScenes/car_attr_err': 1.0, 'pts_bbox_NuScenes/mATE': 0.9721, 'pts_bbox_NuScenes/mASE': 0.7837, 'pts_bbox_NuScenes/mAOE': 0.9789, 'pts_bbox_NuScenes/mAVE': 1.2146, 'pts_bbox_NuScenes/mAAE': 1.0, 'pts_bbox_NuScenes/truck_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/truck_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/truck_trans_err': 1.0, 'pts_bbox_NuScenes/truck_scale_err': 1.0, 'pts_bbox_NuScenes/truck_orient_err': 1.0, 'pts_bbox_NuScenes/truck_vel_err': 1.0, 'pts_bbox_NuScenes/truck_attr_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/construction_vehicle_trans_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_scale_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_orient_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_vel_err': 1.0, 'pts_bbox_NuScenes/construction_vehicle_attr_err': 1.0, 'pts_bbox_NuScenes/bus_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/bus_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/bus_trans_err': 1.0, 'pts_bbox_NuScenes/bus_scale_err': 1.0, 'pts_bbox_NuScenes/bus_orient_err': 1.0, 'pts_bbox_NuScenes/bus_vel_err': 1.0, 'pts_bbox_NuScenes/bus_attr_err': 1.0, 'pts_bbox_NuScenes/trailer_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/trailer_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/trailer_trans_err': 1.0, 'pts_bbox_NuScenes/trailer_scale_err': 1.0, 'pts_bbox_NuScenes/trailer_orient_err': 1.0, 'pts_bbox_NuScenes/trailer_vel_err': 1.0, 'pts_bbox_NuScenes/trailer_attr_err': 1.0, 'pts_bbox_NuScenes/barrier_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/barrier_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/barrier_trans_err': 1.0, 'pts_bbox_NuScenes/barrier_scale_err': 1.0, 'pts_bbox_NuScenes/barrier_orient_err': 1.0, 'pts_bbox_NuScenes/barrier_vel_err': nan, 'pts_bbox_NuScenes/barrier_attr_err': nan, 'pts_bbox_NuScenes/motorcycle_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/motorcycle_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/motorcycle_trans_err': 1.0, 'pts_bbox_NuScenes/motorcycle_scale_err': 1.0, 'pts_bbox_NuScenes/motorcycle_orient_err': 1.0, 'pts_bbox_NuScenes/motorcycle_vel_err': 1.0, 'pts_bbox_NuScenes/motorcycle_attr_err': 1.0, 'pts_bbox_NuScenes/bicycle_AP_dist_0.5': 0.0016, 'pts_bbox_NuScenes/bicycle_AP_dist_1.0': 0.0859, 'pts_bbox_NuScenes/bicycle_AP_dist_2.0': 0.2507, 'pts_bbox_NuScenes/bicycle_AP_dist_4.0': 0.4286, 'pts_bbox_NuScenes/bicycle_trans_err': 0.9023, 'pts_bbox_NuScenes/bicycle_scale_err': 0.2608, 'pts_bbox_NuScenes/bicycle_orient_err': 1.0392, 'pts_bbox_NuScenes/bicycle_vel_err': 2.0234, 'pts_bbox_NuScenes/bicycle_attr_err': 1.0, 'pts_bbox_NuScenes/pedestrian_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/pedestrian_AP_dist_1.0': 0.0041, 'pts_bbox_NuScenes/pedestrian_AP_dist_2.0': 0.07, 'pts_bbox_NuScenes/pedestrian_AP_dist_4.0': 0.101, 'pts_bbox_NuScenes/pedestrian_trans_err': 1.0159, 'pts_bbox_NuScenes/pedestrian_scale_err': 0.4103, 'pts_bbox_NuScenes/pedestrian_orient_err': 1.542, 'pts_bbox_NuScenes/pedestrian_vel_err': 0.7391, 'pts_bbox_NuScenes/pedestrian_attr_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_0.5': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_1.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_2.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_AP_dist_4.0': 0.0, 'pts_bbox_NuScenes/traffic_cone_trans_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_scale_err': 1.0, 'pts_bbox_NuScenes/traffic_cone_orient_err': nan, 'pts_bbox_NuScenes/traffic_cone_vel_err': nan, 'pts_bbox_NuScenes/traffic_cone_attr_err': nan, 'pts_bbox_NuScenes/NDS': 0.052804669843537225, 'pts_bbox_NuScenes/mAP': 0.05255575698269629, 'pts_bbox_NuScenes/amota': 0.11778189909314223, 'pts_bbox_NuScenes/amotp': 1.7691209557252996, 'pts_bbox_NuScenes/recall': 0.20548740077007546, 'pts_bbox_NuScenes/motar': 0.5870908968728458, 'pts_bbox_NuScenes/gt': 2450.0, 'pts_bbox_NuScenes/mota': 0.11869301056613964, 'pts_bbox_NuScenes/motp': 0.842653180730799, 'pts_bbox_NuScenes/mt': 67.0, 'pts_bbox_NuScenes/ml': 566.0, 'pts_bbox_NuScenes/faf': 39.85277929495219, 'pts_bbox_NuScenes/tp': 1893.0, 'pts_bbox_NuScenes/fp': 661.0, 'pts_bbox_NuScenes/fn': 5337.0, 'pts_bbox_NuScenes/ids': 120.0, 'pts_bbox_NuScenes/frag': 80.0, 'pts_bbox_NuScenes/tid': 1.1175995024875622, 'pts_bbox_NuScenes/lgd': 2.8685219734660037, 'drivable_iou': 0.7566102147102356, 'lanes_iou': 0.1774606853723526, 'divider_iou': nan, 'crossing_iou': 0.19713161885738373, 'contour_iou': 0.15471313893795013}
+/root/miniconda3/lib/python3.8/site-packages/torch/distributed/launch.py:178: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torch.distributed.run.
+Note that --use_env is set by default in torch.distributed.run.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(

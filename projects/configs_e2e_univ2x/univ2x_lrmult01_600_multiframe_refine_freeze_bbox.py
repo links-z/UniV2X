@@ -1,15 +1,22 @@
-_base_ = ['./univ2x_coop_e2e_lowlr_finetune.py']
+_base_ = ['./univ2x_multiframe_matchloss_from_ours.py']
 
-load_from = 'ckpts/univ2x_coop_e2e_stg2.pth'
+load_from = 'projects/work_dirs_e2e_univ2x/univ2x_author_unfreeze_bboxhead_lrmult01/epoch_600iter.pth'
 resume_from = None
 auto_resume = False
 
-work_dir = 'projects/work_dirs_e2e_univ2x/univ2x_author_unfreeze_bboxhead_lr5e5'
+work_dir = 'projects/work_dirs_e2e_univ2x/univ2x_lrmult01_600_multiframe_refine_freeze_bbox'
+
+data = dict(workers_per_gpu=4)
 
 total_epochs = 1
 runner = dict(type='EpochBasedRunner', max_epochs=1)
 
-checkpoint_config = dict(by_epoch=False, interval=300, max_keep_ckpts=3)
+checkpoint_config = dict(
+    by_epoch=False,
+    interval=300,
+    max_keep_ckpts=10,
+    filename_tmpl='freeze_bbox_refine_iter_{}.pth'
+)
 
 log_config = dict(
     interval=10,
@@ -31,8 +38,8 @@ optimizer = dict(
             'map_head': dict(lr_mult=0.0),
             'motion_head': dict(lr_mult=0.0),
             'planning_head': dict(lr_mult=0.0),
-            'cross_agent_query_interaction': dict(lr_mult=1.0),
-            'pts_bbox_head': dict(lr_mult=1.0),
+            'cross_agent_query_interaction': dict(lr_mult=0.05),  # 2.5e-6
+            'pts_bbox_head': dict(lr_mult=0.0),  # frozen
         }
     )
 )

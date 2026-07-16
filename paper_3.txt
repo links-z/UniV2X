@@ -1,0 +1,94 @@
+3SQSA 方法
+3.1 整体框架
+本文方法建立在 UniV2X 框架基础上，主要改进其中的跨视角agent query fusion 模块[6]。原始 UniV2X 主要依据车端 query 与路侧 query 参考点之间的欧氏距离构建匹配关系，并采用 Hungarian 算法完成一对一硬匹配。该方式结构简单、计算明确，但在车路视角差异较大、目标定位存在误差或场景中目标较为密集时，单一几何距离难以稳定刻画跨智能体 query 之间的对应关系。
+
+为提高车端与路侧 query 匹配和融合的稳定性，本文提出 SQSA（Soft-gated Query-level Sinkhorn Association），即软门控 Query 级Sinkhorn 跨智能体匹配与融合方法。SQSA 的整体流程包括联合匹配打分矩阵构建、带 dustbin 的 Sinkhorn 软匹配、软门控残差融合以及未匹配路侧 query 互补。首先，本文在匹配前引入 cross_agent_align 模块，对路侧 agent query 进行可学习特征映射，以减小车端与路侧 query 之间的跨视角特征分布差异。随后，结合外观相似度、几何兼容性和检测置信度先验构建联合匹配打分矩阵，并通过带未匹配项的 Sinkhorn 归一化得到软匹配矩阵。最后，匹配成功的路侧信息以软门控残差形式增强车端 query，未被车端可靠认领的路侧 query 则作为补充 query 加入车端 query 集合。
+
+图 X 给出了 SQSA 中联合匹配打分矩阵与带 dustbin 的 Sinkhorn 软匹配过程。
+
+图 X 联合匹配打分矩阵与带 dustbin 的 Sinkhorn 软匹配示意图。（a）由外观相似度 $S_{\text{app}}$、几何兼容性 $S_{\text{geo}}$ 和检测置信度先验 $S_{\text{conf}}$ 构建联合打分矩阵 $S$；（b）在 $S$ 中加入 dustbin 行/列，并通过 Sinkhorn 归一化得到软匹配矩阵 $M$。匹配结果进一步用于门控残差融合和未匹配路侧 query 补充。实验中匹配置信度阈值 $\theta_m = 0.3$。
+
+3.2 联合匹配打分矩阵构建
+设车端 agent query 表示为 $Q_{\text{veh}} = {q_i^{\text{veh}}}{i=1}^{N_v}$，路侧 agent query 表示为 $Q{\text{inf}} = {q_j^{\text{inf}}}_{j=1}^{N_i}$，其中 $N_v$ 和 $N_i$ 分别表示车端 query 与路侧 query 的数量。为了更充分地建模车端与路侧 query 之间的对应关系，SQSA 构建由外观相似度、几何兼容性和检测置信度先验共同组成的联合匹配打分矩阵：
+
+$$S = S_{\text{app}} + S_{\text{geo}} + S_{\text{conf}}$$
+
+外观相似度 $S_{\text{app}}$ 用于衡量车端与路侧 query 在特征空间中的语义相似性。本文首先通过 cross_agent_align 模块对路侧 query 进行特征对齐，得到对齐后的路侧 query 表征$\bar{q}j^{\text{inf}} = f{\text{align}}(q_j^{\text{inf}})$，随后通过可学习投影计算特征相似度：
+
+$$S_{ij}^{\text{app}} = \frac{(W_q q_i^{\text{veh}})^T (W_k \bar{q}_j^{\text{inf}})}{\sqrt{d}}$$
+
+其中 $W_q$、$W_k$ 为可学习投影矩阵，$d$ 为特征维度。
+
+几何兼容性 $S_{\text{geo}}$ 用于描述车端与路侧 query 在统一坐标系下的空间关系。本文将两个 query 参考点的相对位移、欧氏距离以及路侧 query 的检测置信度拼接为5维几何特征向量，通过多层感知机生成几何匹配分数：
+
+$$S_{ij}^{\text{geo}} = f_{\text{geo}}(\Delta p_{ij}), \quad \Delta p_{ij} = [\delta x,\ \delta y,\ \delta z,\ d_{ij},\ s_j^{\text{inf}}]$$
+
+其中 $(\delta x, \delta y, \delta z)$ 为参考点相对位移，$d_{ij}$ 为欧氏距离，$s_j^{\text{inf}}$ 为路侧 query 的检测置信度。路侧置信度作为几何特征的一部分，使几何打分能够同时感知空间位置关系与路侧目标的检测可靠性。
+
+检测置信度先验 $S_{\text{conf}}$ 用于引入query 自身的检测可靠性：
+
+$$S_{ij}^{\text{conf}} = \log(s_i^{\text{veh}} + \varepsilon) + \log(s_j^{\text{inf}} + \varepsilon)$$
+
+其中 $s_i^{\text{veh}}$、$s_j^{\text{inf}}$ 分别为车端与路侧 query 的预测置信度（取decoder 最后一层输出 logits 经sigmoid 后对所有类别的最大值），$\varepsilon$ 为数值稳定常数。通过该先验项，高置信 query pair 在联合打分矩阵中获得更高匹配分数，低置信 query pair 的影响被相应减弱。
+
+3.3 带 Dustbin 的 Sinkhorn 软匹配
+在获得联合匹配打分矩阵 $S$ 后，原始 UniV2X 采用 Hungarian 算法得到离散的一对一匹配结果。为表达对应关系中的不确定性，本文采用 Sinkhorn 软匹配替代 Hungarian 硬匹配。给定联合打分矩阵 $S$，首先通过温度系数 $\tau$ 调节匹配分布的平滑程度（$\tau$ 经softplus 约束以保证严格正值）：
+
+$$\hat{S} = S / \tau$$
+
+然后对其进行 log域Sinkhorn 归一化，通过交替行列归一化迭代得到软匹配矩阵 $M = \text{Sinkhorn}(\hat{S})$，其中 $M_{ij}$ 表示第 $i$ 个车端 query 与第 $j$ 个路侧 query 之间的软匹配强度。
+
+考虑到车端与路侧 query 之间并非总是存在可靠的一一对应关系，本文进一步引入 dustbin 机制，以避免低置信或无明确对应关系的 query 被强制匹配。具体而言，在原始打分矩阵 $S$ 的基础上增加 dustbin 行和dustbin 列，dustbin 行列的所有元素均由同一个可学习标量 $d_b$ 填充，得到扩展打分矩阵：
+
+$$\tilde{S} = \begin{bmatrix} S & \mathbf{d}_b \ \mathbf{d}_b^T & d_b \end{bmatrix} \in \mathbb{R}^{(N_v+1)\times(N_i+1)}$$
+
+经过 Sinkhorn 归一化后，非dustbin 区域的 $M_{ij}$（$i \leq N_v,\ j \leq N_i$）用于表示车端与路侧 query 的软匹配关系，dustbin 区域则刻画未匹配情况。
+
+辅助匹配损失：训练阶段，本文还引入辅助匹配监督信号，以加速匹配矩阵的收敛。利用参考点间距离以贪心方式生成伪标签（匹配阈值2m），并对软匹配矩阵 $M_{\text{aug}}$ 与0/1伪标签矩阵计算二元交叉熵损失，损失权重为0.05：
+
+$$\mathcal{L}{\text{match}} = \text{BCE}(M{\text{aug}},\ Y_{\text{pseudo}})$$
+
+3.4 软门控残差融合
+得到软匹配矩阵 $M$ 后，SQSA 首先根据每个 vehicle query 的最大匹配强度计算匹配置信度：
+
+$$\text{match_conf}i = \max_j M{ij}$$
+
+随后，利用软匹配矩阵 $M$ 对对齐后的路侧 query 特征进行加权聚合，得到路侧融合特征：
+
+$$\hat{q}i^{\text{inf}} = \sum{j=1}^{N_i} M_{ij}, \bar{q}_j^{\text{inf}}$$
+
+将车端 query $q_i^{\text{veh}}$ 与路侧融合特征 $\hat{q}_i^{\text{inf}}$ 拼接，输入 Fusion MLP 生成残差修正量：
+
+$$\Delta q_i = f_{\text{fusion}}([q_i^{\text{veh}},\ \hat{q}_i^{\text{inf}}])$$
+
+最终，以匹配置信度的$\gamma$ 次幂对残差修正量进行门控，更新车端 query：
+
+$$q_i^{\text{veh}'} = q_i^{\text{veh}} + \text{match_conf}_i^{\gamma} \cdot \Delta q_i$$
+
+其中 $\gamma$ 为门控指数超参数，用于控制匹配置信度对融合强度的调节敏感程度。当 $\gamma > 1$ 时，低置信度匹配对应的融合权重被进一步压低；当匹配置信度较高时，路侧信息对车端 query 的修正作用更强。相比直接拼接或强制融合，软门控残差融合能够根据匹配可靠性动态调节路侧信息的影响程度，降低错误匹配对检测与跟踪分支的干扰。
+
+3.5 未匹配路侧 Query 互补
+除了对已匹配 query 进行融合外，SQSA 还引入 query complementation 机制，用于补充车端因遮挡、远距离或视角受限而未能稳定感知的目标。记第 $j$ 个 infrastructure query 与所有 vehicle queries 的最大匹配置信度为：
+
+$$c_j^{\text{inf}} = \max_i M_{ij}$$
+
+根据设定的匹配置信度阈值 $\theta_m$，若 $c_j^{\text{inf}} \leq \theta_m$，则认为该 infrastructure query 未被车端可靠认领，将其作为补充 query 加入车端 query 集合：
+
+$$C = {j \mid c_j^{\text{inf}} \leq \theta_m}$$
+
+最终输出的车端 query 集合为：
+
+$$Q_{\text{veh}}^{\text{out}} = {q_i^{\text{veh}'}}_{i=1}^{N_v} \cup {\bar{q}_j^{\text{inf}} \mid j \in C}$$
+
+实验中设置 $\theta_m = 0.3$。需要说明的是，当前互补模块主要依据Sinkhorn 匹配置信度进行筛选，尚未进一步引入目标置信度、空间距离约束或 top-k 过滤。因此，该机制在提升 Recall 和 TP 数量的同时，可能带来一定额外 false positives。本文将在实验结果分析中结合 FP、Recall 和 AMOTA 等指标进一步讨论这一现象。
+
+3.6 逐步解耦—再联合优化训练策略
+在SQSA 中，跨智能体融合模块需要学习车端 query 与路侧 query 之间的匹配关系，而检测头负责目标分类与回归。若直接对两者进行完全联合训练，检测结果的波动可能影响跨智能体匹配学习，融合特征的不稳定也可能反过来干扰检测头更新。为减弱二者之间的优化耦合，本文采用逐步解耦—再联合优化的分阶段微调策略。
+
+第一阶段为联合预热阶段。 以预训练模型初始化，同时更新检测头与跨智能体融合模块，使 SQSA 在已有检测能力的基础上获得初始的跨智能体匹配与融合能力。
+
+第二阶段为解耦学习阶段。 冻结检测头参数，仅优化跨智能体融合模块（cross_agent_query_interaction 及 cross_agent_align），使模型在检测能力稳定的前提下专注学习车路query 之间的匹配关系与融合权重，减少检测头变化对融合学习的干扰。
+
+第三阶段为联合微调阶段。 以第二阶段产出的检查点为起点，解冻检测头并以差异化学习率乘子进行联合微调：跨智能体融合模块学习率乘子为0.05，检测头学习率乘子为0.02，基础学习率设为$5 \times 10^{-5}$ 并采用余弦退火衰减。实验中在800次迭代处取得最优结果，对应余弦退火衰减至约$1.254\times 10^{-5}$。
+
+通过上述策略，SQSA 在保持 UniV2X 原有下游任务结构和通信成本不变的前提下，提高了跨智能体 query 匹配的稳定性，并改善了车路协同三维多目标跟踪性能。

@@ -98,7 +98,7 @@ def custom_train_detector(model,
             'config is now expected to have a `runner` section, '
             'please set `runner` in your config.', UserWarning)
     else:
-        if 'total_epochs' in cfg:
+        if 'total_epochs' in cfg and cfg.runner.get('type') != 'IterBasedRunner':
             assert cfg.total_epochs == cfg.runner.max_epochs
     if eval_model is not None:
         runner = build_runner(
