@@ -10,7 +10,7 @@ GPUS=$2                                              #
 GPUS_PER_NODE=$(($GPUS<8?$GPUS:8))
 NNODES=`expr $GPUS / $GPUS_PER_NODE`
 
-MASTER_PORT=${MASTER_PORT:-28596}
+MASTER_PORT=${MASTER_PORT:-$((RANDOM + 20000))}
 MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}
 RANK=${RANK:-0}
 
@@ -33,4 +33,4 @@ python -m torch.distributed.launch \
     --launcher pytorch ${@:3} \
     --deterministic \
     --work-dir ${WORK_DIR} \
-    2>&1 | tee ${WORK_DIR}logs/train.$T
+    2>&1 | tee ${WORK_DIR}logs/train.$T train_sinkhorn.log

@@ -8,6 +8,10 @@ from typing import Tuple, Dict, Any
 import tqdm
 from matplotlib import pyplot as plt
 from pyquaternion import Quaternion
+from collections import defaultdict as _defaultdict
+
+def _defaultdict_list_factory():
+    return _defaultdict(list)
 
 from nuscenes import NuScenes
 from nuscenes.eval.common.config import config_factory
@@ -598,7 +602,7 @@ class TrackingEval_custom(TrackingEval):
                 if scene['name'] in self.splits[eval_split]:
                     scene_tokens.add(scene_token)
 
-            tracks = defaultdict(lambda: defaultdict(list))
+            tracks = defaultdict(_defaultdict_list_factory)
             for scene_token in scene_tokens:
                 scene = nusc.get('scene', scene_token)
                 cur_sample_token = scene['first_sample_token']

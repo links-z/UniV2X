@@ -7,6 +7,7 @@
 
 import torch
 import torch.nn as nn
+import os
 from mmcv.runner import auto_fp16
 from mmdet.models import DETECTORS
 from mmdet3d.core import bbox3d2result
@@ -80,11 +81,16 @@ class UniV2XTrack(MVXTwoStageDetector):
         queue_length=3,
         is_cooperation=False,
         use_learnable_fusion=False,
+        ablation_use_sinkhorn=True,
+        ablation_use_gate=True,
+        ablation_use_complement=True,
+        use_detection_preserved_coop=False,
         is_ego_agent=False,
         return_track_query=True,
         save_track_query=False,
         save_track_query_file_root='',
-        read_track_query_file_root=''
+        read_track_query_file_root='',
+        match_loss_weight=0.05
     ):
         super(UniV2XTrack, self).__init__(
             img_backbone=img_backbone,
@@ -169,9 +175,17 @@ class UniV2XTrack(MVXTwoStageDetector):
 
         # cross-agent query interaction
         self.is_cooperation = is_cooperation
+        self.use_detection_preserved_coop = use_detection_preserved_coop
         if self.is_cooperation:
             fusion_cls = LearnableAgentQueryFusion if use_learnable_fusion else AgentQueryFusion
-            self.cross_agent_query_interaction = fusion_cls(pc_range=self.pc_range, embed_dims=self.embed_dims)
+            fusion_kwargs = dict(pc_range=self.pc_range, embed_dims=self.embed_dims, match_loss_weight=match_loss_weight)
+            if use_learnable_fusion:
+                fusion_kwargs.update(use_sinkhorn=ablation_use_sinkhorn,
+                                     use_gate=ablation_use_gate,
+                                     use_complement=ablation_use_complement)
+            self.cross_agent_query_interaction = fusion_cls(**fusion_kwargs)
+        self.fusion_gamma = float(os.environ.get('FUSION_GAMMA', 1.0))
+        self.fusion_complement_thr = float(os.environ.get('FUSION_COMPLEMENT_THR', 0.3))
 
         self.save_track_query = save_track_query
         self.save_track_query_file_root = save_track_query_file_root
@@ -478,7 +492,7 @@ class UniV2XTrack(MVXTwoStageDetector):
         )
 
         # agent fusion with query interaction
-        if self.is_ego_agent and self.is_cooperation and other_agent_results:
+        if self.is_ego_agent and self.is_cooperation and other_agent_results and not self.use_detection_preserved_coop:
             # # load other-agent query offline
             # load_from_file = True
             # if load_from_file:
@@ -492,7 +506,7 @@ class UniV2XTrack(MVXTwoStageDetector):
                 ego2other_rt = other_agent_result['ego2other_rt']
                 other_agent_pc_range = other_agent_result['pc_range']
                 track_nums_src = len(track_instances)
-                track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range)
+                track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range, gamma=self.fusion_gamma, complement_thr=self.fusion_complement_thr)
                 track_nums_new = len(track_instances)
                 add_nums = track_nums_new - track_nums_src
 
@@ -649,6 +663,9 @@ class UniV2XTrack(MVXTwoStageDetector):
         out = dict()
         out['univ2x_track_instances_list'] = []
 
+        total_match_loss = None
+        match_loss_count = 0
+
         for i in range(num_frame):
             prev_img = img[:, :i, ...] if i != 0 else img[:, :1, ...]
             prev_img_metas = copy.deepcopy(img_metas)
@@ -691,6 +708,11 @@ class UniV2XTrack(MVXTwoStageDetector):
             # all_matched_idxes: len=dec nums, N*2
             track_instances = frame_res["track_instances"]
 
+            if 'match_loss' in frame_res:
+                total_match_loss = frame_res['match_loss'] if total_match_loss is None \
+                    else total_match_loss + frame_res['match_loss']
+                match_loss_count += 1
+
             # used for ego-agent fusion
             if not self.is_ego_agent and self.return_track_query:
                 out['univ2x_track_instances_list'].append(track_instances)
@@ -699,10 +721,10 @@ class UniV2XTrack(MVXTwoStageDetector):
                     "track_query_embeddings", "track_query_matched_idxes", "track_bbox_results",
                     "sdc_boxes_3d", "sdc_scores_3d", "sdc_track_scores", "sdc_track_bbox_results", "sdc_embedding"]
         out.update({k: frame_res[k] for k in get_keys})
-        
+
         losses = self.criterion.losses_dict
-        if 'match_loss' in frame_res:
-            losses['match_loss'] = frame_res['match_loss']
+        if total_match_loss is not None:
+            losses['match_loss'] = total_match_loss / match_loss_count
         return losses, out
 
     def upsample_bev_if_tiny(self, outs_track):
@@ -780,7 +802,7 @@ class UniV2XTrack(MVXTwoStageDetector):
         bev_embed, bev_pos = self.get_bevs(img, img_metas, prev_bev=prev_bev)
 
         # agent fusion with query interaction
-        if self.is_ego_agent and self.is_cooperation:
+        if self.is_ego_agent and self.is_cooperation and other_agent_results and not self.use_detection_preserved_coop:
             for other_agent_name in other_agent_results.keys():
                 sample_idx_inf = img_metas[0]['sample_idx_inf']
                 if self.read_track_query_file_root and sample_idx_inf != -1:
@@ -793,14 +815,14 @@ class UniV2XTrack(MVXTwoStageDetector):
                 ego2other_rt = other_agent_results[other_agent_name][0]['ego2other_rt']
                 other_agent_pc_range = other_agent_results[other_agent_name][0]['pc_range']
                 track_nums_src = len(track_instances)
-                track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range)
+                track_instances = self.cross_agent_query_interaction(other_agent_track_instances, track_instances, ego2other_rt, other_agent_pc_range, gamma=self.fusion_gamma, complement_thr=self.fusion_complement_thr)
                 track_nums_new = len(track_instances)
                 add_nums = track_nums_new - track_nums_src
 
                 bev_embed,bev_pos = self._get_coop_bev_embed(bev_embed, bev_pos, track_instances, track_nums_new-add_nums)
 
         det_output = self.pts_bbox_head.get_detections(
-            bev_embed, 
+            bev_embed,
             object_query_embeds=track_instances.query,
             ref_points=track_instances.ref_pts,
             img_metas=img_metas,
